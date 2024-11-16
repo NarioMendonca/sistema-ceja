@@ -36,21 +36,23 @@ export class RegisterUseCase {
 		}
 
 		const password = generateRandomPassword()
-		const password_hash = await createPasswordHash(password)
+		const passwordHashed = await createPasswordHash(password)
 
 		// create here a function to send an email with user password and a link to be able to change
 
 		const user = await this.usersRepository.create({
 			name,
 			email,
-			password_hash,
+			password_hash: passwordHashed,
 			role: role ?? UserRoles.student,
 			birth: birth ?? null,
 			cpf: cpf ?? null,
 		})
 
+		const { password_hash, ...userWithoutPasswordHash } = user
+
 		return {
-			user,
+			user: userWithoutPasswordHash,
 		}
 	}
 }
