@@ -3,7 +3,7 @@ export type User = {
 	name: string
 	email: string
 	password_hash: string
-	role: UserRoles
+	role: 'admin' | 'teacher' | 'student'
 	created_at?: Date
 	cpf: string
 	birth: Date
