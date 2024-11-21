@@ -1,5 +1,5 @@
 import type { UsersRepository } from '@/repositores'
-import { UserAlreadyExistsError } from '../errors'
+import { AlreadyExistsError } from '../errors'
 import { UserRoles, type UserWithoutPasswordHash } from '@/models/User'
 import {
 	createPasswordHash,
@@ -19,7 +19,7 @@ interface RegisterUseCaseResponse {
 }
 
 export class RegisterUseCase {
-	constructor(private usersRepository: UsersRepository) {}
+	constructor(private usersRepository: UsersRepository) { }
 
 	async execute({
 		email,
@@ -32,7 +32,7 @@ export class RegisterUseCase {
 			await this.usersRepository.findByEmail(email)
 
 		if (verifyIfEmailAlreadyExists) {
-			throw new UserAlreadyExistsError()
+			throw new AlreadyExistsError()
 		}
 
 		const password = generateRandomPassword()
