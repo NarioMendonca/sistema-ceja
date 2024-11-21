@@ -1,0 +1,74 @@
+@use '../../styles/global.scss';
+@use '../../styles/colors.scss' as *;
+
+.login {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $gray-light;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  background-color: $white;
+  padding: 2.5rem;
+
+  border-radius: 6px;
+  width: 25rem;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.24);
+
+  h2 {
+    text-transform: uppercase;
+    text-align: center;
+    color: $primary;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .inputWrap {
+    display: flex;
+    margin-bottom: 1rem;
+
+    input {
+      border: 1px solid $primary;
+      border-radius: 4px;
+      line-height: 2.5rem;
+      padding: 0 .5rem;
+      flex-grow: 1;
+
+      &:focus {
+        outline-color: $primary;
+      }
+    }
+  }
+
+  button {
+    margin-top: 1rem;
+    line-height: 3.5rem;
+    border-radius: 6px;
+    border: 0;
+    background-color: $primary;
+    color: $white;
+    font-size: 1.2rem;
+    cursor: pointer;
+
+    &:hover {
+      opacity: .9;
+    }
+
+    &:disabled {
+      background-color: $gray-dark;
+      opacity: 1;
+      cursor: not-allowed;
+    }
+  }
+}
+
+.footer {
+  background-color: $primary;
+  padding: 1.5rem 0;
+}
