@@ -1,6 +1,6 @@
 import { ResourceNotFoundError, InvalidCredentialsError, InvalidRoleError } from '../errors'
 import { compare } from 'bcryptjs'
-import { UsersRepository } from '@/repositores/usersRepository'
+import { UsersRepository } from '@/repositories/usersRepository'
 
 interface DeleteUserUseCaseRequest {
   userId: string

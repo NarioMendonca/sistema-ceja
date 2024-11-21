@@ -1,4 +1,4 @@
-import type { UsersRepository } from '@/repositores'
+import type { UsersRepository } from '@/repositories'
 import type { UserWithoutPasswordHash } from '@/models'
 import { InvalidCredentialsError } from '../errors'
 import { compare } from 'bcryptjs'
@@ -13,7 +13,7 @@ interface AuthenticateUseCaseResponse {
 }
 
 export class AuthenticateUseCase {
-	constructor(private usersRepository: UsersRepository) {}
+	constructor(private usersRepository: UsersRepository) { }
 
 	async execute({
 		email,

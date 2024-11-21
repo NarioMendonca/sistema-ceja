@@ -1,4 +1,4 @@
-import type { UsersRepository } from '@/repositores'
+import type { UsersRepository } from '@/repositories'
 import { AlreadyExistsError } from '../errors'
 import { UserRoles, type UserWithoutPasswordHash } from '@/models/User'
 import {
