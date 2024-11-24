@@ -16,6 +16,7 @@
   align-self: center;
   background-color: $white;
   padding: 2.5rem;
+  gap: 1rem;
 
   border-radius: 6px;
   width: 25rem;
@@ -36,9 +37,10 @@
     input {
       border: 1px solid $primary;
       border-radius: 4px;
-      line-height: 2.5rem;
+      line-height: 3rem;
       padding: 0 .5rem;
       flex-grow: 1;
+      font-size: 1.1rem;
 
       &:focus {
         outline-color: $primary;

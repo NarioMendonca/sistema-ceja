@@ -15,7 +15,7 @@ export function Login() {
         </div>
         <button disabled>Login</button>
       </form>
-      <footer className={Styles.footer}>=
+      <footer className={Styles.footer}>
       </footer>
     </div>
   )
