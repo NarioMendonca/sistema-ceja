@@ -1,10 +1,10 @@
-import { Login } from "./presentation/pages/Login/Login"
+import { Users } from "./presentation/pages/Users/Users"
 
 function App() {
 
   return (
     <>
-      <Login />
+      <Users />
     </>
   )
 }
