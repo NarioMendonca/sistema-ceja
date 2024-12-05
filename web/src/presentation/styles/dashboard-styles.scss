@@ -1,0 +1,11 @@
+@use './colors.scss' as *;
+
+.dashboardContainer {
+  height: 100vh;
+  background-color: $secondary-lighter;
+
+  main {
+    margin-left: 325px;
+    padding: 2.5rem;
+  }
+}
