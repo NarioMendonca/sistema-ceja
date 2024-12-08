@@ -1,0 +1,10 @@
+.mainHeaderWrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  div {
+    display: flex;
+    gap: 1rem;
+  }
+}

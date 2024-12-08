@@ -1,10 +1,10 @@
-import { Profile } from "./presentation/pages/Profile/Profile"
+import { GradesManagement } from "./presentation/pages/GradesManagement/GradesManagement"
 
 function App() {
 
   return (
     <>
-      <Profile />
+      <GradesManagement />
     </>
   )
 }
