@@ -1,3 +1,5 @@
+@use '../../../styles/colors.scss' as *;
+
 .mainHeaderWrap {
   display: flex;
   justify-content: space-between;
@@ -6,5 +8,30 @@
   div {
     display: flex;
     gap: 1rem;
+  }
+}
+
+@media (max-width: 1110px) {
+  .mainHeaderWrap {
+    flex-wrap: wrap;
+
+    div {
+      margin-top: 1rem;
+      flex-wrap: wrap;
+      flex-basis: 100%;
+
+      select {
+        padding: .5rem 1rem;
+        border-radius: 6px;
+        border: 0;
+        background-color: $white;
+        cursor: pointer;
+        outline: none;
+
+        &:hover {
+          background-color: $gray-light;
+        }
+      }
+    }
   }
 }

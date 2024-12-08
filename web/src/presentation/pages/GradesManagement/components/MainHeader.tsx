@@ -6,6 +6,9 @@ export function MainHeader() {
       <h2>Gerenciamento de notas</h2>
       <div>
         <select>
+          <option value="matematica">Matemática</option>
+        </select>
+        <select>
           <option value="turma1">Turma A</option>
         </select>
         <select>
