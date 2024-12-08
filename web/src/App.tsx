@@ -1,10 +1,10 @@
-import { Users } from "./presentation/pages/Users/Users"
+import { Profile } from "./presentation/pages/Profile/Profile"
 
 function App() {
 
   return (
     <>
-      <Users />
+      <Profile />
     </>
   )
 }
