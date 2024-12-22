@@ -1,5 +1,6 @@
 import { BookIcon, DashboardIcon, MenuHamburguer, UsersIcon } from '@/presentation/icons'
 import Styles from './sidebar-styles.module.scss'
+import { Link } from 'react-router'
 
 export function Sidebar() {
   return (
@@ -8,16 +9,22 @@ export function Sidebar() {
       <div className={Styles.sideBar}>
         <ul>
           <li>
-            <DashboardIcon />
-            Dashboard
+            <Link to={"/"}>
+              <DashboardIcon />
+              Dashboard
+            </Link>
           </li>
           <li>
-            <UsersIcon />
-            Usuários
+            <Link to={"/usuarios"}>
+              <UsersIcon />
+              Usuários
+            </Link>
           </li>
           <li>
-            <BookIcon />
-            Matérias
+            <Link to={"/materias"}>
+              <BookIcon />
+              Matérias
+            </Link>
           </li>
         </ul>
       </div>

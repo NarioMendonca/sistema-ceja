@@ -33,16 +33,21 @@ aside {
       gap: .5rem;
 
       li {
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        padding: 1rem;
-        font-size: 1.2rem;
-        cursor: pointer;
-        border-radius: 8px;
 
-        &:hover {
-          background-color: $gray-light;
+        a {
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          padding: 1rem;
+          font-size: 1.2rem;
+          cursor: pointer;
+          border-radius: 8px;
+          color: initial;
+          text-decoration: none;
+
+          &:hover {
+            background-color: $gray-light;
+          }
         }
       }
     }
