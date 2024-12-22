@@ -27,7 +27,7 @@ export function Users() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>Rogerio Tech</td>
               <td>cleudinhoFrifas@gmail.com</td>
               <td>Admin</td>
@@ -42,7 +42,7 @@ export function Users() {
                 </div>
               </td>
             </tr>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>Armando da Silva</td>
               <td>cleudinhoFrifas@gmail.com</td>
               <td>Professor</td>
@@ -57,7 +57,7 @@ export function Users() {
                 </div>
               </td>
             </tr>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>Pedro Carvalho Alves</td>
               <td>cleudinhoFrifas@gmail.com</td>
               <td>Aluno</td>
@@ -87,7 +87,7 @@ export function Users() {
                 </div>
               </td>
             </tr>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>Gabriel Sovares</td>
               <td>cleudinhoFrifas@gmail.com</td>
               <td>Aluno</td>

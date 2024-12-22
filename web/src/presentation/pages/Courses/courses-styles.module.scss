@@ -73,6 +73,14 @@
     width: 100%;
     border-collapse: collapse;
 
+    .tableBodyRow {
+      cursor: pointer;
+
+      &:hover {
+        background-color: $gray-light;
+      }
+    }
+
     th {
       align-items: center;
       text-align: start;

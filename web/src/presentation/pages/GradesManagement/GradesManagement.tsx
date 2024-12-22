@@ -27,12 +27,12 @@ export function GradesManagement() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>313131</td>
               <td>Cleudo Paiva Gayzerra</td>
               <td>9.2</td>
             </tr>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>812414</td>
               <td>Daniele Enerico</td>
               <td>8.9</td>

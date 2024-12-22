@@ -27,7 +27,7 @@ export function Courses() {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>Matemática</td>
               <td>Caua Carvalho</td>
               <td>25</td>
@@ -42,7 +42,7 @@ export function Courses() {
                 </div>
               </td>
             </tr>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>História</td>
               <td>Davi Pereira</td>
               <td>20</td>
