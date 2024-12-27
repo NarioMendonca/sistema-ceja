@@ -11,7 +11,7 @@ export function Courses() {
       </div>
       <section className={Styles.couseListWrap}>
         <div className={Styles.searchCourseWrap}>
-          <span>buscar matéria</span>
+          <span>Buscar matéria</span>
           <div className={Styles.searchCourseInputWrap}>
             <span>{<SearchIcon />}</span>
             <input type="text" name="searchUser" id="searchUser" />
