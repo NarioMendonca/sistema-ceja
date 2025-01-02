@@ -1,0 +1,10 @@
+@use '../../styles/colors.scss' as *;
+
+.viewGradesWrap {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  background-color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+}

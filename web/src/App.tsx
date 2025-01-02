@@ -5,6 +5,7 @@ import { Courses } from "./presentation/pages/Courses/Courses"
 import { GradesManagement } from "./presentation/pages/GradesManagement/GradesManagement"
 import { Login } from "./presentation/pages/Login/Login"
 import { Profile } from "./presentation/pages/Profile/Profile"
+import { GradesView } from "./presentation/pages/GradesView/GradesView"
 
 function App() {
   return (
@@ -15,8 +16,9 @@ function App() {
         </Route>
         <Route path="/usuarios" element={<Users />} />
         <Route path="/materias" element={<Courses />} />
-        <Route path="/notas" element={<GradesManagement />} />
+        <Route path="/professor/notas" element={<GradesManagement />} />
         <Route path="/perfil" element={<Profile />} />
+        <Route path="/notas" element={<GradesView />} />
       </Routes>
     </BrowserRouter>
   )
