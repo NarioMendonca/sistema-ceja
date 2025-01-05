@@ -1,29 +1,46 @@
+import { useEffect, useState } from 'react'
 import { BookIcon, DashboardIcon, MenuHamburguer, UsersIcon } from '@/presentation/icons'
 import Styles from './sidebar-styles.module.scss'
 import { Link } from 'react-router'
 
-export function Sidebar() {
+type Props = {
+  isSideBarOpen: boolean,
+  setIsSideBarOpen: React.Dispatch<React.SetStateAction<boolean>>,
+}
+
+export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
+  const [active, setActive] = useState(true);
+
+  useEffect(() => {
+    console.log("Oi")
+  }, []);
+
   return (
-    <aside>
-      <span className={Styles.sideBarIcon}><MenuHamburguer /></span>
+    <aside className={`${Styles.sidebar} ${!isSideBarOpen ? Styles.sidebarActive : ''}`}>
+      <button 
+        className={Styles.sideBarIcon}
+        onClick={() => setIsSideBarOpen(!isSideBarOpen)}
+      >
+          <MenuHamburguer />
+      </button>
       <div className={Styles.sideBar}>
         <ul>
           <li>
             <Link to={"/"}>
               <DashboardIcon />
-              Dashboard
+              {isSideBarOpen ? "Dashboard" : ""}
             </Link>
           </li>
           <li>
             <Link to={"/usuarios"}>
               <UsersIcon />
-              Usuários
+              {isSideBarOpen ? "Usuários" : ""}
             </Link>
           </li>
           <li>
             <Link to={"/materias"}>
               <BookIcon />
-              Matérias
+              {isSideBarOpen ? "Matérias" : ""}
             </Link>
           </li>
         </ul>
