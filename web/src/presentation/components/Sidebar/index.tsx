@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+// import { useEffect, useState } from 'react'
 import { BookIcon, DashboardIcon, MenuHamburguer, UsersIcon } from '@/presentation/icons'
 import Styles from './sidebar-styles.module.scss'
 import { Link } from 'react-router'
@@ -9,12 +9,6 @@ type Props = {
 }
 
 export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
-  const [active, setActive] = useState(true);
-
-  useEffect(() => {
-    console.log("Oi")
-  }, []);
-
   return (
     <aside className={`${Styles.sidebar} ${!isSideBarOpen ? Styles.sidebarActive : ''}`}>
       <button 

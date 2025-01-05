@@ -1,12 +1,13 @@
 import { useState } from "react"
 import { Header, Sidebar } from "../components"
 import Styles from './dashboard-styles.module.scss'
+import { Outlet } from "react-router"
 
-type Props = {
-  children: React.ReactNode
-}
+// type Props = {
+//   children: React.ReactNode
+// }
 
-export function PageLayout({ children }: Props) {
+export function PageLayout(/*{ children }: Props*/) {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
 
   return (
@@ -14,9 +15,7 @@ export function PageLayout({ children }: Props) {
       <Header />
       <div className={Styles.dashboardContentContainer}>
         <Sidebar isSideBarOpen={isSideBarOpen} setIsSideBarOpen={setIsSideBarOpen} />
-        <main>
-          {children}
-        </main>
+        <Outlet />
       </div>
     </div>
   )
