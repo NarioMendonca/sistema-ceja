@@ -44,6 +44,7 @@ aside {
           border-radius: 8px;
           color: initial;
           text-decoration: none;
+          transition: .2s;
 
           &:hover {
             background-color: $gray-light;

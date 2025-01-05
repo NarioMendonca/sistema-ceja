@@ -6,12 +6,12 @@ export function Users() {
   return (
     <PageLayout>
       <div className={Styles.mainHeaderWrap}>
-        <h2>Gerenciar usuários</h2>
+        <h2>Gerenciar Usuários</h2>
         <button>Adicionar usuário</button>
       </div>
       <section className={Styles.userListWrap}>
         <div className={Styles.searchCourseWrap}>
-          <span>buscar usuário</span>
+          <span>Buscar usuário</span>
           <div className={Styles.searchCourseInputWrap}>
             <span>{<SearchIcon />}</span>
             <input type="text" name="searchUser" id="searchUser" />
@@ -20,8 +20,8 @@ export function Users() {
         <table className={Styles.userList}>
           <thead>
             <tr>
-              <th>nome</th>
-              <th>email</th>
+              <th>Nome</th>
+              <th>Email</th>
               <th>Permissão</th>
               <th></th>
             </tr>
@@ -72,7 +72,7 @@ export function Users() {
                 </div>
               </td>
             </tr>
-            <tr>
+            <tr className={Styles.tableBodyRow}>
               <td>Roger da paz</td>
               <td>cleudinhoFrifas@gmail.com</td>
               <td>Aluno</td>
