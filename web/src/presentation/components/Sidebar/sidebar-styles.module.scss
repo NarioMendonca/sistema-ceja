@@ -52,6 +52,10 @@ aside {
           text-decoration: none;
           transition: .2s;
 
+          &.linkCenterIcon {
+            justify-content: center !important;
+          }
+
           &:hover {
             background-color: $gray-light;
           }

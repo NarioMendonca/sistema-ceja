@@ -20,19 +20,19 @@ export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
       <div className={Styles.sideBar}>
         <ul>
           <li>
-            <Link to={"/"}>
+            <Link to={"/"} className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
               <DashboardIcon />
               {isSideBarOpen ? "Dashboard" : ""}
             </Link>
           </li>
           <li>
-            <Link to={"/usuarios"}>
+            <Link to={"/usuarios"} className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
               <UsersIcon />
               {isSideBarOpen ? "Usuários" : ""}
             </Link>
           </li>
           <li>
-            <Link to={"/materias"}>
+            <Link to={"/materias"} className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
               <BookIcon />
               {isSideBarOpen ? "Matérias" : ""}
             </Link>
