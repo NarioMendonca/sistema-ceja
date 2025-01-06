@@ -12,3 +12,58 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id            String          @id @default(uuid())
+  email         String          @unique
+  password_hash String
+  name          String
+  role          Role
+  cpf           String?
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now()) @updatedAt
+  Student       Student[]
+  Teacher       Teacher[]
+  Administrator Administrator[]
+
+  @@map("users")
+}
+
+model Student {
+  id             String    @id @default(uuid())
+  enrollmentCode String    @unique
+  dateOfBirth    DateTime?
+  adress         String?
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  @@map("students")
+}
+
+model Teacher {
+  id             String @id @default(uuid())
+  specialization String
+  education      String
+
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
+
+  @@map("teachers")
+}
+
+model Administrator {
+  id       String @id @default(uuid())
+  position String
+
+  user_id String
+  user    User   @relation(fields: [user_id], references: [id])
+
+  @@map("administrators")
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  STUDENT
+}
