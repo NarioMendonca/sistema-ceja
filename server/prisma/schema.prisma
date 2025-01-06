@@ -46,8 +46,9 @@ model Teacher {
   specialization String
   education      String
 
-  user    User   @relation(fields: [user_id], references: [id])
-  user_id String
+  user         User           @relation(fields: [user_id], references: [id])
+  user_id      String
+  ClassTeacher ClassTeacher[]
 
   @@map("teachers")
 }
@@ -60,6 +61,44 @@ model Administrator {
   user    User   @relation(fields: [user_id], references: [id])
 
   @@map("administrators")
+}
+
+model Class {
+  id           String         @id @default(uuid())
+  name         String
+  ClassTeacher ClassTeacher[]
+  ClassSubject ClassSubject[]
+
+  @@map("classes")
+}
+
+model ClassTeacher {
+  id         String @id @default(uuid())
+  teacher_id String
+  class_id   String
+
+  teacher Teacher @relation(fields: [teacher_id], references: [id])
+  class   Class   @relation(fields: [class_id], references: [id])
+
+  @@map("class_teachers")
+}
+
+model Subject {
+  id           String         @id @default(uuid())
+  name         String
+  description  String?
+  ClassSubject ClassSubject[]
+
+  @@map("subjects")
+}
+
+model ClassSubject {
+  id         String @id @default(uuid())
+  class_id   String
+  subject_id String
+
+  class   Class   @relation(fields: [class_id], references: [id])
+  subject Subject @relation(fields: [subject_id], references: [id])
 }
 
 enum Role {
