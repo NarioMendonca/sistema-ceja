@@ -12,7 +12,7 @@ export type User = {
 export type Student = User & {
 	enrollmentCode: string
 	dateOfBirth?: Date
-	adress?: String
+	adress?: string
 }
 
 export type Teacher = User & {

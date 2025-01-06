@@ -11,7 +11,7 @@ export type CreateBaseUserInput = {
 export type CreateStudentInput = CreateBaseUserInput & {
 	enrollmentCode: string
 	dateOfBirth: Date | null
-	adress: String | null
+	adress: string | null
 }
 
 export type CreateTeacherInput = CreateBaseUserInput & {
