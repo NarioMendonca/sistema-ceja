@@ -9,7 +9,7 @@ export function GradesManagement() {
       <MainHeader />
       <section className={Styles.studentsListWrap}>
         <div className={Styles.searchStudentWrap}>
-          <span>buscar aluno</span>
+          <span>Buscar aluno</span>
           <div className={Styles.searchStudentInputWrap}>
             <span>{<SearchIcon />}</span>
             <input type="text" name="searchUser" id="searchUser" />

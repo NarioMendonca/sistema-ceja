@@ -4,8 +4,13 @@
   height: 100vh;
   background-color: $secondary-lighter;
 
+  .dashboardContentContainer {
+    display: flex;
+    height: calc(100% - 70px);
+  }
+
   main {
-    margin-left: 325px;
     padding: 2.5rem;
+    width: 100%;
   }
 }
