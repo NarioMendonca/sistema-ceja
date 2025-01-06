@@ -1,18 +1,33 @@
 export type User = {
 	id: string
-	name: string
 	email: string
 	password_hash: string
-	role: 'admin' | 'teacher' | 'student'
+	name: string
+	role: 'ADMIN' | 'TEACHER' | 'STUDENT'
+	cpf?: string
 	created_at?: Date
-	cpf: string
-	birth: Date
+	updated_at?: Date
+}
+
+export type Student = User & {
+	enrollmentCode: string
+	dateOfBirth?: Date
+	adress?: String
+}
+
+export type Teacher = User & {
+	specialization: string
+	education: string
+}
+
+export type Administrator = User & {
+	position: string
 }
 
 export type UserWithoutPasswordHash = Omit<User, 'password_hash'>
 
 export enum UserRoles {
-	admin = 'admin',
-	teacher = 'teacher',
-	student = 'student',
+	admin = 'ADMIN',
+	teacher = 'TEACHER',
+	student = 'STUDENT',
 }
