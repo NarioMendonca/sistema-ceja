@@ -35,8 +35,10 @@ model Student {
   dateOfBirth    DateTime?
   adress         String?
 
-  user    User   @relation(fields: [user_id], references: [id])
-  user_id String
+  user        User          @relation(fields: [user_id], references: [id])
+  user_id     String
+  Enrollments Enrollments[]
+  Grades      Grades[]
 
   @@map("students")
 }
@@ -68,6 +70,7 @@ model Class {
   name         String
   ClassTeacher ClassTeacher[]
   ClassSubject ClassSubject[]
+  Enrollments  Enrollments[]
 
   @@map("classes")
 }
@@ -97,8 +100,35 @@ model ClassSubject {
   class_id   String
   subject_id String
 
+  class   Class    @relation(fields: [class_id], references: [id])
+  subject Subject  @relation(fields: [subject_id], references: [id])
+  Grades  Grades[]
+
+  @@map("class_subjects")
+}
+
+model Enrollments {
+  id         String   @id @default(uuid())
+  student_id String
+  class_id   String
+  created_at DateTime @default(now())
+
+  student Student @relation(fields: [student_id], references: [id])
   class   Class   @relation(fields: [class_id], references: [id])
-  subject Subject @relation(fields: [subject_id], references: [id])
+
+  @@map("enrollments")
+}
+
+model Grades {
+  id               String @id @default(uuid())
+  Grade            Float
+  student_id       String
+  class_subject_id String
+
+  class_subject ClassSubject @relation(fields: [class_subject_id], references: [id])
+  student       Student      @relation(fields: [student_id], references: [id])
+
+  @@map("grades")
 }
 
 enum Role {
