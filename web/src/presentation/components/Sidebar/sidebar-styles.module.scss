@@ -3,19 +3,25 @@
 
 aside {
   padding: 1rem;
-  position: fixed;
   display: flex;
   flex-direction: column;
   background-color: $white;
   width: 325px;
   height: 100%;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.178);
+  transition: .2s;
+
+  &.sidebarActive {
+    width: 65px !important; 
+  }
 
   .sideBarIcon {
-    align-self: flex-start;
+    align-self: flex;
     width: 2rem;
     height: 2rem;
     cursor: pointer;
+    background: none;
+    border: 0;
     margin-bottom: 1rem;
 
     svg {
@@ -38,13 +44,17 @@ aside {
           display: flex;
           align-items: center;
           gap: 1.5rem;
-          padding: 1rem;
+          padding: 1rem 4px;
           font-size: 1.2rem;
           cursor: pointer;
           border-radius: 8px;
           color: initial;
           text-decoration: none;
           transition: .2s;
+
+          &.linkCenterIcon {
+            justify-content: center !important;
+          }
 
           &:hover {
             background-color: $gray-light;

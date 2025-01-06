@@ -6,19 +6,27 @@ import { GradesManagement } from "./presentation/pages/GradesManagement/GradesMa
 import { Login } from "./presentation/pages/Login/Login"
 import { Profile } from "./presentation/pages/Profile/Profile"
 import { GradesView } from "./presentation/pages/GradesView/GradesView"
+import { PageLayout } from "./presentation/layouts/PageLayout"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Dashboard />}>
+        <Route element={<PageLayout />}>
+          <Route path="/" element={<Dashboard />}/>
+          <Route path="/usuarios" element={<Users />} />
+          <Route path="/materias" element={<Courses />} />  
         </Route>
-        <Route path="/usuarios" element={<Users />} />
-        <Route path="/materias" element={<Courses />} />
+
+        <Route path="/login" element={<Login />} />
         <Route path="/professor/notas" element={<GradesManagement />} />
         <Route path="/perfil" element={<Profile />} />
         <Route path="/notas" element={<GradesView />} />
+
+        
+
+        
+
       </Routes>
     </BrowserRouter>
   )
