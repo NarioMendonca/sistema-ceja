@@ -1,18 +1,18 @@
-import { CoursesRepository } from '@/repositories/coursesRepository'
-import { Course } from '@/models/Course'
+import { UsersRepository } from '@/repositories/usersRepository'
+import { User } from '@/models/'
 
-interface FetchCoursesUseCaseResponse {
-  courses: Course[]
+interface FetchUsersUseCaseResponse {
+  users: User[]
 }
 
-export class FetchCoursesUseCase {
-  constructor(private coursesRepository: CoursesRepository) { }
+export class FetchUsersUseCase {
+  constructor(private usersRepository: UsersRepository) { }
 
-  async execute(): Promise<FetchCoursesUseCaseResponse> {
-    const courses = await this.coursesRepository.fetchAll()
+  async execute(): Promise<FetchUsersUseCaseResponse> {
+    const users = await this.usersRepository.fetchUsers()
 
     return {
-      courses,
+      users,
     }
   }
 }
