@@ -3,15 +3,15 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 
 export async function getUser(request: FastifyRequest, reply: FastifyReply) {
-  const getUserBodySchema = z.object({
+  const getUserParamsSchema = z.object({
     userId: z.string().uuid()
   })
 
-  const { userId } = getUserBodySchema.parse(request.body)
+  const { userId } = getUserParamsSchema.parse(request.params)
 
   const getUser = makeGetUser()
 
-  const user = getUser.execute({ id: userId })
+  const { user } = await getUser.execute({ id: userId })
 
   return reply.status(200).send({ user })
 }
