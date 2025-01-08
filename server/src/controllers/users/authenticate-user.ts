@@ -18,7 +18,6 @@ export async function authenticateUser(request: FastifyRequest, reply: FastifyRe
     const token = await reply.jwtSign({}, {
       sign: {
         sub: user.id,
-        expiresIn: 60 * 30 // 30 minutes
       }
     })
 
@@ -30,14 +29,14 @@ export async function authenticateUser(request: FastifyRequest, reply: FastifyRe
     })
 
     return reply
-      .status(200)
       .setCookie('refreshToken', refreshToken, {
-        domain: process.env.FRONTEND_URL!,
+        domain: process.env.API_URL,
         secure: true,
         httpOnly: true,
         path: '/',
         sameSite: true
       })
+      .status(200)
       .send({ token })
 
   } catch (err) {
