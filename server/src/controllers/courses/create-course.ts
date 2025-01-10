@@ -1,5 +1,5 @@
 import { AlreadyExistsError } from "@/usecases/errors";
-import { makeCreateCourse } from "@/usecases/factories/courses/make-create-course";
+import { makeCreateCourse } from "@/usecases/factories/courses";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 
