@@ -7,27 +7,19 @@ interface CreateCourseUseCaseRequest {
   description?: string
 }
 
-interface CreateCourseUseCaseResponse {
-  course: Course
-}
-
 export class CreateCourseUseCase {
   constructor(private coursesRepository: CoursesRepository) { }
 
   async execute({
     title,
     description,
-  }: CreateCourseUseCaseRequest): Promise<CreateCourseUseCaseResponse> {
+  }: CreateCourseUseCaseRequest): Promise<void> {
     const courseAlreadyExists = await this.coursesRepository.findByTitle(title)
 
     if (courseAlreadyExists) {
       throw new AlreadyExistsError()
     }
 
-    const course = await this.coursesRepository.create({ title, description })
-
-    return {
-      course,
-    }
+    await this.coursesRepository.create({ title, description })
   }
 }
