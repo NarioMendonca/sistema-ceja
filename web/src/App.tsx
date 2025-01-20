@@ -7,6 +7,7 @@ import { Profile } from "./presentation/pages/Profile/Profile"
 import { GradesView } from "./presentation/pages/GradesView/GradesView"
 import { PageLayout } from "./presentation/layouts/PageLayout"
 import { makeLogin } from "./main/factories/pages/make-login"
+import { makeUsersPage } from "./main/factories/pages/make-users"
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/" element={<Dashboard />} />
-          <Route path="/usuarios" element={<Users />} />
+          <Route path="/usuarios" element={makeUsersPage()} />
           <Route path="/materias" element={<Courses />} />
         </Route>
 

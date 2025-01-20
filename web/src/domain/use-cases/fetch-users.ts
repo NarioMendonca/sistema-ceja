@@ -5,5 +5,7 @@ export interface FetchUsers {
 }
 
 export namespace FetchUsers {
-  export type Model = User[]
+  export type Model = {
+    users: User[]
+  }
 }

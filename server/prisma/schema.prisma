@@ -34,9 +34,9 @@ model Student {
   enrollmentCode String    @unique
   dateOfBirth    DateTime?
   adress         String?
+  user_id        String
 
   user        User          @relation(fields: [user_id], references: [id])
-  user_id     String
   Enrollments Enrollments[]
   Grades      Grades[]
 
@@ -47,9 +47,9 @@ model Teacher {
   id             String @id @default(uuid())
   specialization String
   education      String
+  user_id        String
 
   user         User           @relation(fields: [user_id], references: [id])
-  user_id      String
   ClassTeacher ClassTeacher[]
 
   @@map("teachers")
@@ -58,9 +58,9 @@ model Teacher {
 model Administrator {
   id       String @id @default(uuid())
   position String
+  user_id  String
 
-  user_id String
-  user    User   @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id])
 
   @@map("administrators")
 }

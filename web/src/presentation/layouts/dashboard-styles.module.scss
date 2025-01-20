@@ -1,7 +1,7 @@
 @use '../styles/colors.scss' as *;
 
 .dashboardContainer {
-  height: 100vh;
+  min-height: 100vh;
   background-color: $secondary-lighter;
 
   .dashboardContentContainer {

@@ -7,12 +7,12 @@ aside {
   flex-direction: column;
   background-color: $white;
   width: 325px;
-  height: 100%;
+  height: 100vh;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.178);
   transition: .2s;
 
   &.sidebarActive {
-    width: 65px !important; 
+    width: 65px !important;
   }
 
   .sideBarIcon {
