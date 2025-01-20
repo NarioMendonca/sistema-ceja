@@ -3,7 +3,8 @@
 	"version": "1.0.0",
 	"main": "index.js",
 	"scripts": {
-		"dev": "tsx --watch src/server.ts"
+		"dev": "tsx --watch src/server.ts",
+		"populateDB": "tsx prisma/seeds/populate-users.ts"
 	},
 	"keywords": [],
 	"author": "",
@@ -16,7 +17,9 @@
 		"typescript": "5.6.3"
 	},
 	"dependencies": {
+		"@faker-js/faker": "9.4.0",
 		"@fastify/cookie": "11.0.2",
+		"@fastify/cors": "10.0.2",
 		"@fastify/jwt": "9.0.2",
 		"@prisma/client": "6.1.0",
 		"bcryptjs": "2.4.3",
