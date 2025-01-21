@@ -1,4 +1,4 @@
-import { RemoteAuthentication } from "@/data/use-cases/remote-authentication"
+import { RemoteAuthentication } from "@/data/use-cases/users/remote-authentication"
 import { makeApiUrl } from "../infra/make-api-url"
 import { makeHttpClient } from "../infra/make-http-client"
 

@@ -1,5 +1,5 @@
-import { Refresh } from "@/domain/use-cases/refresh";
-import { HttpClient } from "../protocols/httpClient";
+import { Refresh } from "@/domain/use-cases/users/refresh";
+import { HttpClient } from "../../protocols/httpClient";
 import { UnexpectedError } from "@/domain/errors";
 
 export class RemoteRefresh implements Refresh {

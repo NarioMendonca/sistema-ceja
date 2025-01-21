@@ -1,6 +1,6 @@
 import { SearchIcon } from '@/presentation/icons';
 import Styles from './users-styles.module.scss'
-import { FetchUsers } from '@/domain/use-cases/fetch-users';
+import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
 import { useEffect, useState } from 'react';
 import { User } from '@/domain/models/User';
 

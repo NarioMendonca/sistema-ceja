@@ -1,4 +1,4 @@
-import { Administrator, Student, Teacher } from "../models/User"
+import { Administrator, Student, Teacher } from "../../models/User"
 
 export interface RegisterUser {
   handle(params: RegisterUser.Params): Promise<void>

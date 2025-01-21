@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { LoginHeader } from './components/loginHeader'
 import Styles from './login-styles.module.scss'
-import { Authentication } from '@/domain/use-cases/authentication'
+import { Authentication } from '@/domain/use-cases/users/authentication'
 import useAuth from '@/presentation/hooks/useAuth'
 
 type Props = {

@@ -1,6 +1,6 @@
 import { UnexpectedError } from "@/domain/errors";
-import { RegisterUser } from "@/domain/use-cases/register-user";
-import { HttpClient } from "../protocols/httpClient";
+import { RegisterUser } from "@/domain/use-cases/users/register-user";
+import { HttpClient } from "../../protocols/httpClient";
 
 export class RemoteRegisterUser implements RegisterUser {
   constructor(readonly url: string, readonly httpClient: HttpClient) { }

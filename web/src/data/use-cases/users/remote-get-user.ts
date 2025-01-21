@@ -1,5 +1,5 @@
-import { GetUser } from "@/domain/use-cases/get-user";
-import { HttpClient } from "../protocols/httpClient";
+import { GetUser } from "@/domain/use-cases/users/get-user";
+import { HttpClient } from "../../protocols/httpClient";
 import { UnexpectedError } from "@/domain/errors";
 
 export class RemoteGetUser implements GetUser {

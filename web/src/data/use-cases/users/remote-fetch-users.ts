@@ -1,5 +1,5 @@
-import { FetchUsers } from "@/domain/use-cases/fetch-users";
-import { HttpClient } from "../protocols/httpClient";
+import { FetchUsers } from "@/domain/use-cases/users/fetch-users";
+import { HttpClient } from "../../protocols/httpClient";
 import { UnexpectedError } from "@/domain/errors";
 
 export class RemoteFetchUsers implements FetchUsers {

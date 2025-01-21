@@ -1,4 +1,4 @@
-import { RemoteFetchUsers } from "@/data/use-cases/remote-fetch-users";
+import { RemoteFetchUsers } from "@/data/use-cases/users/remote-fetch-users";
 import { makeApiUrl } from "../infra/make-api-url";
 import { makeHttpClient } from "../infra/make-http-client";
 

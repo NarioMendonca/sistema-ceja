@@ -1,5 +1,5 @@
-import type { Authentication } from "@/domain/use-cases/authentication";
-import { HttpClient } from "../protocols/httpClient";
+import type { Authentication } from "@/domain/use-cases/users/authentication";
+import { HttpClient } from "../../protocols/httpClient";
 import { UnexpectedError } from "@/domain/errors";
 import { InvalidCredentialsError } from "@/domain/errors/invalid-credentials-error";
 import axios from "axios";
