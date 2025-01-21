@@ -6,8 +6,8 @@ export async function fetchCourses(request: FastifyRequest, reply: FastifyReply)
   const fetchCourses = makeFetchCourses()
 
   try {
-    fetchCourses.execute()
-    return reply.status(201).send()
+    const { courses } = await fetchCourses.execute()
+    return reply.status(200).send({ courses })
   } catch (err) {
     throw err
   }
