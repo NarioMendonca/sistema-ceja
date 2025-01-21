@@ -36,7 +36,7 @@ model Student {
   adress         String?
   user_id        String
 
-  user        User          @relation(fields: [user_id], references: [id])
+  user        User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
   Enrollments Enrollments[]
   Grades      Grades[]
 
@@ -49,7 +49,7 @@ model Teacher {
   education      String
   user_id        String
 
-  user         User           @relation(fields: [user_id], references: [id])
+  user         User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
   ClassTeacher ClassTeacher[]
 
   @@map("teachers")
@@ -60,7 +60,7 @@ model Administrator {
   position String
   user_id  String
 
-  user User @relation(fields: [user_id], references: [id])
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("administrators")
 }

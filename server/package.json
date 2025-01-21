@@ -4,7 +4,7 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "tsx --watch src/server.ts",
-		"populateDB": "tsx prisma/seeds/populate-users.ts"
+		"populateDB": "tsx prisma/seeds/populateDB.ts"
 	},
 	"keywords": [],
 	"author": "",

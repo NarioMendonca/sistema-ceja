@@ -26,6 +26,21 @@ export type Administrator = User & {
 
 export type UserWithoutPasswordHash = Omit<User, 'password_hash'>
 
+export type StudentData = {
+	adress: string,
+	dateOfBirth: Date,
+	enrollmentCode: string
+}
+
+export type TeacherData = {
+	education: string,
+	specialization: string
+}
+
+export type AdminData = {
+	position: string
+}
+
 export enum UserRoles {
 	admin = 'ADMIN',
 	teacher = 'TEACHER',
