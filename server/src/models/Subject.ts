@@ -1,4 +1,4 @@
-export type Course = {
+export type Subject = {
   id: string
   title: string
   description: string

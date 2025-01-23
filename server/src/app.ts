@@ -1,6 +1,6 @@
 import fastify from 'fastify'
 import fastifyJwt from '@fastify/jwt'
-import { usersRoutes } from './controllers/users/users-routes'
+import { usersRoutes, subjectsRoutes } from './controllers'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
 
@@ -28,5 +28,6 @@ app.register(fastifyJwt, {
 })
 
 app.register(usersRoutes)
+app.register(subjectsRoutes)
 
 export default app

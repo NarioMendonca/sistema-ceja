@@ -1,3 +1,3 @@
 export * from './User'
-export * from './Course'
+export * from './Subject'
 export * from './Grades'
