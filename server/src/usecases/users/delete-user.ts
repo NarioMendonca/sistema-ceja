@@ -19,7 +19,7 @@ export class DeleteUserUseCase {
         throw new ResourceNotFoundError()
       }
 
-      if (admin.role !== 'admin') {
+      if (admin.role !== 'ADMIN') {
         throw new InvalidRoleError()
       }
 
