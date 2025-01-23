@@ -1,5 +1,5 @@
 import { Login } from "@/presentation/pages/Login/Login";
-import { makeRemoteAuthentication } from "../usecases/make-remote-authentication";
+import { makeRemoteAuthentication } from "../usecases/users/make-remote-authentication";
 
 export function makeLogin() {
   const remoteAuthentication = makeRemoteAuthentication()

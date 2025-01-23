@@ -1,13 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router"
 import { Dashboard } from "./presentation/pages/Dashboard/Dashboard"
-import { Users } from "./presentation/pages/Users/Users"
-import { Courses } from "./presentation/pages/Courses/Courses"
 import { GradesManagement } from "./presentation/pages/GradesManagement/GradesManagement"
 import { Profile } from "./presentation/pages/Profile/Profile"
 import { GradesView } from "./presentation/pages/GradesView/GradesView"
 import { PageLayout } from "./presentation/layouts/PageLayout"
 import { makeLogin } from "./main/factories/pages/make-login"
 import { makeUsersPage } from "./main/factories/pages/make-users"
+import { makeCourses } from "./main/factories/pages/make-courses"
 
 function App() {
   return (
@@ -16,7 +15,7 @@ function App() {
         <Route element={<PageLayout />}>
           <Route path="/" element={<Dashboard />} />
           <Route path="/usuarios" element={makeUsersPage()} />
-          <Route path="/materias" element={<Courses />} />
+          <Route path="/materias" element={makeCourses()} />
         </Route>
 
         <Route path="/login" element={makeLogin()} />
