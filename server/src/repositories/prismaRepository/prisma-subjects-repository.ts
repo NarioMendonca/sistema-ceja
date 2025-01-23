@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export class PrismaSubjectsRepository implements SubjectsRepository {
   async create(data: SubjectCreateInput): Promise<void> {
-    prisma.subject.create({
+    await prisma.subject.create({
       data: {
         name: data.title,
         description: data.description

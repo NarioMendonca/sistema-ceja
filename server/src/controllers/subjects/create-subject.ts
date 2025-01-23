@@ -13,7 +13,7 @@ export async function createSubject(request: FastifyRequest, reply: FastifyReply
   const createSubject = makeCreateSubject()
 
   try {
-    createSubject.execute({ title, description })
+    await createSubject.execute({ title, description })
     return reply.status(201).send()
   } catch (err) {
     if (err instanceof AlreadyExistsError) {
