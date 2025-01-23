@@ -41,8 +41,8 @@ export function Courses({ fetchSubjects }: Props) {
           <thead>
             <tr>
               <th>Nome</th>
-              <th>Professor</th>
-              <th>Alunos</th>
+              <th>Professor(es)</th>
+              <th>Turmas</th>
               <th></th>
             </tr>
           </thead>
@@ -52,7 +52,7 @@ export function Courses({ fetchSubjects }: Props) {
                 <tr className={Styles.tableBodyRow} key={subject.id}>
                   <td>{subject.title}</td>
                   <td>Caua Carvalho</td>
-                  <td>25</td>
+                  <td>5</td>
                   <td>
                     <div>
                       <button className={Styles.editButton}>
