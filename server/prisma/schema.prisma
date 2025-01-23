@@ -49,8 +49,8 @@ model Teacher {
   education      String
   user_id        String
 
-  user         User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  ClassTeacher ClassTeacher[]
+  user           User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  SubjectTeacher SubjectTeacher[]
 
   @@map("teachers")
 }
@@ -68,31 +68,29 @@ model Administrator {
 model Class {
   id           String         @id @default(uuid())
   name         String
-  ClassTeacher ClassTeacher[]
   ClassSubject ClassSubject[]
   Enrollments  Enrollments[]
 
   @@map("classes")
 }
 
-model ClassTeacher {
-  id         String @id @default(uuid())
-  teacher_id String
-  class_id   String
-
-  teacher Teacher @relation(fields: [teacher_id], references: [id])
-  class   Class   @relation(fields: [class_id], references: [id])
-
-  @@map("class_teachers")
-}
-
 model Subject {
-  id           String         @id @default(uuid())
-  name         String
-  description  String?
-  ClassSubject ClassSubject[]
+  id             String           @id @default(uuid())
+  name           String
+  description    String?
+  ClassSubject   ClassSubject[]
+  SubjectTeacher SubjectTeacher[]
 
   @@map("subjects")
+}
+
+model SubjectTeacher {
+  id         String @id @default(uuid())
+  subject_id String
+  teacher_id String
+
+  subject Subject @relation(fields: [subject_id], references: [id])
+  teacher Teacher @relation(fields: [teacher_id], references: [id])
 }
 
 model ClassSubject {
