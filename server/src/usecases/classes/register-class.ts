@@ -1,14 +1,14 @@
 import { ClassesRepository } from '@/repositories'
 import { AlreadyExistsError } from '../errors'
 
-interface CreateSubjectUseCaseRequest {
+interface CreateClassUseCaseRequest {
   name: string
 }
 
-export class CreateSubjectUseCase {
+export class CreateClassUseCase {
   constructor(private classesRepository: ClassesRepository) { }
 
-  async execute({ name }: CreateSubjectUseCaseRequest): Promise<void> {
+  async execute({ name }: CreateClassUseCaseRequest): Promise<void> {
     const classAlreadyExists = await this.classesRepository.findByName(name)
 
     if (classAlreadyExists) {
