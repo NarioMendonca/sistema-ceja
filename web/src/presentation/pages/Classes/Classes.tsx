@@ -30,7 +30,7 @@ export function Classes({ fetchClasses }: Props) {
       </div>
       <section className={Styles.classListWrap}>
         <div className={Styles.searchClassWrap}>
-          <span>Buscar matéria</span>
+          <span>Buscar Turma</span>
           <div className={Styles.searchClassInputWrap}>
             <span>{<SearchIcon />}</span>
             <input type="text" name="searchUser" id="searchUser" />
