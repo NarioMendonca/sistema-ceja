@@ -6,8 +6,8 @@ import { FetchStudentsByClass } from "@/domain/use-cases/enrollments/fetch-stude
 export class RemoteFetchStudentsByClass implements FetchStudentsByClass {
   constructor(private readonly url: string, private readonly httpClient: HttpClient) { }
 
-  async handle(): Promise<FetchStudentsByClass.Model> {
-    const response = await this.httpClient.request({ url: this.url, method: "get" });
+  async handle(params: FetchStudentsByClass.Params): Promise<FetchStudentsByClass.Model> {
+    const response = await this.httpClient.request({ url: `${this.url}/${params.classId}`, method: "get" });
 
     switch (response.statusCode) {
       case HttpStatusCode.ok:
