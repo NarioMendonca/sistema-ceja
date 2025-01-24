@@ -4,6 +4,7 @@ import { usersRoutes, subjectsRoutes } from './controllers'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
 import { classesRoutes } from './controllers/classes/classes-routes'
+import { enrollmentsRoutes } from './controllers/enrollments/enrollments-routes'
 
 const app = fastify()
 
@@ -31,5 +32,6 @@ app.register(fastifyJwt, {
 app.register(usersRoutes)
 app.register(subjectsRoutes)
 app.register(classesRoutes)
+app.register(enrollmentsRoutes)
 
 export default app
