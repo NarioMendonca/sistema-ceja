@@ -1,3 +1,4 @@
+import { ResourceNotFoundError } from "@/usecases/errors";
 import { makeFetchStudentsByClass } from "@/usecases/factories/enrollments";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
@@ -12,6 +13,9 @@ export async function fetchStudentsByClass(request: FastifyRequest, reply: Fasti
     const { students } = await fetchStudentsByClass.execute({ classId })
     return reply.status(200).send({ students })
   } catch (err) {
+    if (err instanceof ResourceNotFoundError) {
+      return reply.status(404).send({ message: "Turma não encontrada." })
+    }
     throw err
   }
 }
