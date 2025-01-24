@@ -7,6 +7,7 @@ import { PageLayout } from "./presentation/layouts/PageLayout"
 import { makeLogin } from "./main/factories/pages/make-login"
 import { makeUsersPage } from "./main/factories/pages/make-users"
 import { makeCourses } from "./main/factories/pages/make-courses"
+import { makeClasses } from "./main/factories/pages/make-classes"
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<Dashboard />} />
           <Route path="/usuarios" element={makeUsersPage()} />
           <Route path="/materias" element={makeCourses()} />
+          <Route path="/classes" element={makeClasses()} />
         </Route>
 
         <Route path="/login" element={makeLogin()} />
