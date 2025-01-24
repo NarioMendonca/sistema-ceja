@@ -1,0 +1,1 @@
+export * from './make-fetch-students-by-class'
