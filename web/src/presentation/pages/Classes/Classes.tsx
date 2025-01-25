@@ -37,11 +37,11 @@ export function Classes({ fetchClasses }: Props) {
     <main>
       <div className={Styles.mainHeaderWrap}>
         <h2>Gerenciar Turmas</h2>
-        <button>Adicionar Turma</button>
+        <button>Adicionar turma</button>
       </div>
       <section className={Styles.classListWrap}>
         <div className={Styles.searchClassWrap}>
-          <span>Buscar Turma</span>
+          <span>Buscar turma</span>
           <div className={Styles.searchClassInputWrap}>
             <span>{<SearchIcon />}</span>
             <input type="text" name="searchUser" id="searchUser" />
