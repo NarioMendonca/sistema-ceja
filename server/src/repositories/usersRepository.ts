@@ -1,4 +1,4 @@
-import type { Administrator, Student, Teacher, User, UserRoles } from '@/models/User'
+import type { Administrator, Student, Teacher, User, UserRoles, UsersMetrics } from '@/models/User'
 
 export type CreateBaseUserInput = {
 	name: string
@@ -26,10 +26,11 @@ export type CreateAdminInput = CreateBaseUserInput & {
 export interface UsersRepository {
 	createBaseUser(data: CreateBaseUserInput): Promise<User>
 	createStudent(data: CreateStudentInput): Promise<Student>
-	CreateTeacher(data: CreateTeacherInput): Promise<Teacher>
-	CreateAdmin(data: CreateAdminInput): Promise<Administrator>
+	createTeacher(data: CreateTeacherInput): Promise<Teacher>
+	createAdmin(data: CreateAdminInput): Promise<Administrator>
 	findByEmail(email: string): Promise<User | null>
 	findById(id: string): Promise<User | null>
 	fetchUsers(): Promise<User[]>
+	getUsersMetrics(): Promise<UsersMetrics>
 	delete(userId: string): Promise<void>
 }

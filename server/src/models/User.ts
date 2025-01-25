@@ -41,6 +41,12 @@ export type AdminData = {
 	position: string
 }
 
+export type UsersMetrics = {
+	users: number,
+	students: number,
+	teachers: number
+}
+
 export enum UserRoles {
 	admin = 'ADMIN',
 	teacher = 'TEACHER',
