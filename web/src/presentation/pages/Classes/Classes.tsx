@@ -3,12 +3,19 @@ import { SearchIcon } from '@/presentation/icons';
 import { useEffect, useState } from 'react';
 import { FetchClasses } from '@/domain/use-cases/classes/fetch-classes';
 import { Class } from '@/domain/models/Class';
+import { useNavigate } from 'react-router';
 
 type Props = {
   fetchClasses: FetchClasses
 }
 
+type handleRedirectToUserViewParams = {
+  classId: string,
+  className: string
+}
+
 export function Classes({ fetchClasses }: Props) {
+  const navigate = useNavigate()
   const [classes, setClasses] = useState<Class[]>([])
 
   const handleFetchClasses = () => {
@@ -16,6 +23,10 @@ export function Classes({ fetchClasses }: Props) {
       .then((response) => {
         setClasses(response.classes)
       })
+  }
+
+  const handleRedirectToUserView = ({ classId, className }: handleRedirectToUserViewParams) => {
+    navigate('/classes/students', { state: { classId, className } })
   }
 
   useEffect(() => {
@@ -48,7 +59,7 @@ export function Classes({ fetchClasses }: Props) {
           <tbody>
             {classes.map(classData => {
               return (
-                <tr className={Styles.tableBodyRow} key={classData.id}>
+                <tr className={Styles.tableBodyRow} key={classData.id} onClick={() => { handleRedirectToUserView({ classId: classData.id, className: classData.name }) }}>
                   <td>{classData.name}</td>
                   <td>Caua Carvalho</td>
                   <td>5</td>

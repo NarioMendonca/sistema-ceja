@@ -1,7 +1,7 @@
 import { Classes } from "@/presentation/pages/Classes/Classes";
 import { makeFetchClasses } from "../usecases/classes/make-fetch-classes";
 
-export function makeClasses() {
+export function MakeClasses() {
   const fetchClasses = makeFetchClasses()
-  return Classes({ fetchClasses })
+  return <Classes fetchClasses={fetchClasses} />
 }
