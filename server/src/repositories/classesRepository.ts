@@ -11,5 +11,6 @@ export interface ClassesRepository {
   findById(id: string): Promise<Class | null>
   fetchAll(): Promise<Class[]>
   fetchStudentsData(classId: string): Promise<any>
+  fetchClassesBySubject(subjectId: string): Promise<Class[]>
   delete(classId: string): Promise<void>
 }

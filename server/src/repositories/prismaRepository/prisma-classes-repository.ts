@@ -38,6 +38,24 @@ export class PrismaClassesRepository implements ClassesRepository {
     });
   }
 
+  async fetchClassesBySubject(subjectId: string): Promise<Class[]> {
+    const subjectClasses = await prisma.classSubject.findMany({
+      where: {
+        subject_id: subjectId
+      },
+      include: {
+        class: true
+      }
+    })
+
+    const subjectClassesFormated = subjectClasses.map(subjectClass => ({
+      ...subjectClass.class,
+      id: subjectClass.class.id
+    }))
+
+    return subjectClassesFormated
+  }
+
   async delete(classId: string): Promise<void> {
     await prisma.class.delete({
       where: { id: classId },
