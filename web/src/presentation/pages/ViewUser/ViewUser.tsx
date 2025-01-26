@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Administrator, Student, Teacher } from '@/domain/models/User';
 import { GetUser } from '@/domain/use-cases/users/get-user';
 import { formatDate } from '@/presentation/lib/format-date';
+import { useLocation } from 'react-router';
 
 type Props = {
   getUser: GetUser
@@ -14,10 +15,11 @@ type User =
   | { role: 'ADMIN', userData: Administrator }
 
 export function ViewUser({ getUser }: Props) {
+  const locate = useLocation()
   const [user, setUser] = useState<User | null>(null)
 
   const handleGetUser = () => {
-    const userId = '94e46c2d-1fdf-4e6c-b6c8-7b84a12eeecb'
+    const userId = locate.state.userId
     getUser.handle({ id: userId })
       .then((userData) => {
         if (!userData.user) {

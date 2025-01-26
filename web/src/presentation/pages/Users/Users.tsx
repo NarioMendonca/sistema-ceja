@@ -3,12 +3,14 @@ import Styles from './users-styles.module.scss'
 import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
 import { useEffect, useState } from 'react';
 import { User } from '@/domain/models/User';
+import { useNavigate } from 'react-router';
 
 type Props = {
   fetchUsers: FetchUsers
 }
 
 export function Users({ fetchUsers }: Props) {
+  const navigate = useNavigate()
   const [users, setUsers] = useState<User[]>([])
 
   const handleFetchUsers = () => {
@@ -16,6 +18,10 @@ export function Users({ fetchUsers }: Props) {
       .then((usersData) => {
         setUsers(usersData.users)
       })
+  }
+
+  const handleRedirectToViewUser = (userId: string) => {
+    navigate('/user/view', { state: { userId } })
   }
 
   useEffect(() => {
@@ -48,7 +54,7 @@ export function Users({ fetchUsers }: Props) {
           <tbody>
             {users.map((user) => {
               return (
-                <tr className={Styles.tableBodyRow} key={user.id}>
+                <tr className={Styles.tableBodyRow} key={user.id} onClick={() => { handleRedirectToViewUser(user.id) }}>
                   <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.role}</td>
