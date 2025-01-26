@@ -17,11 +17,11 @@ function App() {
       <Routes>
         <Route element={<PageLayout />}>
           <Route path="/" element={<MakeDashboard />} />
-          <Route path="/users" element={makeUsersPage()} />
-          <Route path="/user/view" element={MakeViewUser()} />
+          <Route path="/usuarios" element={makeUsersPage()} />
+          <Route path="/usuarios/visualizar" element={MakeViewUser()} />
           <Route path="/materias" element={makeCourses()} />
           <Route path="/classes" element={MakeClasses()} />
-          <Route path="/classes/students" element={makeViewClass()} />
+          <Route path="/classes/estudantes" element={makeViewClass()} />
         </Route>
 
         <Route path="/login" element={makeLogin()} />

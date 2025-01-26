@@ -4,12 +4,14 @@ import { useLocation } from 'react-router'
 import { FetchStudentsByClass } from '@/domain/use-cases/enrollments/fetch-students-by-class'
 import { useEffect, useState } from 'react'
 import { Student } from '@/domain/models/User'
+import { useNavigate } from 'react-router'
 
 type Props = {
   fetchStudentsByClass: FetchStudentsByClass
 }
 
 export function ViewClass({ fetchStudentsByClass }: Props) {
+  const navigate = useNavigate()
   const [students, setStudents] = useState<Student[]>([])
 
   const location = useLocation()
@@ -21,11 +23,13 @@ export function ViewClass({ fetchStudentsByClass }: Props) {
       .then(response => setStudents(response.students))
   }
 
+  const handleRedirectToViewUser = (userId: string) => {
+    navigate('/usuarios/visualizar', { state: { userId } })
+  }
+
   useEffect(() => {
     remoteFetchStudentsByClass()
   }, [])
-
-  console.log('requisitei!')
 
   return (
     <main>
@@ -52,7 +56,7 @@ export function ViewClass({ fetchStudentsByClass }: Props) {
           <tbody>
             {students.map(student => {
               return (
-                <tr className={Styles.tableBodyRow} key={student.id}>
+                <tr className={Styles.tableBodyRow} key={student.id} onClick={() => { handleRedirectToViewUser(student.id) }}>
                   <td>{student.name}</td>
                   <td>{student.email}</td>
                   <td>{student.enrollmentCode}</td>

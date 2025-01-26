@@ -26,7 +26,7 @@ export function Classes({ fetchClasses }: Props) {
   }
 
   const handleRedirectToUserView = ({ classId, className }: handleRedirectToUserViewParams) => {
-    navigate('/classes/students', { state: { classId, className } })
+    navigate('/classes/estudantes', { state: { classId, className } })
   }
 
   useEffect(() => {

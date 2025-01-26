@@ -21,7 +21,7 @@ export function Users({ fetchUsers }: Props) {
   }
 
   const handleRedirectToViewUser = (userId: string) => {
-    navigate('/user/view', { state: { userId } })
+    navigate('/usuarios/visualizar', { state: { userId } })
   }
 
   useEffect(() => {
