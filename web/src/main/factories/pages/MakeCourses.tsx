@@ -1,7 +1,7 @@
 import { Courses } from "@/presentation/pages/Courses/Courses";
 import { makeFetchSubjects } from "../usecases/subjects/make-fetch-subjects";
 
-export function makeCourses() {
+export function MakeCourses() {
   const fetchSubjects = makeFetchSubjects()
-  return Courses({ fetchSubjects })
+  return <Courses fetchSubjects={fetchSubjects} />
 }

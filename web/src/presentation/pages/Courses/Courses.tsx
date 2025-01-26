@@ -3,6 +3,7 @@ import { SearchIcon } from '@/presentation/icons';
 import { FetchSubjects } from '@/domain/use-cases/subjects/fetch-subjects';
 import { Subject } from '@/domain/models/Subject';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 // import { PageLayout } from '@/presentation/layouts/PageLayout';
 
 type Props = {
@@ -10,6 +11,7 @@ type Props = {
 }
 
 export function Courses({ fetchSubjects }: Props) {
+  const navigate = useNavigate()
   const [subjects, setSubjects] = useState<Subject[]>([])
 
   const handleFetchSubjects = () => {
@@ -17,6 +19,10 @@ export function Courses({ fetchSubjects }: Props) {
       .then((response) => {
         setSubjects(response.subjects)
       })
+  }
+
+  const handleRedirectToClassesViewBySubject = (subjectId: string) => {
+    navigate('/materia/classes', { state: { subjectId } })
   }
 
   useEffect(() => {
@@ -49,7 +55,7 @@ export function Courses({ fetchSubjects }: Props) {
           <tbody>
             {subjects.map(subject => {
               return (
-                <tr className={Styles.tableBodyRow} key={subject.id}>
+                <tr className={Styles.tableBodyRow} key={subject.id} onClick={() => { handleRedirectToClassesViewBySubject(subject.id) }}>
                   <td>{subject.title}</td>
                   <td>Caua Carvalho</td>
                   <td>5</td>
