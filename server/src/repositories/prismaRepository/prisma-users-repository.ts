@@ -133,6 +133,37 @@ export class PrismaUsersRepository implements UsersRepository {
     } : null;
   }
 
+  async findUserWithRoleData(id: string): Promise<Student | Teacher | Administrator | User | null> {
+    const user = await prisma.user.findUnique({
+      where: {
+        id
+      },
+      include: {
+        Student: true,
+        Teacher: true,
+        Administrator: true
+      }
+    })
+
+    const roles = ['Student', 'Teacher', 'Administrator'] as const
+    for (let role of roles) {
+      const relatedData = user?.[role][0]
+      if (relatedData) {
+        const userWithRelatedData = {
+          ...user,
+          Student: undefined,
+          Teacher: undefined,
+          Administrator: undefined,
+          ...user[role][0],
+          id: user[role][0].user_id,
+          user_id: undefined,
+        }
+        return userWithRelatedData
+      }
+    }
+    return user
+  }
+
   async fetchUsers(): Promise<User[]> {
     const users = await prisma.user.findMany();
     const usersWithNotNullField = users.map(user => ({ ...user, cpf: user.cpf ?? undefined }))

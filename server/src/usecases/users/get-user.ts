@@ -1,5 +1,5 @@
 import { UsersRepository } from '@/repositories/usersRepository'
-import { User } from '@/models'
+import { Administrator, Student, Teacher, User } from '@/models'
 import { ResourceNotFoundError } from '../errors'
 
 interface GetUserRequest {
@@ -7,7 +7,7 @@ interface GetUserRequest {
 }
 
 interface GetUserResponse {
-  user: User
+  user: Student | Teacher | Administrator | User | null
 }
 
 export class GetUserUseCase {
@@ -16,7 +16,7 @@ export class GetUserUseCase {
   async execute({
     id,
   }: GetUserRequest): Promise<GetUserResponse> {
-    const user = await this.usersRepository.findById(id)
+    const user = await this.usersRepository.findUserWithRoleData(id)
 
     if (!user) {
       throw new ResourceNotFoundError()

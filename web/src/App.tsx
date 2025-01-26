@@ -9,6 +9,7 @@ import { makeCourses } from "./main/factories/pages/make-courses"
 import { MakeClasses } from "./main/factories/pages/MakeClasses"
 import { makeViewClass } from "./main/factories/pages/MakeViewClass"
 import { MakeDashboard } from "./main/factories/pages/MakeDashboard"
+import { MakeViewUser } from "./main/factories/pages/MakeViewUser"
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route element={<PageLayout />}>
           <Route path="/" element={<MakeDashboard />} />
           <Route path="/usuarios" element={makeUsersPage()} />
+          <Route path="/usuario/view" element={MakeViewUser()} />
           <Route path="/materias" element={makeCourses()} />
           <Route path="/classes" element={MakeClasses()} />
           <Route path="/classes/students" element={makeViewClass()} />

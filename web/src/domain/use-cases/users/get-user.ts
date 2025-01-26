@@ -1,4 +1,4 @@
-import { User } from "../../models/User"
+import { Administrator, Student, Teacher, User } from "../../models/User"
 
 export interface GetUser {
   handle(params: GetUser.Params): Promise<GetUser.Model>
@@ -9,5 +9,7 @@ export namespace GetUser {
     id: string
   }
 
-  export type Model = User
+  export type Model = {
+    user: Student | Teacher | Administrator | null
+  }
 }

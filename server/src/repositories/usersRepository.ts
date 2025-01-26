@@ -30,6 +30,7 @@ export interface UsersRepository {
 	createAdmin(data: CreateAdminInput): Promise<Administrator>
 	findByEmail(email: string): Promise<User | null>
 	findById(id: string): Promise<User | null>
+	findUserWithRoleData(id: string): Promise<Student | Teacher | Administrator | User | null>
 	fetchUsers(): Promise<User[]>
 	getUsersMetrics(): Promise<UsersMetrics>
 	delete(userId: string): Promise<void>

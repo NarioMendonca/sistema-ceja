@@ -9,8 +9,8 @@ export type User = {
   name: string
   role: 'ADMIN' | 'TEACHER' | 'STUDENT'
   cpf?: string
-  created_at?: Date
-  updated_at?: Date
+  created_at: Date
+  updated_at: Date
 }
 
 export type Student = User & {

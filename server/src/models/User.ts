@@ -4,15 +4,15 @@ export type User = {
 	password_hash: string
 	name: string
 	role: 'ADMIN' | 'TEACHER' | 'STUDENT'
-	cpf?: string
+	cpf?: string | null
 	created_at?: Date
 	updated_at?: Date
 }
 
 export type Student = User & {
 	enrollmentCode: string
-	dateOfBirth?: Date
-	adress?: string
+	dateOfBirth?: Date | null
+	adress?: string | null
 }
 
 export type Teacher = User & {
