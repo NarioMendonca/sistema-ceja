@@ -1,4 +1,4 @@
-import { Administrator, Student, Teacher, User } from "@/models";
+import { Administrator, Student, Teacher, User, UsersMetrics } from "@/models";
 import { CreateAdminInput, CreateBaseUserInput, CreateStudentInput, CreateTeacherInput, UsersRepository } from "../usersRepository";
 import { prisma } from "@/lib/prisma";
 
@@ -51,7 +51,7 @@ export class PrismaUsersRepository implements UsersRepository {
     }
   }
 
-  async CreateTeacher(data: CreateTeacherInput): Promise<Teacher> {
+  async createTeacher(data: CreateTeacherInput): Promise<Teacher> {
     const teacher = await prisma.user.create({
       data: {
         email: data.email,
@@ -82,7 +82,7 @@ export class PrismaUsersRepository implements UsersRepository {
     }
   }
 
-  async CreateAdmin(data: CreateAdminInput): Promise<Administrator> {
+  async createAdmin(data: CreateAdminInput): Promise<Administrator> {
     const admin = await prisma.user.create({
       data: {
         email: data.email,
@@ -137,6 +137,17 @@ export class PrismaUsersRepository implements UsersRepository {
     const users = await prisma.user.findMany();
     const usersWithNotNullField = users.map(user => ({ ...user, cpf: user.cpf ?? undefined }))
     return usersWithNotNullField
+  }
+
+  async getUsersMetrics(): Promise<UsersMetrics> {
+    const usersMetrics = await prisma.user.count()
+    const studentsMetrics = await prisma.student.count()
+    const teachersMetrics = await prisma.teacher.count()
+    return {
+      users: usersMetrics,
+      students: studentsMetrics,
+      teachers: teachersMetrics
+    }
   }
 
   async delete(userId: string): Promise<void> {

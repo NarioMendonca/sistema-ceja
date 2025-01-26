@@ -28,6 +28,12 @@ export type Administrator = User & {
   position: string
 }
 
+export type UsersMetrics = {
+  users: number,
+  students: number,
+  teachers: number
+}
+
 export type UserWithoutPasswordHash = Omit<User, 'password_hash'>
 
 export enum UserRoles {
