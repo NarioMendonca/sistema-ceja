@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from "react-router"
-import { Dashboard } from "./presentation/pages/Dashboard/Dashboard"
 import { GradesManagement } from "./presentation/pages/GradesManagement/GradesManagement"
 import { Profile } from "./presentation/pages/Profile/Profile"
 import { GradesView } from "./presentation/pages/GradesView/GradesView"
@@ -9,13 +8,14 @@ import { makeUsersPage } from "./main/factories/pages/make-users"
 import { makeCourses } from "./main/factories/pages/make-courses"
 import { MakeClasses } from "./main/factories/pages/MakeClasses"
 import { makeViewClass } from "./main/factories/pages/MakeViewClass"
+import { MakeDashboard } from "./main/factories/pages/MakeDashboard"
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<PageLayout />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/" element={<MakeDashboard />} />
           <Route path="/usuarios" element={makeUsersPage()} />
           <Route path="/materias" element={makeCourses()} />
           <Route path="/classes" element={MakeClasses()} />
