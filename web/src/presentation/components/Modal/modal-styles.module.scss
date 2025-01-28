@@ -1,0 +1,36 @@
+@use '../../styles/colors.scss' as *;
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  background-color: #00000080;
+}
+
+.modalContent {
+  position: relative;
+  width: 50%;
+  background-color: $white;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.closeBtn {
+  position: absolute;
+  font-size: 1.3rem;
+  top: .5rem;
+  right: 1rem;
+  background: none;
+  border: 0;
+  cursor: pointer;
+
+  &:hover {
+    color: $red;
+  }
+}
