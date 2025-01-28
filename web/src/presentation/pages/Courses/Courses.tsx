@@ -2,17 +2,21 @@ import Styles from './courses-styles.module.scss'
 import { SearchIcon } from '@/presentation/icons';
 import { FetchSubjects } from '@/domain/use-cases/subjects/fetch-subjects';
 import { Subject } from '@/domain/models/Subject';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-// import { PageLayout } from '@/presentation/layouts/PageLayout';
+import { Modal } from '@/presentation/components/Modal';
+import { CreateCourseModal } from './components/CreateCourseModal';
+import { CreateSubject } from '@/domain/use-cases/subjects/create-subject';
 
 type Props = {
-  fetchSubjects: FetchSubjects
+  fetchSubjects: FetchSubjects,
+  createSubject: CreateSubject
 }
 
-export function Courses({ fetchSubjects }: Props) {
+export function Courses({ fetchSubjects, createSubject }: Props) {
   const navigate = useNavigate()
   const [subjects, setSubjects] = useState<Subject[]>([])
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleFetchSubjects = () => {
     fetchSubjects.handle()
@@ -25,6 +29,15 @@ export function Courses({ fetchSubjects }: Props) {
     navigate('/materia/classes', { state: { subjectId } })
   }
 
+  const handleAddCourse = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const courseName = (event.currentTarget.elements.namedItem('course-name') as HTMLInputElement).value
+    createSubject.handle({ title: courseName }).then((response) => console.log(response))
+  }
+
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+
   useEffect(() => {
     handleFetchSubjects()
   }, [])
@@ -33,7 +46,7 @@ export function Courses({ fetchSubjects }: Props) {
     <main>
       <div className={Styles.mainHeaderWrap}>
         <h2>Gerenciar Matérias</h2>
-        <button>Adicionar matéria</button>
+        <button onClick={openModal}>Adicionar matéria</button>
       </div>
       <section className={Styles.couseListWrap}>
         <div className={Styles.searchCourseWrap}>
@@ -75,6 +88,9 @@ export function Courses({ fetchSubjects }: Props) {
           </tbody>
         </table>
       </section>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <CreateCourseModal handleAddCourse={handleAddCourse} />
+      </Modal>
     </main>
   )
 }
