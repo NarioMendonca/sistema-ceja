@@ -24,9 +24,9 @@ export async function registerUser(request: FastifyRequest, reply: FastifyReply)
   const registerUser = makeRegisterUser()
 
   try {
-    await registerUser.execute({ userData: bodyData })
+    const { user } = await registerUser.execute({ userData: bodyData })
 
-    return reply.status(201).send()
+    return reply.status(201).send({ user })
   } catch (err) {
     if (err instanceof AlreadyExistsError) {
       return reply.status(409).send({ message: 'A account with the same email already exists' })

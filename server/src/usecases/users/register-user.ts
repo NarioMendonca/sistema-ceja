@@ -1,6 +1,6 @@
 import type { UsersRepository } from '@/repositories'
 import { AlreadyExistsError, InvalidRoleError } from '../errors'
-import { UserRoles, type UserWithoutPasswordHash } from '@/models/User'
+import { Administrator, Student, Teacher, UserRoles, type UserWithoutPasswordHash } from '@/models/User'
 import {
 	createPasswordHash,
 	generateRandomPassword,
@@ -24,12 +24,16 @@ interface RegisterUseCaseRequest {
 	userData: UserData
 }
 
+interface RegisterUseCaseResponse {
+	user: Administrator | Teacher | Student
+}
+
 export class RegisterUseCase {
 	constructor(private usersRepository: UsersRepository) { }
 
 	async execute({
 		userData
-	}: RegisterUseCaseRequest): Promise<void> {
+	}: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
 		const verifyIfEmailAlreadyExists =
 			await this.usersRepository.findByEmail(userData.email)
 
@@ -43,7 +47,7 @@ export class RegisterUseCase {
 		// create here a function to send an email with user password and a link to be able to change
 
 		if (userData.role === 'ADMIN') {
-			const user = await this.usersRepository.CreateAdmin({
+			const user = await this.usersRepository.createAdmin({
 				name: userData.name,
 				email: userData.email,
 				password_hash: passwordHashed,
@@ -51,8 +55,11 @@ export class RegisterUseCase {
 				role: UserRoles.admin,
 				cpf: userData.cpf ?? null
 			})
+			return {
+				user
+			}
 		} else if (userData.role === 'TEACHER') {
-			const user = await this.usersRepository.CreateTeacher({
+			const user = await this.usersRepository.createTeacher({
 				name: userData.name,
 				email: userData.email,
 				password_hash: passwordHashed,
@@ -61,6 +68,9 @@ export class RegisterUseCase {
 				education: userData.education ?? '',
 				specialization: userData.specialization ?? ''
 			})
+			return {
+				user
+			}
 		} else if (userData.role === 'STUDENT') {
 			const user = await this.usersRepository.createStudent({
 				name: userData.name,
@@ -72,6 +82,9 @@ export class RegisterUseCase {
 				dateOfBirth: userData.dateOfBirth ?? null,
 				enrollmentCode: userData.enrollmentCode ?? ''
 			})
+			return {
+				user
+			}
 		} else {
 			throw new InvalidRoleError()
 		}
