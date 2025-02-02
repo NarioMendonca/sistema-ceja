@@ -1,0 +1,21 @@
+@use '../../styles/colors.scss' as *;
+
+
+.inputWrap {
+  display: flex;
+  flex-direction: column;
+
+  input {
+    line-height: 40px;
+    border: 1px solid $gray-dark;
+    border-radius: 6px;
+    outline: none;
+    padding: 0 .5rem;
+    font-size: 1rem;
+    color: $secondary;
+
+    &:focus {
+      outline: 1px solid $gray-darkness;
+    }
+  }
+}

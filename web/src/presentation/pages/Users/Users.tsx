@@ -4,19 +4,31 @@ import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
 import { useEffect, useState } from 'react';
 import { User } from '@/domain/models/User';
 import { useNavigate } from 'react-router';
+import { Modal } from '@/presentation/components/Modal';
+import { RegisterUserModal } from './RegisterUserModal';
+import { RegisterUser } from '@/domain/use-cases/users/register-user';
 
 type Props = {
-  fetchUsers: FetchUsers
+  fetchUsers: FetchUsers,
+  registerUser: RegisterUser
 }
 
-export function Users({ fetchUsers }: Props) {
+export function Users({ fetchUsers, registerUser }: Props) {
   const navigate = useNavigate()
   const [users, setUsers] = useState<User[]>([])
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleFetchUsers = () => {
     fetchUsers.handle()
       .then((usersData) => {
         setUsers(usersData.users)
+      })
+  }
+
+  const remoteRegisterUser = (user: any) => {
+    registerUser.handle(user)
+      .then(response => {
+        setUsers([...users, { ...response.user }])
       })
   }
 
@@ -28,11 +40,14 @@ export function Users({ fetchUsers }: Props) {
     handleFetchUsers()
   }, [])
 
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+
   return (
     <main>
       <div className={Styles.mainHeaderWrap}>
         <h2>Gerenciar Usuários</h2>
-        <button>Adicionar usuário</button>
+        <button onClick={openModal}>Adicionar usuário</button>
       </div>
       <section className={Styles.userListWrap}>
         <div className={Styles.searchCourseWrap}>
@@ -74,6 +89,9 @@ export function Users({ fetchUsers }: Props) {
           </tbody>
         </table>
       </section>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <RegisterUserModal remoteRegisterUser={remoteRegisterUser} />
+      </Modal>
     </main>
   )
 }
