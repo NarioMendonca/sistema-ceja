@@ -4,9 +4,13 @@ import { useEffect, useState } from 'react';
 import { FetchClasses } from '@/domain/use-cases/classes/fetch-classes';
 import { Class } from '@/domain/models/Class';
 import { useNavigate } from 'react-router';
+import { Modal } from '@/presentation/components/Modal';
+import { CreateClassModal } from './components/CreateClassesModal';
+import { CreateClass } from '@/domain/use-cases/classes/create-class';
 
 type Props = {
   fetchClasses: FetchClasses
+  remoteCreateClass: CreateClass
 }
 
 type handleRedirectToUserViewParams = {
@@ -14,9 +18,10 @@ type handleRedirectToUserViewParams = {
   className: string
 }
 
-export function Classes({ fetchClasses }: Props) {
+export function Classes({ fetchClasses, remoteCreateClass }: Props) {
   const navigate = useNavigate()
   const [classes, setClasses] = useState<Class[]>([])
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleFetchClasses = () => {
     fetchClasses.handle()
@@ -29,15 +34,28 @@ export function Classes({ fetchClasses }: Props) {
     navigate('/classes/estudantes', { state: { classId, className } })
   }
 
+  const openModal = () => setIsModalOpen(true)
+  const closeModal = () => setIsModalOpen(false)
+
+  const handleAddClass = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+    const nameToClass = (event.currentTarget.elements.namedItem('class-name') as HTMLInputElement).value
+    remoteCreateClass.handle({ name: nameToClass }).then(response => {
+      setClasses([...classes, { ...response.class }])
+      closeModal()
+    })
+  }
+
   useEffect(() => {
     handleFetchClasses()
   }, [])
+
 
   return (
     <main>
       <div className={Styles.mainHeaderWrap}>
         <h2>Gerenciar Turmas</h2>
-        <button>Adicionar turma</button>
+        <button onClick={openModal}>Adicionar turma</button>
       </div>
       <section className={Styles.classListWrap}>
         <div className={Styles.searchClassWrap}>
@@ -79,6 +97,9 @@ export function Classes({ fetchClasses }: Props) {
           </tbody>
         </table>
       </section>
+      <Modal isOpen={isModalOpen} onClose={closeModal}>
+        <CreateClassModal handleAddClass={handleAddClass} />
+      </Modal>
     </main>
   )
 }
