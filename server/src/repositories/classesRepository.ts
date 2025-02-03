@@ -6,7 +6,7 @@ export type classCreateInput = {
 }
 
 export interface ClassesRepository {
-  create(data: classCreateInput): Promise<void>
+  create(data: classCreateInput): Promise<Class>
   findByName(name: string): Promise<Class | null>
   findById(id: string): Promise<Class | null>
   fetchAll(): Promise<Class[]>
