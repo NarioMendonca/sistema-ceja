@@ -1,4 +1,4 @@
-import { ViewClasses } from "@/presentation/pages/Courses/ViewClasses";
+import { ViewClasses } from "@/presentation/pages/Subjects/ViewClasses";
 import { makeFetchClassesBySubject } from "../usecases/classes/make-fetch-classes-by-subject";
 
 export function makeViewClasses() {

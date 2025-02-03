@@ -21,12 +21,12 @@
   }
 }
 
-.couseListWrap {
+.subjectListWrap {
   background-color: $white;
   border-radius: 6px;
   box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.144);
 
-  .searchCourseWrap {
+  .searchSubjectWrap {
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -38,7 +38,7 @@
       font-weight: 600;
     }
 
-    .searchCourseInputWrap {
+    .searchSubjectInputWrap {
       position: relative;
       display: flex;
       align-items: center;
@@ -69,7 +69,7 @@
 
   }
 
-  .courseList {
+  .subjectList {
     width: 100%;
     border-collapse: collapse;
 
