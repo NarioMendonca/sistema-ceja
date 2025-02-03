@@ -68,7 +68,7 @@ export function ViewClasses({ fetchClassesBySubject }: Props) {
                   <td>Caua Carvalho</td>
                   <td>5</td>
                   <td>
-                    <div>
+                    <div onClick={e => e.stopPropagation()}>
                       <button className={Styles.editButton}>
                         Editar
                       </button>

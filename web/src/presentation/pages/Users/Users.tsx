@@ -74,7 +74,7 @@ export function Users({ fetchUsers, registerUser }: Props) {
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td>
-                    <div>
+                    <div onClick={e => e.stopPropagation()}>
                       <button className={Styles.editButton}>
                         Editar
                       </button>
