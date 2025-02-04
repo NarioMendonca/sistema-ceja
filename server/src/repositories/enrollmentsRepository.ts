@@ -1,4 +1,4 @@
-import { Class, Student } from "@/models";
+import { Student } from "@/models";
 import { Enrollment } from "@/models/Enrollments";
 
 export type registerStudentInClassParams = {
