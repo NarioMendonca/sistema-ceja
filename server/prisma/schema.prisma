@@ -14,18 +14,20 @@ datasource db {
 }
 
 model User {
-  id            String          @id @default(uuid())
-  email         String          @unique
-  password_hash String
-  name          String
-  role          Role
-  cpf           String?
-  created_at    DateTime        @default(now())
-  updated_at    DateTime        @default(now()) @updatedAt
-  Student       Student[]
-  Teacher       Teacher[]
-  Administrator Administrator[]
-  Enrollments   Enrollments[]
+  id             String           @id @default(uuid())
+  email          String           @unique
+  password_hash  String
+  name           String
+  role           Role
+  cpf            String?
+  created_at     DateTime         @default(now())
+  updated_at     DateTime         @default(now()) @updatedAt
+  Student        Student[]
+  Teacher        Teacher[]
+  Administrator  Administrator[]
+  Enrollments    Enrollments[]
+  SubjectTeacher SubjectTeacher[]
+  Grades         Grades[]
 
   @@map("users")
 }
@@ -37,8 +39,7 @@ model Student {
   adress         String?
   user_id        String
 
-  user   User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  Grades Grades[]
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("students")
 }
@@ -49,8 +50,7 @@ model Teacher {
   education      String
   user_id        String
 
-  user           User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  SubjectTeacher SubjectTeacher[]
+  user User @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@map("teachers")
 }
@@ -87,10 +87,10 @@ model Subject {
 model SubjectTeacher {
   id         String @id @default(uuid())
   subject_id String
-  teacher_id String
+  user_id    String
 
   subject Subject @relation(fields: [subject_id], references: [id])
-  teacher Teacher @relation(fields: [teacher_id], references: [id])
+  user    User    @relation(fields: [user_id], references: [id])
 }
 
 model ClassSubject {
@@ -120,11 +120,11 @@ model Enrollments {
 model Grades {
   id               String @id @default(uuid())
   Grade            Float
-  student_id       String
+  user_id          String
   class_subject_id String
 
   class_subject ClassSubject @relation(fields: [class_subject_id], references: [id])
-  student       Student      @relation(fields: [student_id], references: [id])
+  user          User         @relation(fields: [user_id], references: [id])
 
   @@map("grades")
 }
