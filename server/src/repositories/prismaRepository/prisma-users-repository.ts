@@ -1,4 +1,4 @@
-import { Administrator, Student, Teacher, User, UsersMetrics } from "@/models";
+import { Administrator, Student, Teacher, User, UserRoles, UsersMetrics } from "@/models";
 import { CreateAdminInput, CreateBaseUserInput, CreateStudentInput, CreateTeacherInput, UsersRepository } from "../usersRepository";
 import { prisma } from "@/lib/prisma";
 
@@ -164,8 +164,12 @@ export class PrismaUsersRepository implements UsersRepository {
     return user
   }
 
-  async fetchUsers(): Promise<User[]> {
-    const users = await prisma.user.findMany();
+  async fetchUsers(role?: UserRoles): Promise<User[]> {
+    const users = await prisma.user.findMany({
+      where: {
+        role
+      }
+    });
     const usersWithNotNullField = users.map(user => ({ ...user, cpf: user.cpf ?? undefined }))
     return usersWithNotNullField
   }

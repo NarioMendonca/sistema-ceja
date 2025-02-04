@@ -47,8 +47,4 @@ export type UsersMetrics = {
 	teachers: number
 }
 
-export enum UserRoles {
-	admin = 'ADMIN',
-	teacher = 'TEACHER',
-	student = 'STUDENT',
-}
+export type UserRoles = 'ADMIN' | 'TEACHER' | 'STUDENT'

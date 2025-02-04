@@ -31,7 +31,7 @@ export interface UsersRepository {
 	findByEmail(email: string): Promise<User | null>
 	findById(id: string): Promise<User | null>
 	findUserWithRoleData(id: string): Promise<Student | Teacher | Administrator | User | null>
-	fetchUsers(): Promise<User[]>
+	fetchUsers(role?: UserRoles): Promise<User[]>
 	getUsersMetrics(): Promise<UsersMetrics>
 	delete(userId: string): Promise<void>
 }
