@@ -1,87 +1,88 @@
-import { EnrollmentsRepository } from '@/repositories';
-import { Class, Student } from '@/models';
+import { EnrollmentsRepository, FindEnrollmentParams, registerStudentInClassParams } from '@/repositories';
+import { Student } from '@/models';
 import { prisma } from '@/lib/prisma';
+import { Enrollment } from '@/models/Enrollments';
 
 export class PrismaEnrollmentsRepository implements EnrollmentsRepository {
+  async findEnrollment({ classId, userId }: FindEnrollmentParams): Promise<Enrollment | null> {
+    const enrollment = await prisma.enrollments.findFirst({
+      where: {
+        user_id: userId,
+        class_id: classId
+      }
+    })
+
+    return enrollment
+  }
+
   async fetchStudentsFromClass(classId: string): Promise<Student[]> {
-    const studentsIds = await prisma.enrollments.findMany({
+    const usersIds = await prisma.enrollments.findMany({
       where: {
         class_id: classId
       },
       select: {
-        student_id: true
+        user_id: true
       }
     })
 
-    const studentsIdsFormated = studentsIds.map(studentId => studentId.student_id)
+    const usersIdsFormatted = usersIds.map(userId => userId.user_id)
 
-    const students = await prisma.student.findMany({
+    const students = await prisma.user.findMany({
       where: {
         id: {
-          in: studentsIdsFormated
+          in: usersIdsFormatted
         }
       },
       include: {
-        user: true
+        Student: true
       }
     })
 
     const studentsDataFormated = students.map(student => ({
       ...student,
-      user: undefined,
-      ...student.user,
-      id: student.user_id,
-      cpf: student.user.cpf ?? undefined,
-      dateOfBirth: student.dateOfBirth ?? undefined,
-      adress: student.adress ?? undefined
+      enrollmentCode: student.Student[0].enrollmentCode,
+      dateOfBirth: student.Student[0].dateOfBirth,
+      adress: student.Student[0].adress,
+      Student: undefined
     }))
 
     return studentsDataFormated
   }
 
-  async getClassFromStudent(studentId: string): Promise<Class | null> {
-    const student = await prisma.enrollments.findUnique({
-      where: { id: studentId },
-      include: {
-        class: true
-      },
-    });
-
-    return student?.class ?? null
-  }
-
   async fetchStudentsWithClasses(): Promise<any> {
-    const enrollments = await prisma.enrollments.findMany()
-    const students = await prisma.student.findMany({
+    const studentsWithClass = await prisma.user.findMany({
+      where: {
+        role: 'STUDENT'
+      },
       include: {
-        user: true
+        Enrollments: {
+          include: {
+            class: true
+          }
+        },
+        Student: true
       }
     })
-    const studentsDataFormated = students.map(student => ({
-      ...student,
-      user: undefined,
-      ...student.user,
-      id: student.user_id,
-      student_id: student.id,
-      cpf: student.user.cpf ?? undefined,
-      dateOfBirth: student.dateOfBirth ?? undefined,
-      adress: student.adress ?? undefined
+
+    const studentsWithClassFormated = studentsWithClass.map(data => ({
+      ...data,
+      class: data.Enrollments[0]?.class ?? null,
+      enrollmentCode: data.Student[0].enrollmentCode,
+      dateOfBirth: data.Student[0].dateOfBirth,
+      adress: data.Student[0].adress,
+      Student: undefined,
+      Enrollments: undefined
     }))
 
-    const classes = await prisma.class.findMany()
+    return studentsWithClassFormated
+  }
 
-    const studentsWithClasses = enrollments.map(enrollment => {
-      const student = studentsDataFormated.find(student => student.student_id === enrollment.student_id)
-      const classData = classes.find(classData => classData.id === enrollment.class_id)
-      return {
-        student: {
-          ...student,
-          student_id: undefined
-        },
-        class: classData
+  async registerStudentInClass({ classId, userId }: registerStudentInClassParams): Promise<void> {
+    await prisma.enrollments.create({
+      data: {
+        class_id: classId,
+        user_id: userId
       }
     })
-
-    return studentsWithClasses;
   }
 }

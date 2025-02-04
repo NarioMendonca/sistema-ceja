@@ -25,6 +25,7 @@ model User {
   Student       Student[]
   Teacher       Teacher[]
   Administrator Administrator[]
+  Enrollments   Enrollments[]
 
   @@map("users")
 }
@@ -36,9 +37,8 @@ model Student {
   adress         String?
   user_id        String
 
-  user        User          @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  Enrollments Enrollments[]
-  Grades      Grades[]
+  user   User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  Grades Grades[]
 
   @@map("students")
 }
@@ -107,12 +107,12 @@ model ClassSubject {
 
 model Enrollments {
   id         String   @id @default(uuid())
-  student_id String
   class_id   String
+  user_id    String
   created_at DateTime @default(now())
 
-  student Student @relation(fields: [student_id], references: [id])
-  class   Class   @relation(fields: [class_id], references: [id])
+  user  User  @relation(fields: [user_id], references: [id])
+  class Class @relation(fields: [class_id], references: [id])
 
   @@map("enrollments")
 }
