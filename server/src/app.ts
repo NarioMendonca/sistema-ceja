@@ -6,6 +6,7 @@ import fastifyCors from '@fastify/cors'
 import { classesRoutes } from './controllers/classes/classes-routes'
 import { enrollmentsRoutes } from './controllers/enrollments/enrollments-routes'
 import { env } from './env/env'
+import { subjectTeacherRoutes } from './controllers/subjectTeacher/subjectTeacherRoutes'
 
 const app = fastify()
 
@@ -34,5 +35,6 @@ app.register(usersRoutes)
 app.register(subjectsRoutes)
 app.register(classesRoutes)
 app.register(enrollmentsRoutes)
+app.register(subjectTeacherRoutes)
 
 export default app
