@@ -13,4 +13,5 @@ export type FindSubjectTeacherParams = {
 export interface SubjectTeacherReposity {
   registerTeacherAtSubject({ userId, subjectId }: RegisterTeacherAtSubjectParams): Promise<SubjectTeacher | null>
   findSubjectTeacher({ userId, subjectId }: FindSubjectTeacherParams): Promise<SubjectTeacher | null>
+  fetchBySubject(subjectId: string): Promise<SubjectTeacher[]>
 }

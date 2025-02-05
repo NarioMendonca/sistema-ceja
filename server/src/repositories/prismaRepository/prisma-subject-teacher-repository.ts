@@ -14,6 +14,16 @@ export class PrismaSubjectTeacherReposity implements SubjectTeacherReposity {
     return subjectTeacher
   }
 
+  async fetchBySubject(subjectId: string): Promise<SubjectTeacher[]> {
+    const subjectTeachers = await prisma.subjectTeacher.findMany({
+      where: {
+        subject_id: subjectId
+      }
+    })
+
+    return subjectTeachers
+  }
+
   async findSubjectTeacher({ userId, subjectId }: FindSubjectTeacherParams): Promise<SubjectTeacher | null> {
     const subjectTeacher = await prisma.subjectTeacher.findFirst({
       where: {
