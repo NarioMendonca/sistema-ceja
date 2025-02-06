@@ -1,7 +1,7 @@
 import { User, UserRoles } from "../../models/User"
 
 export interface FetchUsers {
-  handle(params: FetchUsers.Params): Promise<FetchUsers.Model>
+  handle(params?: FetchUsers.Params): Promise<FetchUsers.Model>
 }
 
 export namespace FetchUsers {

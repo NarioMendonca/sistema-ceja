@@ -19,7 +19,7 @@ export function Users({ fetchUsers, registerUser }: Props) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
   const handleFetchUsers = () => {
-    fetchUsers.handle({})
+    fetchUsers.handle()
       .then((usersData) => {
         setUsers(usersData.users)
       })
