@@ -36,8 +36,4 @@ export type UsersMetrics = {
 
 export type UserWithoutPasswordHash = Omit<User, 'password_hash'>
 
-export enum UserRoles {
-  admin = 'ADMIN',
-  teacher = 'TEACHER',
-  student = 'STUDENT',
-}
+export type UserRoles = 'ADMIN' | 'TEACHER' | 'STUDENT'
