@@ -7,16 +7,34 @@ import { useNavigate } from 'react-router';
 import { Modal } from '@/presentation/components/Modal';
 import { CreateSubjectModal } from './components/CreateSubjectModal';
 import { CreateSubject } from '@/domain/use-cases/subjects/create-subject';
+import { RegisterTeacherOnSubjectModal } from './components/EditSubjectModal';
+import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
+import { RegisterSubjectTeacher } from '@/domain/use-cases/subjectTeacher/register-subject-teacher';
+import { FetchSubjectTeacherBySubject } from '@/domain/use-cases/subjectTeacher/fetch-subject-teacher-by-subject';
 
 type Props = {
+  fetchUsers: FetchUsers
   fetchSubjects: FetchSubjects,
-  createSubject: CreateSubject
+  createSubject: CreateSubject,
+  registerSubjectTeacher: RegisterSubjectTeacher
+  fetchSubjectTeacherBySubject: FetchSubjectTeacherBySubject
 }
 
-export function Subjects({ fetchSubjects, createSubject }: Props) {
+type AddTeacherModalProps = {
+  isOpen: boolean,
+  subjectName: string,
+  subjectId: string
+}
+
+export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjects, createSubject, registerSubjectTeacher }: Props) {
   const navigate = useNavigate()
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
+  const [addTeacherToSubjectModal, setAddTeacherToSubjectModal] = useState<AddTeacherModalProps>({
+    isOpen: false,
+    subjectName: '',
+    subjectId: ''
+  })
 
   const handleFetchSubjects = () => {
     fetchSubjects.handle()
@@ -34,6 +52,11 @@ export function Subjects({ fetchSubjects, createSubject }: Props) {
     const subjectName = (event.currentTarget.elements.namedItem('subject-name') as HTMLInputElement).value
     createSubject.handle({ title: subjectName }).then((response) => console.log(response))
   }
+
+  const openAddTeacherModal = (subjectName: string, subjectId: string) => {
+    setAddTeacherToSubjectModal({ ...addTeacherToSubjectModal, isOpen: true, subjectName, subjectId })
+  }
+  const closeAddTeacherModal = () => setAddTeacherToSubjectModal({ ...addTeacherToSubjectModal, isOpen: false })
 
   const openModal = () => setIsModalOpen(true)
   const closeModal = () => setIsModalOpen(false)
@@ -74,7 +97,7 @@ export function Subjects({ fetchSubjects, createSubject }: Props) {
                   <td>5</td>
                   <td>
                     <div onClick={e => e.stopPropagation()}>
-                      <button className={Styles.editButton}>
+                      <button className={Styles.editButton} onClick={() => { openAddTeacherModal(subject.title, subject.id) }}>
                         Editar
                       </button>
                       <button className={Styles.deleteButton}>
@@ -90,6 +113,16 @@ export function Subjects({ fetchSubjects, createSubject }: Props) {
       </section>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
         <CreateSubjectModal handleAddSubject={handleAddSubject} />
+      </Modal>
+      <Modal onClose={closeAddTeacherModal} isOpen={addTeacherToSubjectModal.isOpen}>
+        <RegisterTeacherOnSubjectModal
+          subjectName={addTeacherToSubjectModal.subjectName}
+          fetchUsers={fetchUsers}
+          registerSubjectTeacher={registerSubjectTeacher}
+          fetchSubjectTeacherBySubject={fetchSubjectTeacherBySubject}
+          subjectId={addTeacherToSubjectModal.subjectId}
+          onClose={closeAddTeacherModal}
+        />
       </Modal>
     </main>
   )
