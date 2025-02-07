@@ -20,4 +20,13 @@ export class PrismaModulesRepository implements ModulesRepository {
     return modules
   }
 
+  async fetchBySubjectId(subjectId: string): Promise<Module[]> {
+    const modules = await prisma.modules.findMany({
+      where: {
+        subject_id: subjectId
+      }
+    })
+
+    return modules
+  }
 }

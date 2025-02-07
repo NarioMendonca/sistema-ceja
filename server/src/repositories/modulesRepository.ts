@@ -9,4 +9,5 @@ export type createModuleParams = {
 export interface ModulesRepository {
   create(params: createModuleParams): Promise<Module>
   fetchAll(): Promise<Module[]>
+  fetchBySubjectId(subjectId: string): Promise<Module[]>
 }
