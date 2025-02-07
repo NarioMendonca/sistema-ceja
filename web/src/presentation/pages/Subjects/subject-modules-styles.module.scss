@@ -1,0 +1,98 @@
+@use '../../styles/colors.scss' as *;
+
+.mainHeaderWrap {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  button {
+    line-height: 30px;
+    padding: 0 1rem;
+    border: 0;
+    background-color: $primary-light;
+    color: $white;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: .2s;
+
+    &:hover {
+      opacity: .9;
+    }
+  }
+}
+
+.modulesListWrap {
+  background-color: $white;
+  border-radius: 6px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.144);
+
+  .searchClassWrap {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+
+    span {
+      font-size: 1.125rem;
+      font-weight: 600;
+    }
+
+    .searchClassInputWrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      span {
+        position: absolute;
+        left: .825rem;
+        width: 24px;
+        height: 24px;
+        color: $gray-darkness;
+
+        svg {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      input[type="text"] {
+        line-height: 40px;
+        padding: 0 1rem 0 3rem;
+        border-radius: 20px;
+        border: 0;
+        background-color: $secondary-lighter;
+        outline: none;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .modulesList {
+    display: flex;
+    flex-direction: column;
+    gap: .6rem;
+    border-top: 2px solid $gray-light;
+    padding: 1rem;
+
+    .module {
+      padding: 1rem;
+      background-color: $gray-light;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: $gray-dark;
+      }
+
+      .moduleTitle {
+        font-size: 1.3rem;
+        font-weight: 500;
+      }
+
+      .moduleDescription {
+        font-size: .8rem;
+      }
+    }
+
+  }
+}

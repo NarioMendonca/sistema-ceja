@@ -10,6 +10,7 @@ import { RegisterTeacherOnSubjectModal } from './components/EditSubjectModal';
 import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
 import { RegisterSubjectTeacher } from '@/domain/use-cases/subjectTeacher/register-subject-teacher';
 import { FetchSubjectTeacherBySubject } from '@/domain/use-cases/subjectTeacher/fetch-subject-teacher-by-subject';
+import { useNavigate } from 'react-router';
 
 type Props = {
   fetchUsers: FetchUsers
@@ -33,6 +34,7 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
     subjectName: '',
     subjectId: ''
   })
+  const navigate = useNavigate()
 
   const handleFetchSubjects = () => {
     fetchSubjects.handle()
@@ -45,6 +47,10 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
     event.preventDefault()
     const subjectName = (event.currentTarget.elements.namedItem('subject-name') as HTMLInputElement).value
     createSubject.handle({ title: subjectName }).then((response) => console.log(response))
+  }
+
+  const redirectToSubjectModules = (params: { subjectId: string, subjectTitle: string }) => {
+    navigate('/materias/modulos', { state: { subjectId: params.subjectId, subjectTitle: params.subjectTitle } })
   }
 
   const openAddTeacherModal = (subjectName: string, subjectId: string) => {
@@ -85,7 +91,7 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
           <tbody>
             {subjects.map(subject => {
               return (
-                <tr className={Styles.tableBodyRow} key={subject.id}>
+                <tr className={Styles.tableBodyRow} key={subject.id} onClick={() => { redirectToSubjectModules({ subjectId: subject.id, subjectTitle: subject.title }) }}>
                   <td>{subject.title}</td>
                   <td>Caua Carvalho</td>
                   <td>5</td>
