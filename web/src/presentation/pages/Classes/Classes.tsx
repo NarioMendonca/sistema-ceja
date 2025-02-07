@@ -3,7 +3,6 @@ import { SearchIcon } from '@/presentation/icons';
 import { useEffect, useState } from 'react';
 import { FetchClasses } from '@/domain/use-cases/classes/fetch-classes';
 import { Class } from '@/domain/models/Class';
-import { useNavigate } from 'react-router';
 import { Modal } from '@/presentation/components/Modal';
 import { CreateClassModal } from './components/CreateClassesModal';
 import { CreateClass } from '@/domain/use-cases/classes/create-class';
@@ -13,13 +12,7 @@ type Props = {
   remoteCreateClass: CreateClass
 }
 
-type handleRedirectToUserViewParams = {
-  classId: string,
-  className: string
-}
-
 export function Classes({ fetchClasses, remoteCreateClass }: Props) {
-  const navigate = useNavigate()
   const [classes, setClasses] = useState<Class[]>([])
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -28,10 +21,6 @@ export function Classes({ fetchClasses, remoteCreateClass }: Props) {
       .then((response) => {
         setClasses(response.classes)
       })
-  }
-
-  const handleRedirectToUserView = ({ classId, className }: handleRedirectToUserViewParams) => {
-    navigate('/classes/estudantes', { state: { classId, className } })
   }
 
   const openModal = () => setIsModalOpen(true)
@@ -77,7 +66,7 @@ export function Classes({ fetchClasses, remoteCreateClass }: Props) {
           <tbody>
             {classes.map(classData => {
               return (
-                <tr className={Styles.tableBodyRow} key={classData.id} onClick={() => { handleRedirectToUserView({ classId: classData.id, className: classData.name }) }}>
+                <tr className={Styles.tableBodyRow} key={classData.id}>
                   <td>{classData.name}</td>
                   <td>Caua Carvalho</td>
                   <td>5</td>

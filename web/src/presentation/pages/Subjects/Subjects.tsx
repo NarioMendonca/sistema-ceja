@@ -3,7 +3,6 @@ import { SearchIcon } from '@/presentation/icons';
 import { FetchSubjects } from '@/domain/use-cases/subjects/fetch-subjects';
 import { Subject } from '@/domain/models/Subject';
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
 import { Modal } from '@/presentation/components/Modal';
 import { CreateSubjectModal } from './components/CreateSubjectModal';
 import { CreateSubject } from '@/domain/use-cases/subjects/create-subject';
@@ -27,7 +26,6 @@ type AddTeacherModalProps = {
 }
 
 export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjects, createSubject, registerSubjectTeacher }: Props) {
-  const navigate = useNavigate()
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [addTeacherToSubjectModal, setAddTeacherToSubjectModal] = useState<AddTeacherModalProps>({
@@ -41,10 +39,6 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
       .then((response) => {
         setSubjects(response.subjects)
       })
-  }
-
-  const handleRedirectToClassesViewBySubject = (subjectId: string) => {
-    navigate('/materia/classes', { state: { subjectId } })
   }
 
   const handleAddSubject = (event: React.FormEvent<HTMLFormElement>) => {
@@ -91,7 +85,7 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
           <tbody>
             {subjects.map(subject => {
               return (
-                <tr className={Styles.tableBodyRow} key={subject.id} onClick={() => { handleRedirectToClassesViewBySubject(subject.id) }}>
+                <tr className={Styles.tableBodyRow} key={subject.id}>
                   <td>{subject.title}</td>
                   <td>Caua Carvalho</td>
                   <td>5</td>
