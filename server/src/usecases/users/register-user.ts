@@ -52,7 +52,7 @@ export class RegisterUseCase {
 				email: userData.email,
 				password_hash: passwordHashed,
 				position: userData.position ?? '',
-				role: UserRoles.admin,
+				role: 'ADMIN',
 				cpf: userData.cpf ?? null
 			})
 			return {
@@ -63,7 +63,7 @@ export class RegisterUseCase {
 				name: userData.name,
 				email: userData.email,
 				password_hash: passwordHashed,
-				role: UserRoles.teacher,
+				role: 'TEACHER',
 				cpf: userData.cpf ?? null,
 				education: userData.education ?? '',
 				specialization: userData.specialization ?? ''
@@ -76,7 +76,7 @@ export class RegisterUseCase {
 				name: userData.name,
 				email: userData.email,
 				password_hash: passwordHashed,
-				role: UserRoles.student,
+				role: 'STUDENT',
 				cpf: userData.cpf ?? null,
 				adress: userData.adress ?? '',
 				dateOfBirth: userData.dateOfBirth ?? null,

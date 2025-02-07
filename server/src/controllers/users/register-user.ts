@@ -8,7 +8,7 @@ export async function registerUser(request: FastifyRequest, reply: FastifyReply)
   const registerUserBodySchema = z.object({
     name: z.string(),
     email: z.string(),
-    role: z.enum([UserRoles.admin, UserRoles.teacher, UserRoles.student]),
+    role: z.enum(['ADMIN', 'TEACHER', 'STUDENT']),
     birth: z.coerce.date().optional(),
     cpf: z.string().optional(),
     enrollmentCode: z.string().optional(),
