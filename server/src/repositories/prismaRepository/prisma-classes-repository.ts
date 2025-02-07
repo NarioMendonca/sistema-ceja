@@ -33,7 +33,11 @@ export class PrismaClassesRepository implements ClassesRepository {
       include: {
         Enrollments: {
           include: {
-            student: true
+            user: {
+              include: {
+                Student: true
+              }
+            }
           }
         }
       }
@@ -41,7 +45,7 @@ export class PrismaClassesRepository implements ClassesRepository {
   }
 
   async fetchClassesBySubject(subjectId: string): Promise<Class[]> {
-    const subjectClasses = await prisma.classSubject.findMany({
+    const subjectClasses = await prisma.classSubjects.findMany({
       where: {
         subject_id: subjectId
       },

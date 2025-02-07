@@ -14,20 +14,21 @@ datasource db {
 }
 
 model User {
-  id             String           @id @default(uuid())
-  email          String           @unique
-  password_hash  String
-  name           String
-  role           Role
-  cpf            String?
-  created_at     DateTime         @default(now())
-  updated_at     DateTime         @default(now()) @updatedAt
-  Student        Student[]
-  Teacher        Teacher[]
-  Administrator  Administrator[]
-  Enrollments    Enrollments[]
-  SubjectTeacher SubjectTeacher[]
-  Grades         Grades[]
+  id                    String                       @id @default(uuid())
+  email                 String                       @unique
+  password_hash         String
+  name                  String
+  role                  Role
+  cpf                   String?
+  created_at            DateTime                     @default(now())
+  updated_at            DateTime                     @default(now()) @updatedAt
+  Student               Student[]
+  Teacher               Teacher[]
+  Administrator         Administrator[]
+  Enrollments           Enrollments[]
+  SubjectTeacher        TeacherSubjectAssingnments[]
+  Grades                Grades[]
+  StudentModuleProgress StudentModuleProgress[]
 
   @@map("users")
 }
@@ -66,41 +67,43 @@ model Administrator {
 }
 
 model Class {
-  id           String         @id @default(uuid())
+  id           String          @id @default(uuid())
   name         String
-  ClassSubject ClassSubject[]
+  ClassSubject ClassSubjects[]
   Enrollments  Enrollments[]
 
   @@map("classes")
 }
 
 model Subject {
-  id             String           @id @default(uuid())
-  name           String
-  description    String?
-  ClassSubject   ClassSubject[]
-  SubjectTeacher SubjectTeacher[]
+  id                        String                       @id @default(uuid())
+  name                      String
+  description               String?
+  ClassSubject              ClassSubjects[]
+  TeacherSubjectAssingnment TeacherSubjectAssingnments[]
+  Modules                   Modules[]
 
   @@map("subjects")
 }
 
-model SubjectTeacher {
+model TeacherSubjectAssingnments {
   id         String @id @default(uuid())
   subject_id String
   user_id    String
 
-  subject Subject @relation(fields: [subject_id], references: [id])
-  user    User    @relation(fields: [user_id], references: [id])
+  subject Subject @relation(fields: [subject_id], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@map("teacher_subject_assignments")
 }
 
-model ClassSubject {
+model ClassSubjects {
   id         String @id @default(uuid())
   class_id   String
   subject_id String
 
-  class   Class    @relation(fields: [class_id], references: [id])
-  subject Subject  @relation(fields: [subject_id], references: [id])
-  Grades  Grades[]
+  class   Class   @relation(fields: [class_id], references: [id], onDelete: Cascade)
+  subject Subject @relation(fields: [subject_id], references: [id], onDelete: Cascade)
 
   @@map("class_subjects")
 }
@@ -112,21 +115,49 @@ model Enrollments {
   created_at DateTime @default(now())
 
   user  User  @relation(fields: [user_id], references: [id])
-  class Class @relation(fields: [class_id], references: [id])
+  class Class @relation(fields: [class_id], references: [id], onDelete: Cascade)
 
   @@map("enrollments")
 }
 
 model Grades {
-  id               String @id @default(uuid())
-  Grade            Float
-  user_id          String
-  class_subject_id String
+  id         String   @id @default(uuid())
+  name       String
+  Grade      Float
+  user_id    String
+  module_id  String
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
 
-  class_subject ClassSubject @relation(fields: [class_subject_id], references: [id])
-  user          User         @relation(fields: [user_id], references: [id])
+  user   User    @relation(fields: [user_id], references: [id])
+  module Modules @relation(fields: [module_id], references: [id], onDelete: Cascade)
 
   @@map("grades")
+}
+
+model Modules {
+  id          String  @id @default(uuid())
+  name        String
+  description String?
+  subject_id  String
+
+  subject               Subject                 @relation(fields: [subject_id], references: [id], onDelete: NoAction)
+  Grades                Grades[]
+  StudentModuleProgress StudentModuleProgress[]
+
+  @@map("modules")
+}
+
+model StudentModuleProgress {
+  id           String    @id @default(uuid())
+  user_id      String
+  module_id    String
+  status       String    @default("Não finalizado")
+  grade        Float?
+  completed_at DateTime?
+
+  user   User    @relation(fields: [user_id], references: [id])
+  module Modules @relation(fields: [module_id], references: [id], onDelete: Cascade)
 }
 
 enum Role {

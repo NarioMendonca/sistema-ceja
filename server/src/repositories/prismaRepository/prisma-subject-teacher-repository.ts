@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 
 export class PrismaSubjectTeacherReposity implements SubjectTeacherReposity {
   async registerTeacherAtSubject({ userId, subjectId }: RegisterTeacherAtSubjectParams): Promise<SubjectTeacher> {
-    const subjectTeacher = await prisma.subjectTeacher.create({
+    const subjectTeacher = await prisma.teacherSubjectAssingnments.create({
       data: {
         subject_id: subjectId,
         user_id: userId
@@ -15,7 +15,7 @@ export class PrismaSubjectTeacherReposity implements SubjectTeacherReposity {
   }
 
   async fetchBySubject(subjectId: string): Promise<SubjectTeacher[]> {
-    const subjectTeachers = await prisma.subjectTeacher.findMany({
+    const subjectTeachers = await prisma.teacherSubjectAssingnments.findMany({
       where: {
         subject_id: subjectId
       }
@@ -25,7 +25,7 @@ export class PrismaSubjectTeacherReposity implements SubjectTeacherReposity {
   }
 
   async findSubjectTeacher({ userId, subjectId }: FindSubjectTeacherParams): Promise<SubjectTeacher | null> {
-    const subjectTeacher = await prisma.subjectTeacher.findFirst({
+    const subjectTeacher = await prisma.teacherSubjectAssingnments.findFirst({
       where: {
         subject_id: subjectId,
         user_id: userId
