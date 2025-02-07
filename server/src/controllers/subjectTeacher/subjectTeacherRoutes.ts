@@ -1,8 +1,8 @@
 import { FastifyInstance } from "fastify";
-import { RegisterSubjectTeacher } from "./register-subject-teacher";
-import { fetchSubjectTeacherBySubject } from "./fetch-subject-teacher-by-subject";
+import { RegisterTeacherSubjectAssignment } from "./register-subject-teacher";
+import { fetchTeacherSubjectAssignmentsBySubject } from "./fetch-subject-teacher-by-subject";
 
 export async function subjectTeacherRoutes(app: FastifyInstance) {
-  app.get('/subjectTeacher/:subjectId/subject', fetchSubjectTeacherBySubject)
-  app.post('/subjectTeacher', RegisterSubjectTeacher)
+  app.get('/subjectTeacher/:subjectId/subject', fetchTeacherSubjectAssignmentsBySubject)
+  app.post('/subjectTeacher', RegisterTeacherSubjectAssignment)
 }

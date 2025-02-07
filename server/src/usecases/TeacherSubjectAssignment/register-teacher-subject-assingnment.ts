@@ -2,19 +2,19 @@ import { SubjectsRepository, UsersRepository } from "@/repositories"
 import { AlreadyExistsError, ResourceNotFoundError } from "../errors"
 import { SubjectTeacherReposity } from "@/repositories/subjectTeacherRepository"
 
-interface RegisterSubjectTeacherRequest {
+interface RegisterTeacherSubjectAssignmentRequest {
   subjectId: string
   userId: string
 }
 
-export class RegisterSubjectTeacher {
+export class RegisterTeacherSubjectAssignment {
   constructor(
     private readonly usersRepository: UsersRepository,
     private readonly subjectsRepository: SubjectsRepository,
     private readonly subjectTeacherRepository: SubjectTeacherReposity
   ) { }
 
-  async execute({ subjectId, userId }: RegisterSubjectTeacherRequest): Promise<void> {
+  async execute({ subjectId, userId }: RegisterTeacherSubjectAssignmentRequest): Promise<void> {
     const user = await this.usersRepository.findById(userId)
     if (!user) {
       throw new ResourceNotFoundError()
