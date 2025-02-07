@@ -1,1 +1,1 @@
-export * from './register-student-in-class'
+export * from './register-student-in-subject'
