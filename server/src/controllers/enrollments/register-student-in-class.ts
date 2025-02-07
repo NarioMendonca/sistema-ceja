@@ -4,13 +4,13 @@ import z from "zod";
 
 export async function registerStudentInClass(request: FastifyRequest, reply: FastifyReply) {
   const registerStudentInClassParams = z.object({
-    classId: z.string().uuid(),
+    subjectId: z.string().uuid(),
     userId: z.string().uuid()
   })
-  const { classId, userId } = registerStudentInClassParams.parse(request.body)
+  const { subjectId, userId } = registerStudentInClassParams.parse(request.body)
   const registerStudentInClass = makeRegisterStudentInClass()
   try {
-    await registerStudentInClass.execute({ classId, userId })
+    await registerStudentInClass.execute({ subjectId, userId })
     return reply.status(201).send({ message: 'created' })
   } catch (err) {
     throw err

@@ -1,34 +1,34 @@
-import { ClassesRepository, EnrollmentsRepository, UsersRepository } from "@/repositories"
+import { EnrollmentsRepository, SubjectsRepository, UsersRepository } from "@/repositories"
 import { AlreadyExistsError, ResourceNotFoundError } from "../errors"
 
-interface RegisterStudentInClassRequest {
-  classId: string
+interface RegisterStudentInSubjectRequest {
+  subjectId: string
   userId: string
 }
 
-export class RegisterStudentInClass {
+export class RegisterStudentInSubject {
   constructor(
     private readonly usersRepository: UsersRepository,
-    private readonly classesRepository: ClassesRepository,
+    private readonly subjectsRepository: SubjectsRepository,
     private readonly enrollmentsRepository: EnrollmentsRepository
   ) { }
 
-  async execute({ classId, userId }: RegisterStudentInClassRequest): Promise<void> {
+  async execute({ subjectId, userId }: RegisterStudentInSubjectRequest): Promise<void> {
     const user = await this.usersRepository.findById(userId)
     if (!user) {
       throw new ResourceNotFoundError()
     }
 
-    const classExists = await this.classesRepository.findById(classId)
-    if (!classExists) {
+    const subjectExists = await this.subjectsRepository.findById(subjectId)
+    if (!subjectExists) {
       throw new ResourceNotFoundError()
     }
 
-    const enrollmentAlreadyExists = await this.enrollmentsRepository.findEnrollment({ userId, classId })
+    const enrollmentAlreadyExists = await this.enrollmentsRepository.findEnrollment({ userId, subjectId })
     if (enrollmentAlreadyExists) {
       throw new AlreadyExistsError()
     }
 
-    await this.enrollmentsRepository.registerStudentInClass({ classId, userId })
+    await this.enrollmentsRepository.registerStudentInSubject({ subjectId, userId })
   }
 }

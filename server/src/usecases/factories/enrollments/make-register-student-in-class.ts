@@ -1,13 +1,13 @@
-import { PrismaClassesRepository } from "@/repositories/prismaRepository/prisma-classes-repository";
 import { PrismaEnrollmentsRepository } from "@/repositories/prismaRepository/prisma-enrollments-repository";
+import { PrismaSubjectsRepository } from "@/repositories/prismaRepository/prisma-subjects-repository";
 import { PrismaUsersRepository } from "@/repositories/prismaRepository/prisma-users-repository";
-import { RegisterStudentInClass } from "@/usecases/enrollments/register-student-in-class";
+import { RegisterStudentInSubject } from "@/usecases/enrollments/register-student-in-class";
 
 export function makeRegisterStudentInClass() {
   const usersRepository = new PrismaUsersRepository()
-  const classesRepository = new PrismaClassesRepository()
+  const subjectsRepository = new PrismaSubjectsRepository()
   const enrollmentsRepository = new PrismaEnrollmentsRepository()
-  const registerStudentInClass = new RegisterStudentInClass(usersRepository, classesRepository, enrollmentsRepository)
+  const registerStudentInClass = new RegisterStudentInSubject(usersRepository, subjectsRepository, enrollmentsRepository)
 
   return registerStudentInClass
 }
