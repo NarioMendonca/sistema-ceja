@@ -7,6 +7,7 @@ import { classesRoutes } from './controllers/classes/classes-routes'
 import { enrollmentsRoutes } from './controllers/enrollments/enrollments-routes'
 import { env } from './env/env'
 import { subjectTeacherRoutes } from './controllers/subjectTeacher/subjectTeacherRoutes'
+import { modulesRoutes } from './controllers/modules/modules-routes'
 
 const app = fastify()
 
@@ -36,5 +37,6 @@ app.register(subjectsRoutes)
 app.register(classesRoutes)
 app.register(enrollmentsRoutes)
 app.register(subjectTeacherRoutes)
+app.register(modulesRoutes)
 
 export default app
