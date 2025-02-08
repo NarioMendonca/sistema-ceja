@@ -1,0 +1,73 @@
+@use '../../../../styles/colors.scss' as *;
+
+.modalWrap {
+  h1 {
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 1rem;
+  }
+
+  .modalForm {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+
+    .inputWrap {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        line-height: 40px;
+        border: 1px solid $gray-dark;
+        border-radius: 6px;
+        outline: none;
+        padding: 0 .5rem;
+        font-size: 1.2rem;
+        color: $secondary;
+
+        &:focus {
+          outline: 1px solid $gray-darkness;
+        }
+
+      }
+
+      .nameErrorMessage {
+        color: $red;
+        font-size: .8rem;
+        padding: .4rem;
+      }
+    }
+
+    .btnContainer {
+      display: flex;
+      justify-content: center;
+
+      button {
+        padding: 1.1rem 5rem;
+        margin-top: 1.5rem;
+        border-radius: 6px;
+        border: 0;
+        cursor: pointer;
+        background: $primary;
+        color: $white;
+        font-size: 1.1rem;
+
+        &:hover {
+          opacity: .9;
+        }
+
+        &:disabled {
+          opacity: .8;
+          cursor: not-allowed;
+        }
+      }
+    }
+
+    .errorMessage {
+      margin: 1rem 0;
+      text-align: center;
+      font-size: 1.1rem;
+      color: $red;
+    }
+  }
+}
