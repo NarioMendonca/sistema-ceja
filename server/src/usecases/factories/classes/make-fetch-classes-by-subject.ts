@@ -1,10 +1,9 @@
-import { PrismaClassesRepository } from "@/repositories/prismaRepository/prisma-classes-repository";
-import { PrismaSubjectsRepository } from "@/repositories/prismaRepository/prisma-subjects-repository";
+import { makeClassesRepository, makeSubjectsRepository } from "@/repositories/factories";
 import { FetchClassesBySubjectUseCase } from "@/usecases/classes/fetch-classes-by-subject";
 
 export function makeFetchClassesBySubject() {
-  const subjectsRepository = new PrismaSubjectsRepository()
-  const classesRepository = new PrismaClassesRepository()
+  const subjectsRepository = makeSubjectsRepository()
+  const classesRepository = makeClassesRepository()
   const fetchClassesBySubject = new FetchClassesBySubjectUseCase(subjectsRepository, classesRepository)
 
   return fetchClassesBySubject

@@ -1,9 +1,9 @@
-import { PrismaClassesRepository } from "@/repositories/prismaRepository/prisma-classes-repository";
+import { makeClassesRepository } from "@/repositories/factories";
 import { CreateClassUseCase } from "@/usecases/classes";
 
 export function makeCreateClass() {
-  const subjectsRepository = new PrismaClassesRepository()
-  const createSubject = new CreateClassUseCase(subjectsRepository)
+  const classesRepository = makeClassesRepository()
+  const createSubject = new CreateClassUseCase(classesRepository)
 
   return createSubject
 }
