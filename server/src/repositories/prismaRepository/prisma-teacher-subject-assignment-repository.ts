@@ -1,8 +1,9 @@
 import { SubjectTeacher } from "@/models/SubjectTeacher";
-import { FindSubjectTeacherParams, RegisterTeacherAtSubjectParams, SubjectTeacherReposity } from "../subjectTeacherRepository";
+import { FindAssingmentParams, RegisterTeacherAtSubjectParams, TeacherSubjectAssignmentRepository } from "../TeacherSubjectAssignmentRepository";
 import { prisma } from "@/lib/prisma";
+import { Subject } from "@/models";
 
-export class PrismaSubjectTeacherReposity implements SubjectTeacherReposity {
+export class PrismaTeacherSubjectAssignmentReposity implements TeacherSubjectAssignmentRepository {
   async registerTeacherAtSubject({ userId, subjectId }: RegisterTeacherAtSubjectParams): Promise<SubjectTeacher> {
     const subjectTeacher = await prisma.teacherSubjectAssingnments.create({
       data: {
@@ -24,7 +25,7 @@ export class PrismaSubjectTeacherReposity implements SubjectTeacherReposity {
     return subjectTeachers
   }
 
-  async findSubjectTeacher({ userId, subjectId }: FindSubjectTeacherParams): Promise<SubjectTeacher | null> {
+  async findSubjectTeacher({ userId, subjectId }: FindAssingmentParams): Promise<SubjectTeacher | null> {
     const subjectTeacher = await prisma.teacherSubjectAssingnments.findFirst({
       where: {
         subject_id: subjectId,

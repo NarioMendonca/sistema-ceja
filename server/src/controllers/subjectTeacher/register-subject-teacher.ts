@@ -1,4 +1,4 @@
-import { makeRegisterTeacherSubjectAssignment } from "@/usecases/factories/subjectTeacher/make-register-subject-teacher";
+import { makeRegisterTeacherSubjectAssignment } from "@/usecases/factories/TeacherSubjectAssignment/make-register-subject-teacher";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 

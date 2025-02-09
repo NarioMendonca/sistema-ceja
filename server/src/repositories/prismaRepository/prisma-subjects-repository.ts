@@ -19,7 +19,7 @@ export class PrismaSubjectsRepository implements SubjectsRepository {
       },
     });
 
-    return subject ? { ...subject, description: '', title: subject.name } : null;
+    return subject
   }
 
   async findById(id: string): Promise<Subject | null> {
@@ -29,14 +29,13 @@ export class PrismaSubjectsRepository implements SubjectsRepository {
       },
     });
 
-    return subject ? { ...subject, title: subject.name, description: subject.description ?? '' } : null;
+    return subject;
   }
 
   async fetchAll(): Promise<Subject[]> {
     const subjects = await prisma.subject.findMany();
-    const subjectsWithCorretlyData = subjects.map(subject => ({ id: subject.id, title: subject.name, description: subject.description ?? '' }))
 
-    return subjectsWithCorretlyData;
+    return subjects;
   }
 
   fetchStudentsData(subjectId: string): Promise<any> {

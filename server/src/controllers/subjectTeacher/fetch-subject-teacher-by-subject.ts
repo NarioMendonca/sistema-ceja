@@ -1,4 +1,4 @@
-import { makeFetchTeacherSubjectAssignmentBySubject } from "@/usecases/factories/subjectTeacher/make-fetch-subject-teacher-by-subject";
+import { makeFetchTeacherSubjectAssignmentBySubject } from "@/usecases/factories/TeacherSubjectAssignment/make-fetch-subject-teacher-by-subject";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
 

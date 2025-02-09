@@ -1,6 +1,6 @@
 import { SubjectsRepository, UsersRepository } from "@/repositories"
 import { AlreadyExistsError, ResourceNotFoundError } from "../errors"
-import { SubjectTeacherReposity } from "@/repositories/subjectTeacherRepository"
+import { TeacherSubjectAssignmentRepository } from "@/repositories/TeacherSubjectAssignmentRepository"
 
 interface RegisterTeacherSubjectAssignmentRequest {
   subjectId: string
@@ -11,7 +11,7 @@ export class RegisterTeacherSubjectAssignment {
   constructor(
     private readonly usersRepository: UsersRepository,
     private readonly subjectsRepository: SubjectsRepository,
-    private readonly subjectTeacherRepository: SubjectTeacherReposity
+    private readonly subjectTeacherRepository: TeacherSubjectAssignmentRepository
   ) { }
 
   async execute({ subjectId, userId }: RegisterTeacherSubjectAssignmentRequest): Promise<void> {

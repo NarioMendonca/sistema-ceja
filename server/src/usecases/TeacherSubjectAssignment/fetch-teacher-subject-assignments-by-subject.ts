@@ -1,5 +1,5 @@
 import { SubjectTeacher } from "@/models/SubjectTeacher"
-import { SubjectTeacherReposity } from "@/repositories"
+import { TeacherSubjectAssignmentRepository } from "@/repositories"
 
 interface FetchTeacherSubjectAssignmentRequest {
   subjectId: string
@@ -11,7 +11,7 @@ interface FetchTeacherSubjectAssignmentResponse {
 
 export class FetchTeacherSubjectAssignment {
   constructor(
-    private readonly subjectTeacherRepository: SubjectTeacherReposity
+    private readonly subjectTeacherRepository: TeacherSubjectAssignmentRepository
   ) { }
 
   async execute({ subjectId }: FetchTeacherSubjectAssignmentRequest): Promise<FetchTeacherSubjectAssignmentResponse> {

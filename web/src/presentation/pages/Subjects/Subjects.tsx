@@ -91,13 +91,13 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
           <tbody>
             {subjects.map(subject => {
               return (
-                <tr className={Styles.tableBodyRow} key={subject.id} onClick={() => { redirectToSubjectModules({ subjectId: subject.id, subjectTitle: subject.title }) }}>
-                  <td>{subject.title}</td>
+                <tr className={Styles.tableBodyRow} key={subject.id} onClick={() => { redirectToSubjectModules({ subjectId: subject.id, subjectTitle: subject.name }) }}>
+                  <td>{subject.name}</td>
                   <td>Caua Carvalho</td>
                   <td>5</td>
                   <td>
                     <div onClick={e => e.stopPropagation()}>
-                      <button className={Styles.editButton} onClick={() => { openAddTeacherModal(subject.title, subject.id) }}>
+                      <button className={Styles.editButton} onClick={() => { openAddTeacherModal(subject.name, subject.id) }}>
                         Editar
                       </button>
                       <button className={Styles.deleteButton}>

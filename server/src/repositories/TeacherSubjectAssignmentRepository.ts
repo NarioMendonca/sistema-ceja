@@ -1,3 +1,4 @@
+import { Subject } from "@/models";
 import { SubjectTeacher } from "@/models/SubjectTeacher";
 
 export type RegisterTeacherAtSubjectParams = {
@@ -5,13 +6,13 @@ export type RegisterTeacherAtSubjectParams = {
   subjectId: string
 }
 
-export type FindSubjectTeacherParams = {
+export type FindAssingmentParams = {
   userId: string,
   subjectId: string
 }
 
-export interface SubjectTeacherReposity {
+export interface TeacherSubjectAssignmentRepository {
   registerTeacherAtSubject({ userId, subjectId }: RegisterTeacherAtSubjectParams): Promise<SubjectTeacher | null>
-  findSubjectTeacher({ userId, subjectId }: FindSubjectTeacherParams): Promise<SubjectTeacher | null>
+  findSubjectTeacher({ userId, subjectId }: FindAssingmentParams): Promise<SubjectTeacher | null>
   fetchBySubject(subjectId: string): Promise<SubjectTeacher[]>
 }
