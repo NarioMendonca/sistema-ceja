@@ -1,8 +1,8 @@
-import { PrismaSubjectsRepository } from "@/repositories/prismaRepository/prisma-subjects-repository";
+import { makeSubjectsRepository } from "@/repositories/factories";
 import { CreateSubjectUseCase } from "@/usecases/subjects/create-subject";
 
 export function makeCreateSubject() {
-  const subjectsRepository = new PrismaSubjectsRepository()
+  const subjectsRepository = makeSubjectsRepository()
   const createSubject = new CreateSubjectUseCase(subjectsRepository)
 
   return createSubject
