@@ -1,8 +1,8 @@
-import { PrismaUsersRepository } from "@/repositories/prismaRepository/prisma-users-repository";
+import { makeUsersRepository } from "@/repositories/factories";
 import { GetUsersMetrics } from "@/usecases/users/get-users-metrics";
 
 export function makeGetUsersMetrics() {
-  const usersRepository = new PrismaUsersRepository()
+  const usersRepository = makeUsersRepository()
   const usersMetrics = new GetUsersMetrics(usersRepository)
   return usersMetrics
 }

@@ -1,8 +1,8 @@
-import { PrismaUsersRepository } from "@/repositories/prismaRepository/prisma-users-repository"
+import { makeUsersRepository } from "@/repositories/factories"
 import { FetchUsersUseCase } from "@/usecases/users"
 
 export function makeFetchUsers() {
-  const usersRepository = new PrismaUsersRepository()
+  const usersRepository = makeUsersRepository()
   const fetchUsers = new FetchUsersUseCase(usersRepository)
   return fetchUsers
 }

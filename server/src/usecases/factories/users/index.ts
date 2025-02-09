@@ -1,3 +1,5 @@
 export * from './make-fetch-users'
 export * from './make-get-user'
 export * from './make-register-user'
+export * from './make-users-metrics'
+export * from './make-authenticate-user'

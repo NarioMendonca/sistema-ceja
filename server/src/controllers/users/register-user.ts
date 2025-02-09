@@ -1,4 +1,3 @@
-import { UserRoles } from "@/models";
 import { AlreadyExistsError, InvalidRoleError } from "@/usecases/errors";
 import { makeRegisterUser } from "@/usecases/factories/users";
 import { FastifyReply, FastifyRequest } from "fastify";
