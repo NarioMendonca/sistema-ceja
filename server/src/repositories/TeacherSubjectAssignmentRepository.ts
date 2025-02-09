@@ -15,4 +15,5 @@ export interface TeacherSubjectAssignmentRepository {
   registerTeacherAtSubject({ userId, subjectId }: RegisterTeacherAtSubjectParams): Promise<SubjectTeacher | null>
   findSubjectTeacher({ userId, subjectId }: FindAssingmentParams): Promise<SubjectTeacher | null>
   fetchBySubject(subjectId: string): Promise<SubjectTeacher[]>
+  fetchSubjectsByTeacher(userId: string): Promise<Subject[]>
 }

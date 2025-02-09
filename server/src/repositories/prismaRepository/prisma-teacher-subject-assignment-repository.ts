@@ -35,4 +35,18 @@ export class PrismaTeacherSubjectAssignmentReposity implements TeacherSubjectAss
 
     return subjectTeacher
   }
+
+  async fetchSubjectsByTeacher(userId: string): Promise<Subject[]> {
+    const subjects = await prisma.subject.findMany({
+      where: {
+        TeacherSubjectAssingnment: {
+          every: {
+            user_id: userId
+          }
+        }
+      }
+    })
+
+    return subjects
+  }
 }
