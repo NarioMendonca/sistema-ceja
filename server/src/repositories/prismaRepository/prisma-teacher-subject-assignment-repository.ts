@@ -3,7 +3,7 @@ import { FindAssingmentParams, RegisterTeacherAtSubjectParams, TeacherSubjectAss
 import { prisma } from "@/lib/prisma";
 import { Subject } from "@/models";
 
-export class PrismaTeacherSubjectAssignmentReposity implements TeacherSubjectAssignmentRepository {
+export class PrismaTeacherSubjectAssignmentRepository implements TeacherSubjectAssignmentRepository {
   async registerTeacherAtSubject({ userId, subjectId }: RegisterTeacherAtSubjectParams): Promise<SubjectTeacher> {
     const subjectTeacher = await prisma.teacherSubjectAssingnments.create({
       data: {

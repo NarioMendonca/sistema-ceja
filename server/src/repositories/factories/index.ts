@@ -1,0 +1,6 @@
+export * from './make-classes-repository'
+export * from './make-enrollments-repository'
+export * from './make-modules-repository.ts'
+export * from './make-subjects-repository'
+export * from './make-teacher-subject-assignment-repository'
+export * from './make-users-repository'
