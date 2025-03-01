@@ -1,10 +1,9 @@
-import { PageLayout } from "@/presentation/layouts/PageLayout";
 import { MainHeader } from "./components/MainHeader";
 import Styles from './profile-styles.module.scss'
 
 export function Profile() {
   return (
-    <PageLayout>
+    <>
       <MainHeader />
       <section className={Styles.userProfileContainer}>
         <div className={Styles.userProfileData}>
@@ -25,6 +24,6 @@ export function Profile() {
           </div>
         </div>
       </section>
-    </PageLayout>
+    </>
   )
 }
