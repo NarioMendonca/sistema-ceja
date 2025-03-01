@@ -1,9 +1,17 @@
 services:
   postgresdb:
+    container_name: ceja-db
     image: bitnami/postgresql
+    restart: always
     ports:
       - 5432:5432
     environment:
       - POSTGRES_USERNAME=docker
       - POSTGRES_PASSWORD=docker
-      - POSTGRES_DATABASE=postgresdb
+      - POSTGRES_DATABASE=cejadb
+    volumes:
+      - ceja_volume:/bitnami/postgresql
+
+volumes:
+  ceja_volume:
+    driver: local

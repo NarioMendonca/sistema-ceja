@@ -1,0 +1,28 @@
+services:
+  postgresdb:
+    extends:
+      file: docker-compose.yml
+      service: postgresdb
+    networks:
+      - ceja_network
+
+  ceja:
+    container_name: ceja-server
+    build:
+      context: .
+      dockerfile: dockerfile.dev
+    env_file: .env
+    ports:
+      - 3000:3000
+    depends_on:
+      - postgresdb
+    networks:
+      - ceja_network
+
+networks:
+  ceja_network:
+    driver: bridge
+
+volumes:
+  ceja_volume:
+    driver: local
