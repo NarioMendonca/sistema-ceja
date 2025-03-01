@@ -1,11 +1,10 @@
-import { PageLayout } from "@/presentation/layouts/PageLayout";
 import { MainHeader } from "./components/MainHeader";
 import Styles from './grades-management-styles.module.scss'
 import { SearchIcon } from "@/presentation/icons";
 
 export function GradesManagement() {
   return (
-    <PageLayout>
+    <>
       <MainHeader />
       <section className={Styles.studentsListWrap}>
         <div className={Styles.searchStudentWrap}>
@@ -40,6 +39,6 @@ export function GradesManagement() {
           </tbody>
         </table>
       </section>
-    </PageLayout>
+    </>
   )
 }

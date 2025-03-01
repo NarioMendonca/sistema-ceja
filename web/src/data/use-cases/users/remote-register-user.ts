@@ -6,7 +6,7 @@ import { ResourceAlreadyExists } from "@/domain/errors/resource-already-exists";
 export class RemoteRegisterUser implements RegisterUser {
   constructor(readonly url: string, readonly httpClient: HttpClient) { }
 
-  async handle(params: RegisterUser.Params): Promise<void> {
+  async handle(params: RegisterUser.Params): Promise<RegisterUser.Model> {
     const request = await this.httpClient.request({ url: this.url, method: 'post', body: params })
 
     switch (request.statusCode) {

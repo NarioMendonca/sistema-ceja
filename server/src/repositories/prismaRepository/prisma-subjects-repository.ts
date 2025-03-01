@@ -38,10 +38,6 @@ export class PrismaSubjectsRepository implements SubjectsRepository {
     return subjects;
   }
 
-  fetchStudentsData(subjectId: string): Promise<any> {
-    throw new Error("Method not implemented.");
-  }
-
   async delete(subjectId: string): Promise<void> {
     await prisma.subject.delete({
       where: {

@@ -27,23 +27,6 @@ export class PrismaClassesRepository implements ClassesRepository {
     return prisma.class.findMany();
   }
 
-  async fetchStudentsData(classId: string): Promise<any> {
-    return prisma.class.findUnique({
-      where: { id: classId },
-      include: {
-        Enrollments: {
-          include: {
-            user: {
-              include: {
-                Student: true
-              }
-            }
-          }
-        }
-      }
-    });
-  }
-
   async fetchClassesBySubject(subjectId: string): Promise<Class[]> {
     const subjectClasses = await prisma.classSubjects.findMany({
       where: {

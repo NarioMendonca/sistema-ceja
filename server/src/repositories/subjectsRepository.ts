@@ -11,6 +11,5 @@ export interface SubjectsRepository {
   findByTitle(title: string): Promise<Subject | null>
   findById(id: string): Promise<Subject | null>
   fetchAll(): Promise<Subject[]>
-  fetchStudentsData(courseId: string): Promise<any>
   delete(courseId: string): Promise<void>
 }
