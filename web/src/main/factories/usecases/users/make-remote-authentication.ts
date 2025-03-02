@@ -6,5 +6,6 @@ export function makeRemoteAuthentication() {
   const privateHttpClient = makePrivateHttpClient()
   const remoteAuthentication = new RemoteAuthentication(makeApiUrl('/sessions'), privateHttpClient)
 
+
   return remoteAuthentication
 }

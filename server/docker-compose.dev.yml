@@ -5,7 +5,7 @@ services:
       service: postgresdb
     networks:
       - ceja_network
-
+      
   ceja-dev:
     container_name: ceja-server
     build:
