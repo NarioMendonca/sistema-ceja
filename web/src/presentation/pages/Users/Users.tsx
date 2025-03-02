@@ -3,7 +3,7 @@ import Styles from './users-styles.module.scss'
 import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
 import { useEffect, useState } from 'react';
 import { User } from '@/domain/models/User';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Modal } from '@/presentation/components/Modal';
 import { RegisterUserModal } from './RegisterUserModal';
 import { RegisterUser } from '@/domain/use-cases/users/register-user';

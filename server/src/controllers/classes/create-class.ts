@@ -1,4 +1,4 @@
-import { AlreadyExistsError } from "@/usecases/errors";
+import { AlreadyExistsError } from "@/erros";
 import { makeCreateClass } from "@/usecases/factories/classes";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";

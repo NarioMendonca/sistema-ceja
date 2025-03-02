@@ -1,6 +1,6 @@
 import type { UsersRepository } from '@/repositories'
 import type { UserWithoutPasswordHash } from '@/models'
-import { InvalidCredentialsError } from '../errors'
+import { InvalidCredentialsError } from '../../erros'
 import { compare } from 'bcryptjs'
 
 interface AuthenticateUseCaseRequest {

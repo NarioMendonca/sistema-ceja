@@ -1,5 +1,5 @@
 import { SubjectsRepository, UsersRepository } from "@/repositories"
-import { AlreadyExistsError, ResourceNotFoundError } from "../errors"
+import { AlreadyExistsError, ResourceNotFoundError } from "../../erros"
 import { TeacherSubjectAssignmentRepository } from "@/repositories/TeacherSubjectAssignmentRepository"
 
 interface RegisterTeacherSubjectAssignmentRequest {

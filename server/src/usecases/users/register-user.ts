@@ -1,5 +1,5 @@
 import type { UsersRepository } from '@/repositories'
-import { AlreadyExistsError, InvalidRoleError } from '../errors'
+import { AlreadyExistsError, InvalidPermissionError } from '../../erros'
 import { Administrator, Student, Teacher, UserRoles, type UserWithoutPasswordHash } from '@/models/User'
 import {
 	createPasswordHash,
@@ -86,7 +86,7 @@ export class RegisterUseCase {
 				user
 			}
 		} else {
-			throw new InvalidRoleError()
+			throw new InvalidPermissionError()
 		}
 	}
 }

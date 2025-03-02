@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { Administrator, Student, Teacher } from '@/domain/models/User';
 import { GetUser } from '@/domain/use-cases/users/get-user';
 import { formatDate } from '@/presentation/lib/format-date';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 
 type Props = {
   getUser: GetUser

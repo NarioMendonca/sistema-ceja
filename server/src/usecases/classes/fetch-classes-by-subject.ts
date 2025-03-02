@@ -1,6 +1,6 @@
 import { Class } from '@/models'
 import { ClassesRepository, SubjectsRepository } from '@/repositories'
-import { ResourceNotFoundError } from '../errors'
+import { ResourceNotFoundError } from '../../erros'
 
 interface FetchClassesBySubjectUseCaseRequest {
   subjectId: string

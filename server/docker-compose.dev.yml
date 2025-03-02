@@ -6,7 +6,7 @@ services:
     networks:
       - ceja_network
 
-  ceja:
+  ceja-dev:
     container_name: ceja-server
     build:
       context: .
@@ -16,6 +16,8 @@ services:
       - 3000:3000
     depends_on:
       - postgresdb
+    volumes:
+      - ./src:/app/src
     networks:
       - ceja_network
 

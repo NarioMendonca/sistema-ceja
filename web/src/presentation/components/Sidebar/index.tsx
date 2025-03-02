@@ -1,7 +1,7 @@
 // import { useEffect, useState } from 'react'
 import { BookIcon, DashboardIcon, MenuHamburguer, UsersIcon, ClassIcon } from '@/presentation/icons'
 import Styles from './sidebar-styles.module.scss'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 
 type Props = {
   isSideBarOpen: boolean,
@@ -20,7 +20,7 @@ export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
       <div className={Styles.sideBar}>
         <ul>
           <li>
-            <Link to={"/"} className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
+            <Link to="/home" className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
               <DashboardIcon />
               {isSideBarOpen ? "Dashboard" : ""}
             </Link>

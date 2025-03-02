@@ -1,6 +1,6 @@
 import { UsersRepository } from '@/repositories/usersRepository'
 import { Administrator, Student, Teacher, User } from '@/models'
-import { ResourceNotFoundError } from '../errors'
+import { ResourceNotFoundError } from '../../erros'
 
 interface GetUserRequest {
   id: string

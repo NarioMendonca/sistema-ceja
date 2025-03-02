@@ -1,4 +1,4 @@
-import { ResourceNotFoundError } from "@/usecases/errors";
+import { ResourceNotFoundError } from "@/erros";
 import { makeGetClasses } from "@/usecases/factories/classes";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";

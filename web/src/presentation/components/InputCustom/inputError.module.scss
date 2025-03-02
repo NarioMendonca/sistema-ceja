@@ -1,0 +1,15 @@
+@use '../../styles/colors.scss' as *;
+
+.inputErrMsg {
+  padding: .5rem 0;
+  color: $red;
+  font-size: .9rem;
+  background-color: $secondary;
+  border-radius: 6px;
+  margin: .5rem 0;
+  padding: .5rem;
+}
+
+.offScreen {
+  display: none;
+}

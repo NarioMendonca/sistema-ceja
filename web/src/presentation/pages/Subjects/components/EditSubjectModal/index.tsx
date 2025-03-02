@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import Styles from './register-teacher-subject-modal-styles.module.scss'
 import { FetchUsers } from '@/domain/use-cases/users/fetch-users'
-import { User } from '@/domain/models/User'
+import { User, UserRolesEnum } from '@/domain/models/User'
 import { RegisterSubjectTeacher } from '@/domain/use-cases/subjectTeacher/register-subject-teacher'
 import { FetchSubjectTeacherBySubject } from '@/domain/use-cases/subjectTeacher/fetch-subject-teacher-by-subject'
 
@@ -20,7 +20,7 @@ export function RegisterTeacherOnSubjectModal({ fetchUsers, subjectName, subject
   const [teachers, setTeachers] = useState<User[]>([])
 
   const fetchTeachers = () => {
-    fetchUsers.handle({ role: 'TEACHER' }).then(response => setTeachers(response.users))
+    fetchUsers.handle({ role: UserRolesEnum.teacher }).then(response => setTeachers(response.users))
   }
 
   const remoteFetchSubjectTeacherBySubject = () => {

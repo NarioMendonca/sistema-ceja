@@ -1,5 +1,5 @@
 import { ClassesRepository } from '@/repositories'
-import { AlreadyExistsError } from '../errors'
+import { AlreadyExistsError } from '../../erros'
 import { Class } from '@/models'
 
 interface CreateClassUseCaseRequest {

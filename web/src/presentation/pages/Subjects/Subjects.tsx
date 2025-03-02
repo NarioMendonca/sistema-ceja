@@ -10,7 +10,7 @@ import { RegisterTeacherOnSubjectModal } from './components/EditSubjectModal';
 import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
 import { RegisterSubjectTeacher } from '@/domain/use-cases/subjectTeacher/register-subject-teacher';
 import { FetchSubjectTeacherBySubject } from '@/domain/use-cases/subjectTeacher/fetch-subject-teacher-by-subject';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   fetchUsers: FetchUsers

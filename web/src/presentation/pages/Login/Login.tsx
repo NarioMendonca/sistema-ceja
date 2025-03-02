@@ -1,68 +1,85 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { LoginHeader } from './components/loginHeader'
-import Styles from './login-styles.module.scss'
-import { Authentication } from '@/domain/use-cases/users/authentication'
-import useAuth from '@/presentation/hooks/useAuth'
+import React, { useRef, useState } from 'react';
+import Styles from './login-styles.module.scss';
+import { Input } from '@/presentation/components/InputCustom';
+import { Authentication } from '@/domain/use-cases/users/authentication';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { InvalidCredentialsError } from '@/domain/errors';
+import useAuth from '../../hooks/useAuth';
 
-type Props = {
-  authentication: Authentication
+type LoginProps = {
+  remoteAuthentication: Authentication
 }
 
-export function Login({ authentication }: Props) {
-  const { setAuth } = useAuth()
+export const Login: React.FC<LoginProps> = ({ remoteAuthentication }) => {
+  const { requestUserSession } = useAuth()
+  const navigate = useNavigate()
+  const location = useLocation()
+  const errRef = useRef<HTMLParagraphElement | null>(null);
 
-  const emailRef = useRef<HTMLInputElement>(null)
+  const [errMsg, setErrMsg] = useState<string>('');
 
-  const [state, setState] = useState({
-    email: '',
-    password: ''
-  })
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const from = location.state?.from?.pathname
 
-  useEffect(() => {
-    emailRef.current?.focus()
-  }, [])
+  // auth?.token && username && navigate('/home', { replace: true })
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const handleAuthenticateUser = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     try {
-      const response = await authentication.auth({ email: state.email, password: state.password })
-
-      setAuth({ acessToken: response.acessToken })
-    } catch (err) {
-      console.error(err)
+      const { token } = await remoteAuthentication.auth({ email, password });
+      setEmail('')
+      setPassword('')
+      setErrMsg('')
+      localStorage.setItem('acessToken', token)
+      await requestUserSession()
+      from ? navigate(from, { replace: true }) : navigate('/home', { replace: true })
+    } catch (err: any) {
+      if (err instanceof InvalidCredentialsError) {
+        setErrMsg(err.message);
+        return;
+      }
+      setErrMsg('Erro interno do servidor.')
+      errRef.current?.focus()
     }
-
-  }
+  };
 
   return (
-    <div className={Styles.login}>
-      <LoginHeader />
-      <form className={Styles.form} onSubmit={handleSubmit}>
-        <h2>Login</h2>
-        <div className={Styles.inputWrap}>
-          <input
-            ref={emailRef}
-            type="email"
-            name="email"
-            placeholder='Digite seu e-mail'
-            onChange={e => setState({ ...state, email: e.target.value })}
-            value={state.email}
-            autoComplete='off'
-          />
-        </div>
-        <div className={Styles.inputWrap}>
-          <input
-            type="password"
-            name="password"
-            placeholder='Digite sua senha'
-            onChange={e => setState({ ...state, password: e.target.value })}
-            value={state.password}
-          />
-        </div>
-        <button>Login</button>
-      </form>
-      <footer className={Styles.footer}>
-      </footer>
-    </div>
-  )
-}
+    <>
+      <section>
+        <form className={Styles.form} onSubmit={handleAuthenticateUser}>
+          <p ref={errRef} className={errMsg ? Styles.errorMessage : Styles.offScreen} aria-live='assertive' >{errMsg}</p>
+          <h2>Authenticate</h2>
+          {/* Username Input */}
+
+          <Input.Provider inputId='email'>
+            <Input.Label text='E-mail:' />
+            <Input.Root
+              type='email'
+              placeholder='E-mail'
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+              required
+            />
+          </Input.Provider>
+
+          {/*Password Input */}
+
+          <Input.Provider inputId='pwd'>
+            <Input.Label text='Password:' />
+            <Input.Root
+              type='password'
+              placeholder='Password'
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}
+              required
+            />
+          </Input.Provider>
+          <button type="submit" disabled={!email || !password}>Login</button>
+          <div className={Styles.alternationLinkWrap}>
+          </div>
+        </form>
+      </section>
+    </>
+  );
+};

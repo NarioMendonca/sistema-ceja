@@ -3,7 +3,7 @@ import { SearchIcon } from '@/presentation/icons';
 import { useEffect, useState } from 'react';
 import { CreateModule, FetchModulesBySubject } from '@/domain/use-cases/modules';
 import { Module } from '@/domain/models/Module';
-import { useLocation } from 'react-router';
+import { useLocation } from 'react-router-dom';
 import { Modal } from '@/presentation/components/Modal';
 import { CreateModuleModal } from './components/CreateModuleSubject';
 
