@@ -1,2 +1,6 @@
 export * from './users/users-routes'
 export * from './subjects/subjects-routes'
+export * from './subjectTeacher/subjectTeacherRoutes'
+export * from './modules/modules-routes'
+export * from './enrollments/enrollments-routes'
+export * from './classes/classes-routes'

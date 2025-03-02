@@ -1,5 +1,5 @@
 import { SubjectsRepository } from '@/repositories/subjectsRepository'
-import { AlreadyExistsError } from '../errors'
+import { AlreadyExistsError } from '../../erros'
 
 interface CreateSubjectUseCaseRequest {
   title: string

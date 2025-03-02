@@ -1,4 +1,4 @@
-import { ResourceNotFoundError, InvalidCredentialsError, InvalidRoleError } from '../errors'
+import { ResourceNotFoundError, InvalidCredentialsError, InvalidPermissionError } from '../../erros'
 import { compare } from 'bcryptjs'
 import { UsersRepository, ClassesRepository } from '@/repositories'
 
@@ -23,7 +23,7 @@ export class DeleteClassUseCase {
       }
 
       if (admin.role !== 'ADMIN') {
-        throw new InvalidRoleError()
+        throw new InvalidPermissionError()
       }
 
       const isAdminPasswordValid = await compare(

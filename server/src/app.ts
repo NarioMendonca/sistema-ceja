@@ -1,20 +1,26 @@
+import 'module-alias/register'
 import fastify from 'fastify'
 import fastifyJwt from '@fastify/jwt'
-import { usersRoutes, subjectsRoutes } from './controllers'
 import fastifyCookie from '@fastify/cookie'
 import fastifyCors from '@fastify/cors'
-import { classesRoutes } from './controllers/classes/classes-routes'
-import { enrollmentsRoutes } from './controllers/enrollments/enrollments-routes'
+import {
+  usersRoutes,
+  subjectsRoutes,
+  classesRoutes,
+  enrollmentsRoutes,
+  modulesRoutes,
+  subjectTeacherRoutes
+} from './controllers'
 import { env } from './env/env'
-import { subjectTeacherRoutes } from './controllers/subjectTeacher/subjectTeacherRoutes'
-import { modulesRoutes } from './controllers/modules/modules-routes'
+import { errorHandler } from './erros/errorHandler'
 
 const app = fastify()
 
 app.register(fastifyCors, {
   methods: ['get', 'post', 'patch', 'delete'],
   allowedHeaders: ['Content-Type', 'Authorization'],
-  origin: env.FRONTEND_URL
+  origin: env.FRONTEND_URL,
+  credentials: true
 })
 
 app.register(fastifyCookie, {
@@ -23,12 +29,12 @@ app.register(fastifyCookie, {
 
 app.register(fastifyJwt, {
   secret: env.JWT_PASS,
+  sign: {
+    expiresIn: '5m'
+  },
   cookie: {
     cookieName: 'refreshToken',
-    signed: false
-  },
-  sign: {
-    expiresIn: '30m',
+    signed: true
   }
 })
 
@@ -38,5 +44,7 @@ app.register(classesRoutes)
 app.register(enrollmentsRoutes)
 app.register(subjectTeacherRoutes)
 app.register(modulesRoutes)
+
+app.setErrorHandler(errorHandler)
 
 export default app

@@ -1,0 +1,24 @@
+@use '../../styles/colors.scss' as *;
+
+.errorContainer {
+  width: 100vw;
+  height: 100vh;
+  background-color: $secondary-lightness;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-weight: 500;
+  }
+
+  a {
+    color: $primary-lightness;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

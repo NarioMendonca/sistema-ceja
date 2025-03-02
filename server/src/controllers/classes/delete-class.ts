@@ -1,4 +1,4 @@
-import { InvalidCredentialsError, InvalidRoleError, ResourceNotFoundError } from "@/usecases/errors";
+import { InvalidCredentialsError, InvalidPermissionError, ResourceNotFoundError } from "@/erros";
 import { makeDeleteClass, makeFetchClasses } from "@/usecases/factories/classes";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
@@ -23,7 +23,7 @@ export async function deleteClass(request: FastifyRequest, reply: FastifyReply) 
       return reply.status(404).send({ message: "Resource not found." })
     }
 
-    if (err instanceof InvalidRoleError) {
+    if (err instanceof InvalidPermissionError) {
       return reply.status(403).send({ message: "Invalid permission to acess that." })
     }
 

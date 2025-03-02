@@ -4,12 +4,12 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "tsx --watch src/server.ts",
-		"start": "node dist/server.js",
+		"start": "node dist/src/server.js",
 		"build": "npx tsc",
-		"populateDB": "tsx prisma/seeds/populateDB.ts"
+		"populateDB": "node dist/prisma/create-root-user.js"
 	},
 	"_moduleAliases": {
-		"@": "dist"
+		"@": "dist/src"
 	},
 	"keywords": [],
 	"author": "",

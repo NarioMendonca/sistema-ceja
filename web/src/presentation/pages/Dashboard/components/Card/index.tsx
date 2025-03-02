@@ -1,6 +1,6 @@
 import Styles from './card-styles.module.scss'
 import { UsersIcon } from "@/presentation/icons/UsersIcon";
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
   cardTitle: string

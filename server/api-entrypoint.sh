@@ -12,7 +12,7 @@ fi
 # Verifica se o arquivo existe. Se não, executa o comando.
 if [ ! -f "$FILE_PATH" ]; then
   cd /app
-  npx prisma migrate dev
+  npx prisma generate && npx prisma db push && npm run populateDB
   # Comando que deseja rodar
   touch /data/container_created
 fi

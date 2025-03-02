@@ -1,5 +1,6 @@
 export type AccountModel = {
-  acessToken: string
+  token: string,
+  role: UserRoles
 }
 
 export type User = {
@@ -7,7 +8,7 @@ export type User = {
   email: string
   password_hash: string
   name: string
-  role: 'ADMIN' | 'TEACHER' | 'STUDENT'
+  role: UserRoles
   cpf?: string
   created_at: Date
   updated_at: Date
@@ -36,4 +37,10 @@ export type UsersMetrics = {
 
 export type UserWithoutPasswordHash = Omit<User, 'password_hash'>
 
-export type UserRoles = 'ADMIN' | 'TEACHER' | 'STUDENT'
+export type UserRoles = UserRolesEnum.admin | UserRolesEnum.teacher | UserRolesEnum.student
+
+export enum UserRolesEnum {
+  admin = 'ADMIN',
+  teacher = 'TEACHER',
+  student = 'STUDENT'
+}

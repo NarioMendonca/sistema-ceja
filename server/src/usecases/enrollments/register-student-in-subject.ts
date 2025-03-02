@@ -1,5 +1,5 @@
 import { EnrollmentsRepository, SubjectsRepository, UsersRepository } from "@/repositories"
-import { AlreadyExistsError, ResourceNotFoundError } from "../errors"
+import { AlreadyExistsError, ResourceNotFoundError } from "../../erros"
 
 interface RegisterStudentInSubjectRequest {
   subjectId: string

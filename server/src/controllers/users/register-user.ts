@@ -1,4 +1,4 @@
-import { AlreadyExistsError, InvalidRoleError } from "@/usecases/errors";
+import { AlreadyExistsError, InvalidPermissionError } from "@/erros";
 import { makeRegisterUser } from "@/usecases/factories/users";
 import { FastifyReply, FastifyRequest } from "fastify";
 import z from "zod";
@@ -31,7 +31,7 @@ export async function registerUser(request: FastifyRequest, reply: FastifyReply)
       return reply.status(409).send({ message: 'A account with the same email already exists' })
     }
 
-    if (err instanceof InvalidRoleError) {
+    if (err instanceof InvalidPermissionError) {
       return reply.status(400).send({ message: 'body param role is invalid' })
     }
 

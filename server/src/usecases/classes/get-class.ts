@@ -1,6 +1,6 @@
 import { ClassesRepository } from '@/repositories'
 import { Class } from '@/models'
-import { ResourceNotFoundError } from '../errors'
+import { ResourceNotFoundError } from '../../erros'
 
 interface GetClassRequest {
   classId: string

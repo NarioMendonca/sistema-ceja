@@ -1,33 +1,30 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 
-type jwtPayload = {
-  sub: string
-}
-
 export async function refresh(request: FastifyRequest, reply: FastifyReply) {
-  const tokenData = await request.jwtVerify<jwtPayload>({ onlyCookie: true })
+  try {
+    await request.jwtVerify({ onlyCookie: true })
 
-  const token = await reply.jwtSign({}, {
-    sign: {
-      sub: tokenData.sub
-    }
-  })
+    const { sub, role } = request.user
 
-  const refreshToken = await reply.jwtSign({}, {
-    sign: {
-      sub: tokenData.sub,
-      expiresIn: '7d'
-    },
-  })
+    const token = await reply.jwtSign({ sub, role })
 
-  return reply
-    .setCookie('refreshToken', refreshToken, {
-      domain: process.env.API_URL,
-      httpOnly: true,
-      secure: true,
-      sameSite: true,
-      path: '/'
+    const refreshToken = await reply.jwtSign({ sub, role }, {
+      sign: {
+        expiresIn: '7d'
+      },
     })
-    .status(200)
-    .send({ token })
+
+    return reply
+      .setCookie('refreshToken', refreshToken, {
+        maxAge: 60 * 60 * 24 * 7, // 7 days
+        httpOnly: true,
+        secure: true,
+        signed: true,
+        path: '/'
+      })
+      .status(200)
+      .send({ token, role })
+  } catch (err: any) {
+    return reply.status(401).send({ message: err.message ?? 'Invalid token' })
+  }
 } 

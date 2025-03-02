@@ -1,0 +1,17 @@
+@use '../../styles/colors.scss' as *;
+
+.inputFieldWrapper {
+  display: flex;
+  align-items: center;
+
+  input {
+    width: 100%;
+    line-height: 2.5rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid $gray;
+    padding: 0 2.25rem 0 1rem;
+    outline-color: $primary-lightness;
+    color: $black-light;
+  }
+}
