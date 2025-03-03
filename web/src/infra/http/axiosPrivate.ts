@@ -11,20 +11,21 @@ axiosPrivate.interceptors.request.use(config => {
   }
   return config
 }, (error) => {
-  return Promise.reject(error)
+  return Promise.resolve(error.response || { status: 500, data: { message: 'UnexpectedError' } })
 })
 
 axiosPrivate.interceptors.response.use(response => response, async (error) => {
   const prevRequest = error.config
-  if (error.status === 401 && !prevRequest.sent) {
+  if (error.response.status === 401 && !prevRequest.sent) {
     prevRequest.sent = true
-    const response = await axios.get('/sessions/refresh', { withCredentials: true })
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/sessions/refresh`, { withCredentials: true })
     if (!response.data.token) {
-      return Promise.reject(error)
+      return Promise.resolve('Refresh token failed')
     }
+    const newConfig = { ...prevRequest }
     prevRequest.headers['Authorization'] = `Bearer ${response.data.token}`
     localStorage.setItem('acessToken', response.data.token)
-    return axiosPrivate(prevRequest)
+    return axiosPrivate(newConfig)
   }
-  return Promise.reject(error)
+  return Promise.resolve('A requisição para o refreshToken falhou, o usuário não está autenticado.')
 })

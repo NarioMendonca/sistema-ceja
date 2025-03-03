@@ -2,6 +2,8 @@ import { useState } from "react"
 import { Header, Sidebar } from "../components"
 import Styles from './dashboard-styles.module.scss'
 import { Outlet } from "react-router-dom"
+import useAuth from "../hooks/useAuth";
+import { Loading } from "../components/Routes/Loading";
 
 // type Props = {
 //   children: React.ReactNode
@@ -9,6 +11,11 @@ import { Outlet } from "react-router-dom"
 
 export function PageLayout(/*{ children }: Props*/) {
   const [isSideBarOpen, setIsSideBarOpen] = useState<boolean>(false);
+  const { isLoading } = useAuth()
+
+  if (isLoading) {
+    return <Loading />
+  }
 
   return (
     <div className={Styles.dashboardContainer}>

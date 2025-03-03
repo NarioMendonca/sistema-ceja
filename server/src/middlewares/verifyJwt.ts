@@ -8,6 +8,9 @@ export const verifyJwt = async (request: FastifyRequest, reply: FastifyReply) =>
   try {
     await request.jwtVerify({ onlyCookie: false })
   } catch (err: any) {
+    if (err.statusCode === 401) {
+      return reply.status(401).send(err.message)
+    }
     throw new UnauthorizedError(err.message ?? 'Unauthorized')
   }
 }

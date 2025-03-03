@@ -1,6 +1,8 @@
 import { User, UserRoles } from "@/domain/models/User";
 import { GetUserSession } from "@/domain/use-cases/users/verifyUserSession";
 import { createContext, useEffect, useState } from "react";
+import { UnauthorizedError } from "@/domain/errors";
+import { Loading } from "../components/Routes/Loading";
 
 type Props = {
   remoteGetUserSession: GetUserSession
@@ -15,12 +17,14 @@ type AuthProps = {
 export type AuthContextProps = {
   auth: AuthProps
   setAuth: React.Dispatch<React.SetStateAction<AuthProps>>,
-  requestUserSession: () => Promise<void>
+  requestUserSession: () => Promise<void>,
+  isLoading: boolean
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null)
 
 export const AuthProvider: React.FC<Props> = ({ children, remoteGetUserSession }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [auth, setAuth] = useState<AuthProps>({
     role: null,
     user: null
@@ -30,13 +34,17 @@ export const AuthProvider: React.FC<Props> = ({ children, remoteGetUserSession }
     try {
       const { user } = await remoteGetUserSession.handle()
       setAuth({ ...auth, role: user.role, user })
-    } catch (err: any) {
-      if (err.status === 401) {
+    } catch (error: any) {
+      if (error instanceof UnauthorizedError) {
         console.log('Not authenticated')
+        return
       }
       console.log('Internal server error')
+    } finally {
+      setIsLoading(false)
     }
   }
+
 
   useEffect(() => {
     const handleRequestUserSession = async () => {
@@ -45,8 +53,12 @@ export const AuthProvider: React.FC<Props> = ({ children, remoteGetUserSession }
     handleRequestUserSession()
   }, [])
 
+  if (isLoading) {
+    return <Loading />
+  }
+
   return (
-    <AuthContext.Provider value={{ auth, setAuth, requestUserSession }}>
+    <AuthContext.Provider value={{ auth, setAuth, requestUserSession, isLoading }}>
       {children}
     </AuthContext.Provider>
   )
