@@ -14,7 +14,11 @@ export class PrivateAxiosHttpClient implements HttpClient {
         withCredentials: true,
       })
     } catch (err: any) {
-      axiosResponse = err.response
+      axiosResponse = err
+      return {
+        statusCode: axiosResponse?.status || 500,
+        body: axiosResponse?.data || { message: 'UnexpectedError' }
+      }
     }
     return {
       statusCode: axiosResponse.status,
