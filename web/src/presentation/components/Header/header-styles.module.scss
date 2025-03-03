@@ -1,10 +1,11 @@
 @use '../../styles/colors.scss' as *;
 
 .header {
-  position: sticky;
+  position: absolute;
+  width: 100vw;
   top: 0;
   background-color: $white;
-  border-bottom: 2px solid $gray-light;
+  border-bottom: 2px solid $gray;
   padding: 1.5rem;
   height: 70px;
 }

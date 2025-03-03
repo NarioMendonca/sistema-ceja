@@ -1,7 +1,6 @@
 @use '../styles/colors.scss' as *;
 
 .dashboardContainer {
-  min-height: 100vh;
   background-color: $secondary-lighter;
 
   .dashboardContentContainer {
@@ -10,6 +9,7 @@
   }
 
   main {
+    margin-top: 70px;
     padding: 2.5rem;
     width: 100%;
   }

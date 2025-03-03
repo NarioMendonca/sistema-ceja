@@ -1,4 +1,4 @@
-import 'module-alias/register'
+// import 'module-alias/register'
 import fastify from 'fastify'
 import fastifyJwt from '@fastify/jwt'
 import fastifyCookie from '@fastify/cookie'
