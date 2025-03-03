@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Styles from './login-styles.module.scss';
 import { Input } from '@/presentation/components/InputCustom';
 import { Authentication } from '@/domain/use-cases/users/authentication';
@@ -11,7 +11,7 @@ type LoginProps = {
 }
 
 export const Login: React.FC<LoginProps> = ({ remoteAuthentication }) => {
-  const { requestUserSession } = useAuth()
+  const { requestUserSession, auth } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
   const errRef = useRef<HTMLParagraphElement | null>(null);
@@ -22,7 +22,11 @@ export const Login: React.FC<LoginProps> = ({ remoteAuthentication }) => {
   const [password, setPassword] = useState<string>('');
   const from = location.state?.from?.pathname
 
-  // auth?.token && username && navigate('/home', { replace: true })
+  useEffect(() => {
+    if (auth.role) {
+      from ? navigate(from, { replace: true }) : navigate('/home', { replace: true })
+    }
+  }, [auth, navigate])
 
   const handleAuthenticateUser = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

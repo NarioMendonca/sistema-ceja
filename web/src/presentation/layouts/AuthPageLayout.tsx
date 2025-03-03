@@ -5,7 +5,7 @@ export const AuthPageLayout: React.FC = () => {
   return (
     <div className={Styles.pageContainer}>
       <header>
-        <h1>REACT PAGE</h1>
+        <h1>CEJA</h1>
       </header>
       <Outlet />
       <footer></footer>
