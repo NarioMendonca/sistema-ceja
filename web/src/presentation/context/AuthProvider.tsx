@@ -3,9 +3,11 @@ import { GetUserSession } from "@/domain/use-cases/users/verifyUserSession";
 import { createContext, useEffect, useState } from "react";
 import { UnauthorizedError } from "@/domain/errors";
 import { Loading } from "../components/Routes/Loading";
+import { Logout } from "@/domain/use-cases/users/logout";
 
 type Props = {
   remoteGetUserSession: GetUserSession
+  remoteLogout: Logout
   children: React.ReactNode
 }
 
@@ -18,12 +20,13 @@ export type AuthContextProps = {
   auth: AuthProps
   setAuth: React.Dispatch<React.SetStateAction<AuthProps>>,
   requestUserSession: () => Promise<void>,
-  isLoading: boolean
+  logout: () => Promise<void>
+  isLoading: boolean,
 }
 
 export const AuthContext = createContext<AuthContextProps | null>(null)
 
-export const AuthProvider: React.FC<Props> = ({ children, remoteGetUserSession }) => {
+export const AuthProvider: React.FC<Props> = ({ children, remoteGetUserSession, remoteLogout }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [auth, setAuth] = useState<AuthProps>({
     role: null,
@@ -45,6 +48,12 @@ export const AuthProvider: React.FC<Props> = ({ children, remoteGetUserSession }
     }
   }
 
+  const logout = async () => {
+    localStorage.clear()
+    setAuth({ role: null, user: null })
+    await remoteLogout.handle()
+  }
+
 
   useEffect(() => {
     const handleRequestUserSession = async () => {
@@ -58,7 +67,7 @@ export const AuthProvider: React.FC<Props> = ({ children, remoteGetUserSession }
   }
 
   return (
-    <AuthContext.Provider value={{ auth, setAuth, requestUserSession, isLoading }}>
+    <AuthContext.Provider value={{ auth, setAuth, requestUserSession, isLoading, logout }}>
       {children}
     </AuthContext.Provider>
   )

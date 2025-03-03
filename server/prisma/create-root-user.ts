@@ -1,4 +1,4 @@
-import 'module-alias/register'
+// import 'module-alias/register'
 import { prisma } from "@/lib/prisma"
 
 const createRootUser = async () => {
