@@ -9,12 +9,12 @@ import { getUserSession } from "./get-user-session";
 import { verifyJwt } from "@/middlewares/verifyJwt";
 
 export function usersRoutes(app: FastifyInstance) {
-  app.get('/users/metrics', getUsersMetrics)
-  app.get('/user/:userId', getUser)
-  app.get('/users', fetchUsers)
+  app.get('/users/metrics', { preHandler: [verifyJwt] }, getUsersMetrics)
+  app.get('/user/:userId', { preHandler: [verifyJwt] }, getUser)
+  app.get('/users', { preHandler: [verifyJwt] }, fetchUsers)
   app.get('/users/me', { preHandler: [verifyJwt] }, getUserSession)
 
-  app.post('/users', registerUser)
+  app.post('/users', { preHandler: [verifyJwt] }, registerUser)
   app.post('/sessions', authenticateUser)
   app.get('/sessions/refresh', refresh)
 }
