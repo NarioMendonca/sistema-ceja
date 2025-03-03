@@ -44,29 +44,6 @@ aside {
         width: 100%;
         list-style-type: none;
         gap: .5rem;
-
-        li {
-          a {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            padding: 1rem 4px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border-radius: 8px;
-            color: $black;
-            text-decoration: none;
-            transition: .2s;
-
-            &.linkCenterIcon {
-              justify-content: center !important;
-            }
-
-            &:hover {
-              background-color: $gray;
-            }
-          }
-        }
       }
     }
 
