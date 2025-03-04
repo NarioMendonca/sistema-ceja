@@ -13,7 +13,7 @@ export class FetchTeacherSubjects {
   constructor(private readonly teacherSubjectAssignmentRepository: TeacherSubjectAssignmentRepository) { }
 
   async execute({ userId }: FetchTeacherSubjectsRequest): Promise<FetchTeacherSubjectsResponse> {
-    const subjects = await this.teacherSubjectAssignmentRepository.fetchSubjectsByTeacher(userId)
+    const subjects = await this.teacherSubjectAssignmentRepository.fetchSubjectsByUserId(userId)
 
     return {
       subjects

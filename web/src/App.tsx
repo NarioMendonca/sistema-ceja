@@ -14,7 +14,7 @@ import {
 } from "./main/factories/presentation/pages"
 import { AuthPageLayout } from "./presentation/layouts/AuthPageLayout"
 import { ProtectedRoute } from "./presentation/components/Routes/ProtectedRoute"
-import { UserRolesEnum } from "./domain/models/User"
+import { Role } from "./domain/models/User"
 import { Unauthorized } from "./presentation/pages/Errors/Unauthorized"
 import { MakeAuthProvider } from "./main/factories/presentation/context/MakeAuthProvider"
 import { RouterManager } from "./presentation/components/Routes/RouterManager"
@@ -25,15 +25,17 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route element={<PageLayout />}>
-            <Route element={<ProtectedRoute requiredRoles={[UserRolesEnum.admin, UserRolesEnum.teacher, UserRolesEnum.student]} />}>
+            <Route element={<ProtectedRoute requiredRoles={[Role.admin, Role.teacher, Role.student]} />}>
               <Route path="/home" element={<MakeDashboard />} />
             </Route>
-            <Route element={<ProtectedRoute requiredRoles={[UserRolesEnum.admin]} />}>
+            <Route element={<ProtectedRoute requiredRoles={[Role.admin]} />}>
               <Route path="/usuarios" element={MakeUsersPage()} />
               <Route path="/usuarios/visualizar" element={MakeViewUser()} />
+              <Route path="/classes" element={MakeClasses()} />
+            </Route>
+            <Route element={<ProtectedRoute requiredRoles={[Role.admin, Role.teacher]} />}>
               <Route path="/materias" element={MakeCourses()} />
               <Route path="/materias/modulos" element={MakeSubjectModules()} />
-              <Route path="/classes" element={MakeClasses()} />
             </Route>
           </Route>
           <Route element={<AuthPageLayout />}>

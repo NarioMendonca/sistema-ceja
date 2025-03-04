@@ -3,6 +3,8 @@ import { BookIcon, DashboardIcon, MenuHamburguer, UsersIcon, ClassIcon, Logout }
 import Styles from './sidebar-styles.module.scss'
 import { Link } from 'react-router-dom'
 import useAuth from '@/presentation/hooks/useAuth'
+import { SideBarLink } from './SideBarLink'
+import { Role } from '@/domain/models/User'
 
 type Props = {
   isSideBarOpen: boolean,
@@ -10,7 +12,7 @@ type Props = {
 }
 
 export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
-  const { logout } = useAuth()
+  const { logout, auth } = useAuth()
 
   return (
     <aside className={`${Styles.sidebar} ${!isSideBarOpen ? Styles.sidebarActive : ''}`}>
@@ -23,30 +25,15 @@ export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
       <div className={Styles.sideBar}>
         <div className={Styles.sideBarNavigationOptions}>
           <ul>
-            <li>
-              <Link to="/home" className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
-                <DashboardIcon />
-                {isSideBarOpen ? "Dashboard" : ""}
-              </Link>
-            </li>
-            <li>
-              <Link to={"/usuarios"} className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
-                <UsersIcon />
-                {isSideBarOpen ? "Usuários" : ""}
-              </Link>
-            </li>
-            <li>
-              <Link to={"/materias"} className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
-                <BookIcon />
-                {isSideBarOpen ? "Matérias" : ""}
-              </Link>
-            </li>
-            <li>
-              <Link to={"/classes"} className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
-                <ClassIcon />
-                {isSideBarOpen ? "Turmas" : ""}
-              </Link>
-            </li>
+            <SideBarLink isSideBarOpen={isSideBarOpen} icon={DashboardIcon} link='/home' requiredRoles={[Role.admin, Role.teacher, Role.student]}>
+              Dashboard
+            </SideBarLink>
+            <SideBarLink isSideBarOpen={isSideBarOpen} icon={UsersIcon} link='/usuarios' requiredRoles={[Role.admin]}>
+              Usuários
+            </SideBarLink>
+            <SideBarLink isSideBarOpen={isSideBarOpen} icon={BookIcon} link='/materias' requiredRoles={[Role.admin, Role.teacher]}>
+              Matérias
+            </SideBarLink>
           </ul>
         </div>
         <div className={Styles.sideBarLogout}>
