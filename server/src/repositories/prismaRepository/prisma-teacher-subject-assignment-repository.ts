@@ -36,7 +36,7 @@ export class PrismaTeacherSubjectAssignmentRepository implements TeacherSubjectA
     return subjectTeacher
   }
 
-  async fetchSubjectsByTeacher(userId: string): Promise<Subject[]> {
+  async fetchSubjectsByUserId(userId: string): Promise<Subject[]> {
     const subjects = await prisma.subject.findMany({
       where: {
         TeacherSubjectAssingnment: {
@@ -48,5 +48,15 @@ export class PrismaTeacherSubjectAssignmentRepository implements TeacherSubjectA
     })
 
     return subjects
+  }
+
+  async GetSubjectsMetricsByUserId(userId: string): Promise<number> {
+    const subjectsMetrics = await prisma.teacherSubjectAssingnments.count({
+      where: {
+        user_id: userId
+      }
+    })
+
+    return subjectsMetrics
   }
 }
