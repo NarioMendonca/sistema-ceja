@@ -6,6 +6,8 @@ import { Module } from '@/domain/models/Module';
 import { useLocation } from 'react-router-dom';
 import { Modal } from '@/presentation/components/Modal';
 import { CreateModuleModal } from './components/CreateModuleSubject';
+import useAuth from '@/presentation/hooks/useAuth';
+import { Role } from '@/domain/models/User';
 
 type Props = {
   fetchModulesBySubject: FetchModulesBySubject
@@ -17,6 +19,7 @@ export function SubjectModules({ fetchModulesBySubject, createModule }: Props) {
   const { subjectId, subjectTitle } = location.state
   const [modules, setModules] = useState<Module[]>([])
   const [createModuleModal, setCreateModuleModal] = useState<boolean>(false)
+  const { auth } = useAuth()
 
   const handleFetchClasses = () => {
     fetchModulesBySubject.handle({ subjectId })
@@ -31,8 +34,8 @@ export function SubjectModules({ fetchModulesBySubject, createModule }: Props) {
   return (
     <main>
       <div className={Styles.mainHeaderWrap}>
-        <h2>Gerenciar módulos de {subjectTitle}</h2>
-        <button onClick={() => { setCreateModuleModal(true) }}>Adicionar Módulo</button>
+        <h2>{auth.role === Role.admin ? 'Gerenciar' : 'Vizualizar'} módulos de {subjectTitle}</h2>
+        {auth.role === Role.admin && <button onClick={() => { setCreateModuleModal(true) }}>Adicionar Módulo</button>}
       </div>
       <section className={Styles.modulesListWrap}>
         <div className={Styles.searchClassWrap}>
@@ -43,16 +46,18 @@ export function SubjectModules({ fetchModulesBySubject, createModule }: Props) {
           </div>
         </div>
         <div className={Styles.modulesList}>
-          {modules.map(module => {
-            return (
-              <div className={Styles.module} key={module.id}>
-                <div>
-                  <span className={Styles.moduleTitle}>{module.name}</span>
+          {modules.length === 0
+            ? <h2>Nenhum módulo encontrado</h2>
+            : modules.map(module => {
+              return (
+                <div className={Styles.module} key={module.id}>
+                  <div>
+                    <span className={Styles.moduleTitle}>{module.name}</span>
+                  </div>
+                  <span className={Styles.moduleDescription}>{module.description}</span>
                 </div>
-                <span className={Styles.moduleDescription}>{module.description}</span>
-              </div>
-            )
-          })}
+              )
+            })}
         </div>
       </section>
       <Modal isOpen={createModuleModal} onClose={() => { setCreateModuleModal(false) }}>

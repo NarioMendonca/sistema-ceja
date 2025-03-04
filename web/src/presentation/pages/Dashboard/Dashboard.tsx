@@ -1,49 +1,31 @@
-import Styles from './dashboard-styles.module.scss'
-import { Card } from './components/Card'
 import { GetUsersMetrics } from '@/domain/use-cases/users/get-users-metrics'
-import { useEffect, useState } from 'react'
-import { UsersMetrics } from '@/domain/models/User'
+import useAuth from '@/presentation/hooks/useAuth'
+import Styles from './dashboard-styles.module.scss'
+import { AdminDashboard } from './components/AdminDashboard'
+import { Role } from '@/domain/models/User'
+import { TeacherDashboard } from './components/TeacherDashboard'
+import { GetSubjectsMetricsByUserId } from '@/domain/use-cases/subjectTeacher/get-subjects-metrics-by-user-id'
 
 type Props = {
   getUsersMetrics: GetUsersMetrics
+  getSubjectsMetrics: GetSubjectsMetricsByUserId
 }
 
-export function Dashboard({ getUsersMetrics }: Props) {
-  const [metrics, setMetrics] = useState<UsersMetrics>({
-    students: 0,
-    teachers: 0,
-    users: 0
-  })
+export function Dashboard({ getUsersMetrics, getSubjectsMetrics }: Props) {
+  const { auth } = useAuth()
 
-  const remoteGetUsersMetrics = () => {
-    getUsersMetrics.handle()
-      .then(response => {
-        setMetrics(response.usersMetrics)
-      })
+  const renderDashboard = () => {
+    switch (auth.role) {
+      case Role.admin: return <AdminDashboard remoteGetUsersMetrics={getUsersMetrics} />
+      case Role.teacher: return <TeacherDashboard remoteGetSubjectsMetrics={getSubjectsMetrics} />
+      case Role.student:
+    }
   }
-
-  useEffect(() => {
-    remoteGetUsersMetrics()
-  }, [])
 
   return (
     <main>
       <section className={Styles.section}>
-        <Card
-          cardMetric={metrics.users}
-          cardTitle='Total de usuários'
-          pageToRedirect='/usuarios'
-        />
-        <Card
-          cardMetric={metrics.teachers}
-          cardTitle='Total de professores'
-          pageToRedirect='/usuarios'
-        />
-        <Card
-          cardMetric={metrics.students}
-          cardTitle='Total de alunos'
-          pageToRedirect='/usuarios'
-        />
+        {renderDashboard()}
       </section>
     </main>
   )

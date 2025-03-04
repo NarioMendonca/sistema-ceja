@@ -1,14 +1,15 @@
+import React from 'react';
 import Styles from './card-styles.module.scss'
-import { UsersIcon } from "@/presentation/icons/UsersIcon";
 import { useNavigate } from 'react-router-dom';
 
 type Props = {
   cardTitle: string
-  cardMetric: number
   pageToRedirect: string
+  children: string
+  icon: (props: React.SVGProps<SVGSVGElement>) => React.JSX.Element
 }
 
-export function Card({ cardMetric, cardTitle, pageToRedirect }: Props) {
+export function Card({ cardTitle, pageToRedirect, children, icon: Icon }: Props) {
   const navigate = useNavigate()
 
   const redirectPage = (pageUrl: string) => {
@@ -18,10 +19,10 @@ export function Card({ cardMetric, cardTitle, pageToRedirect }: Props) {
   return (
     <div className={Styles.cardWrap} onClick={() => { redirectPage(pageToRedirect) }}>
       <span className={Styles.cardIcon}>
-        <UsersIcon />
+        <Icon />
       </span>
       <div className={Styles.cardContent}>
-        <span>{cardMetric}</span>
+        <span>{children}</span>
         {cardTitle}
       </div>
     </div>

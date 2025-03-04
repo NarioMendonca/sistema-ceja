@@ -1,16 +1,18 @@
+import React, { useEffect, useState } from 'react';
 import Styles from './subjects-styles.module.scss'
 import { SearchIcon } from '@/presentation/icons';
 import { FetchSubjects } from '@/domain/use-cases/subjects/fetch-subjects';
 import { Subject } from '@/domain/models/Subject';
-import React, { useEffect, useState } from 'react';
+import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
 import { Modal } from '@/presentation/components/Modal';
 import { CreateSubjectModal } from './components/CreateSubjectModal';
 import { CreateSubject } from '@/domain/use-cases/subjects/create-subject';
 import { RegisterTeacherOnSubjectModal } from './components/EditSubjectModal';
-import { FetchUsers } from '@/domain/use-cases/users/fetch-users';
 import { RegisterSubjectTeacher } from '@/domain/use-cases/subjectTeacher/register-subject-teacher';
 import { FetchSubjectTeacherBySubject } from '@/domain/use-cases/subjectTeacher/fetch-subject-teacher-by-subject';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '@/presentation/hooks/useAuth';
+import { Role } from '@/domain/models/User';
 
 type Props = {
   fetchUsers: FetchUsers
@@ -35,6 +37,7 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
     subjectId: ''
   })
   const navigate = useNavigate()
+  const { auth } = useAuth()
 
   const handleFetchSubjects = () => {
     fetchSubjects.handle()
@@ -68,23 +71,25 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
   return (
     <main>
       <div className={Styles.mainHeaderWrap}>
-        <h2>Gerenciar Matérias</h2>
-        <button onClick={openModal}>Adicionar matéria</button>
+        <h2>{auth.role === Role.teacher ? 'Suas Matérias' : 'Gerenciar Matérias'}</h2>
+        {auth.role === Role.admin && <button onClick={openModal}>Adicionar matéria</button>}
       </div>
       <section className={Styles.subjectListWrap}>
-        <div className={Styles.searchSubjectWrap}>
-          <span>Buscar matéria</span>
-          <div className={Styles.searchSubjectInputWrap}>
-            <span>{<SearchIcon />}</span>
-            <input type="text" name="searchUser" id="searchUser" />
+        {auth.role === Role.admin && (
+          <div className={Styles.searchSubjectWrap}>
+            <span>Buscar matéria</span>
+            <div className={Styles.searchSubjectInputWrap}>
+              <span>{<SearchIcon />}</span>
+              <input type="text" name="searchUser" id="searchUser" />
+            </div>
           </div>
-        </div>
+        )}
         <table className={Styles.subjectList}>
           <thead>
             <tr>
               <th>Nome</th>
               <th>Professor(es)</th>
-              <th>Turmas</th>
+              <th>Modulos</th>
               <th></th>
             </tr>
           </thead>
@@ -96,14 +101,16 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
                   <td>Caua Carvalho</td>
                   <td>5</td>
                   <td>
-                    <div onClick={e => e.stopPropagation()}>
-                      <button className={Styles.editButton} onClick={() => { openAddTeacherModal(subject.name, subject.id) }}>
-                        Editar
-                      </button>
-                      <button className={Styles.deleteButton}>
-                        Deletar
-                      </button>
-                    </div>
+                    {auth.role === Role.admin && (
+                      <div onClick={e => e.stopPropagation()}>
+                        <button className={Styles.editButton} onClick={() => { openAddTeacherModal(subject.name, subject.id) }}>
+                          Editar
+                        </button>
+                        <button className={Styles.deleteButton}>
+                          Deletar
+                        </button>
+                      </div>
+                    )}
                   </td>
                 </tr>
               )

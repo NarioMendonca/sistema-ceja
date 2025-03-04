@@ -31,11 +31,11 @@ function App() {
             <Route element={<ProtectedRoute requiredRoles={[Role.admin]} />}>
               <Route path="/usuarios" element={MakeUsersPage()} />
               <Route path="/usuarios/visualizar" element={MakeViewUser()} />
-              <Route path="/materias/modulos" element={MakeSubjectModules()} />
               <Route path="/classes" element={MakeClasses()} />
             </Route>
             <Route element={<ProtectedRoute requiredRoles={[Role.admin, Role.teacher]} />}>
               <Route path="/materias" element={MakeCourses()} />
+              <Route path="/materias/modulos" element={MakeSubjectModules()} />
             </Route>
           </Route>
           <Route element={<AuthPageLayout />}>
