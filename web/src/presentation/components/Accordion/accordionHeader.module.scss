@@ -1,0 +1,35 @@
+@use '../../styles/colors.scss' as *;
+
+.accordionHeaderOpen {
+  background-color: $gray;
+
+  &:hover {
+    background-color: $gray-dark;
+  }
+}
+
+.accordionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+
+
+  .accordionArrow {
+    display: block;
+    width: 16px;
+    height: 16px;
+    border-top: 2px solid $gray-darkness;
+    border-left: 2px solid $gray-darkness;
+    transition: transform .2s;
+  }
+
+  .isClose {
+    transform: rotate(45deg);
+  }
+
+  .isOpen {
+    transform: rotate(225deg)
+  }
+}
