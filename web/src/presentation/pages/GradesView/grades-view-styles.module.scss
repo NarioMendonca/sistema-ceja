@@ -1,10 +1,17 @@
 @use '../../styles/colors.scss' as *;
 
-.viewGradesWrap {
+.gradesViewContainer {
   display: flex;
   flex-direction: column;
-  gap: .25rem;
-  background-color: white;
-  padding: 0.5rem 1rem;
+}
+
+.contentGradeWrap>div {
+  zoom: .9;
+  margin: .5rem 1rem;
+  padding: .5rem 1rem;
   border-radius: 8px;
+
+  &:hover {
+    background-color: $gray;
+  }
 }

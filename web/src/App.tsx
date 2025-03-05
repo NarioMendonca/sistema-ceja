@@ -37,13 +37,15 @@ function App() {
               <Route path="/materias" element={MakeCourses()} />
               <Route path="/materias/modulos" element={MakeSubjectModules()} />
             </Route>
+            <Route element={<ProtectedRoute requiredRoles={[Role.student]} />}>
+              <Route path="/notas" element={<GradesView />} />
+            </Route>
           </Route>
           <Route element={<AuthPageLayout />}>
             <Route path="/login" element={<MakeLogin />} />
           </Route>
           <Route path="/professor/notas" element={<GradesManagement />} />
           <Route path="/perfil" element={<Profile />} />
-          <Route path="/notas" element={<GradesView />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<RouterManager />} />
         </Routes>

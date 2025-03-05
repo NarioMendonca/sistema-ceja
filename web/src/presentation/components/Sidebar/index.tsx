@@ -1,10 +1,9 @@
-// import { useEffect, useState } from 'react'
-import { BookIcon, DashboardIcon, MenuHamburguer, UsersIcon, ClassIcon, Logout } from '@/presentation/icons'
+import { BookIcon, DashboardIcon, MenuHamburguer, UsersIcon, Logout } from '@/presentation/icons'
 import Styles from './sidebar-styles.module.scss'
-import { Link } from 'react-router-dom'
 import useAuth from '@/presentation/hooks/useAuth'
 import { SideBarLink } from './SideBarLink'
 import { Role } from '@/domain/models/User'
+import { Star } from '@/presentation/icons/Star'
 
 type Props = {
   isSideBarOpen: boolean,
@@ -12,7 +11,7 @@ type Props = {
 }
 
 export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
-  const { logout, auth } = useAuth()
+  const { logout } = useAuth()
 
   return (
     <aside className={`${Styles.sidebar} ${!isSideBarOpen ? Styles.sidebarActive : ''}`}>
@@ -33,6 +32,9 @@ export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
             </SideBarLink>
             <SideBarLink isSideBarOpen={isSideBarOpen} icon={BookIcon} link='/materias' requiredRoles={[Role.admin, Role.teacher]}>
               Matérias
+            </SideBarLink>
+            <SideBarLink isSideBarOpen={isSideBarOpen} icon={Star} link='/notas' requiredRoles={[Role.student]}>
+              Boletim
             </SideBarLink>
           </ul>
         </div>
