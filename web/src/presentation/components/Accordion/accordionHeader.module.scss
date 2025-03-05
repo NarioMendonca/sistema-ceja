@@ -1,12 +1,5 @@
 @use '../../styles/colors.scss' as *;
 
-.accordionHeaderOpen {
-  background-color: $gray;
-
-  &:hover {
-    background-color: $gray-dark;
-  }
-}
 
 .accordionHeader {
   display: flex;
@@ -14,7 +7,11 @@
   align-items: center;
   padding: 1rem 1.5rem;
   border-radius: 8px;
+  background-color: $white;
 
+  &:hover {
+    background-color: $gray;
+  }
 
   .accordionArrow {
     display: block;
@@ -31,5 +28,14 @@
 
   .isOpen {
     transform: rotate(225deg)
+  }
+}
+
+.accordionHeaderOpen {
+  background-color: $gray;
+  border-radius: 8px 8px 0 0;
+
+  &:hover {
+    background-color: $gray-dark;
   }
 }
