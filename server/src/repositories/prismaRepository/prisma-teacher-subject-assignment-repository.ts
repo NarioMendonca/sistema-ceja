@@ -40,8 +40,10 @@ export class PrismaTeacherSubjectAssignmentRepository implements TeacherSubjectA
     const subjects = await prisma.subject.findMany({
       where: {
         TeacherSubjectAssingnment: {
-          every: {
-            user_id: userId
+          some: {
+            user_id: {
+              equals: userId
+            }
           }
         }
       }
