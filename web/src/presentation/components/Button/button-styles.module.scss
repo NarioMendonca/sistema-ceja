@@ -1,0 +1,19 @@
+@use '../../styles/colors.scss' as *;
+
+.button {
+  padding: .8rem 1rem;
+  border: 0;
+  background-color: $primary;
+  color: $white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: .2s;
+
+  &:hover {
+    opacity: .9;
+  }
+
+  &:active {
+    transform: scale(.9);
+  }
+}

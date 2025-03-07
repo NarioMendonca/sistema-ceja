@@ -56,7 +56,7 @@ export function ViewUser({ getUser }: Props) {
   return (
     <main>
       <div className={Styles.mainHeaderWrap}>
-        <h2>Vizualizar Usuário</h2>
+        <h2>Visualizar Usuário</h2>
         <button>Editar Informações</button>
       </div>
       <div className={Styles.userInfoHeader}>

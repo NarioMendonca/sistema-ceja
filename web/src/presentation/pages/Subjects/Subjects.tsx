@@ -13,6 +13,7 @@ import { FetchSubjectTeacherBySubject } from '@/domain/use-cases/subjectTeacher/
 import { useNavigate } from 'react-router-dom';
 import useAuth from '@/presentation/hooks/useAuth';
 import { Role } from '@/domain/models/User';
+import { FetchSubjectsByUserId } from '@/domain/use-cases/subjectTeacher/fetch-subjects-by-user-id';
 
 type Props = {
   fetchUsers: FetchUsers
@@ -20,6 +21,7 @@ type Props = {
   createSubject: CreateSubject,
   registerSubjectTeacher: RegisterSubjectTeacher
   fetchSubjectTeacherBySubject: FetchSubjectTeacherBySubject
+  remoteFetchSubjectsByUser: FetchSubjectsByUserId
 }
 
 type AddTeacherModalProps = {
@@ -28,7 +30,14 @@ type AddTeacherModalProps = {
   subjectId: string
 }
 
-export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjects, createSubject, registerSubjectTeacher }: Props) {
+export function Subjects({
+  fetchUsers,
+  fetchSubjectTeacherBySubject,
+  fetchSubjects,
+  createSubject,
+  registerSubjectTeacher,
+  remoteFetchSubjectsByUser
+}: Props) {
   const [subjects, setSubjects] = useState<Subject[]>([])
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
   const [addTeacherToSubjectModal, setAddTeacherToSubjectModal] = useState<AddTeacherModalProps>({
@@ -39,12 +48,6 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
   const navigate = useNavigate()
   const { auth } = useAuth()
 
-  const handleFetchSubjects = () => {
-    fetchSubjects.handle()
-      .then((response) => {
-        setSubjects(response.subjects)
-      })
-  }
 
   const handleAddSubject = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -52,7 +55,7 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
     createSubject.handle({ title: subjectName }).then((response) => console.log(response))
   }
 
-  const redirectToSubjectModules = (params: { subjectId: string, subjectTitle: string }) => {
+  const redirectToSubjectDashboard = (params: { subjectId: string, subjectTitle: string }) => {
     navigate('/materias/modulos', { state: { subjectId: params.subjectId, subjectTitle: params.subjectTitle } })
   }
 
@@ -65,7 +68,21 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
   const closeModal = () => setIsModalOpen(false)
 
   useEffect(() => {
-    handleFetchSubjects()
+    const handleFetchSubjects = async () => {
+      const { subjects } = await fetchSubjects.handle()
+      setSubjects(subjects)
+    }
+
+    const handleFetchSubjectsByUserId = async () => {
+      try {
+        const { subjects } = await remoteFetchSubjectsByUser.handle({ userId: auth.user?.id! })
+        setSubjects(subjects)
+      } catch (err) {
+        console.error(err)
+      }
+    }
+
+    auth.role === Role.admin ? handleFetchSubjects() : handleFetchSubjectsByUserId()
   }, [])
 
   return (
@@ -96,7 +113,7 @@ export function Subjects({ fetchUsers, fetchSubjectTeacherBySubject, fetchSubjec
           <tbody>
             {subjects.map(subject => {
               return (
-                <tr className={Styles.tableBodyRow} key={subject.id} onClick={() => { redirectToSubjectModules({ subjectId: subject.id, subjectTitle: subject.name }) }}>
+                <tr className={Styles.tableBodyRow} key={subject.id} onClick={() => { redirectToSubjectDashboard({ subjectId: subject.id, subjectTitle: subject.name }) }}>
                   <td>{subject.name}</td>
                   <td>Caua Carvalho</td>
                   <td>5</td>
