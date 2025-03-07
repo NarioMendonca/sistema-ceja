@@ -8,8 +8,7 @@ import {
   MakeUsersPage,
   MakeViewUser,
   MakeClasses,
-  MakeSubjectModules,
-  MakeCourses,
+  MakeSubjects,
   MakeLogin
 } from "./main/factories/presentation/pages"
 import { AuthPageLayout } from "./presentation/layouts/AuthPageLayout"
@@ -18,6 +17,7 @@ import { Role } from "./domain/models/User"
 import { Unauthorized } from "./presentation/pages/Errors/Unauthorized"
 import { MakeAuthProvider } from "./main/factories/presentation/context/MakeAuthProvider"
 import { RouterManager } from "./presentation/components/Routes/RouterManager"
+import { MakeSubjectDashboard } from "./main/factories/presentation/pages/MakeSubjectDashboard"
 
 function App() {
   return (
@@ -34,8 +34,8 @@ function App() {
               <Route path="/classes" element={MakeClasses()} />
             </Route>
             <Route element={<ProtectedRoute requiredRoles={[Role.admin, Role.teacher]} />}>
-              <Route path="/materias" element={MakeCourses()} />
-              <Route path="/materias/modulos" element={MakeSubjectModules()} />
+              <Route path="/materias" element={MakeSubjects()} />
+              <Route path="/materias/modulos" element={MakeSubjectDashboard()} />
             </Route>
             <Route element={<ProtectedRoute requiredRoles={[Role.student]} />}>
               <Route path="/notas" element={<GradesView />} />
