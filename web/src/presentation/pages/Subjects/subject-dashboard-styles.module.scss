@@ -71,13 +71,17 @@
       display: flex;
       gap: 1rem;
 
+      select {
+        border-radius: 6px;
+      }
+
       button {
         border-radius: 8px;
         background-color: $gray-dark;
       }
 
       .selected {
-        background-color: $gray-darkness;
+        background-color: $primary;
       }
     }
   }
@@ -107,6 +111,53 @@
         font-size: .8rem;
       }
     }
+
+    .student {
+      padding: 1rem;
+      background-color: $gray-light;
+      border-radius: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &:hover {
+        background-color: $gray-dark;
+      }
+
+      .studentData {
+        .studentTitle {
+          font-size: 1.3rem;
+          font-weight: 500;
+        }
+
+        .studentDescription {
+          font-size: .8rem;
+        }
+      }
+
+      .studentAverageGrade {
+        position: relative;
+        background-color: $primary;
+        color: $white;
+        padding: 1rem;
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+        font-size: 1.2rem;
+
+        span {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .invalidGrade {
+        background-color: $gray-dark;
+      }
+    }
+
 
     h2 {
       font-weight: 500;
