@@ -9,7 +9,8 @@ import {
   classesRoutes,
   enrollmentsRoutes,
   modulesRoutes,
-  subjectTeacherRoutes
+  subjectTeacherRoutes,
+  gradesRoutes
 } from './controllers'
 import { env } from './env/env'
 import { errorHandler } from './erros/errorHandler'
@@ -44,6 +45,7 @@ app.register(classesRoutes)
 app.register(enrollmentsRoutes)
 app.register(subjectTeacherRoutes)
 app.register(modulesRoutes)
+app.register(gradesRoutes)
 
 app.setErrorHandler(errorHandler)
 
