@@ -1,19 +1,16 @@
 import { Grade } from '@/models'
 
-type createGradeInputData = {
-  title: string
+export type createGradeInputData = {
+  name: string
   grade: number
-  studentId: string
-  courseId: string
+  userId: string
+  moduleId: string
 }
 
 export interface GradesRepository {
   create(data: createGradeInputData): Promise<Grade>
-  find(params: { studentId: string, courseId: string }): Promise<Grade | null>
-  findByTitle(title: string): Promise<Grade | null>
-  findByCourseId(courseId: string): Promise<Grade[]>
-  deleteManyByCourseId(courseId: string): Promise<void>
   fetchAll(): Promise<Grade[]>
-  fetchAllWithPeriod(): Promise<any>
-  deleteUnique(id: string): Promise<void>
+  fetchByModule(moduleId: string): Promise<Grade[]>
+  fetchByUser(userId: string): Promise<Grade[]>
+  delete(id: string): Promise<void>
 }
