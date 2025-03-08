@@ -10,34 +10,54 @@ import useAuth from '@/presentation/hooks/useAuth';
 import { Role, Student } from '@/domain/models/User';
 import { Button } from '@/presentation/components/Button';
 import { FetchStudentBySubject } from '@/domain/use-cases/enrollments/fetch-student-by-subject';
+import { FetchGradesByModule } from '@/domain/use-cases/grades/fetch-grades-by-module';
+import { Grade } from '@/domain/models/Grade';
 
 type Props = {
   remoteFetchStudentsBySubject: FetchStudentBySubject,
   remoteFetchModulesBySubject: FetchModulesBySubject
+  remoteFetchGradesByModule: FetchGradesByModule
   createModule: CreateModule
 }
 
-export function SubjectDashboard({ remoteFetchModulesBySubject, remoteFetchStudentsBySubject, createModule }: Props) {
+export function SubjectDashboard({ remoteFetchModulesBySubject, remoteFetchStudentsBySubject, createModule, remoteFetchGradesByModule }: Props) {
   const location = useLocation()
   const { subjectId, subjectTitle } = location.state
   const [modules, setModules] = useState<Module[]>([])
   const [students, setStudents] = useState<Student[]>([])
+  const [selectedModule, setSelectedModule] = useState<string>('')
   const [createModuleModal, setCreateModuleModal] = useState<boolean>(false)
   const [contentSelected, setContentSelected] = useState<'Students' | 'Modules'>('Students')
+  const [studentsGrades, setStudentsGrades] = useState<Grade[]>([])
   const { auth } = useAuth()
 
+  console.log(selectedModule)
   useEffect(() => {
     const fetchModules = async () => {
       const { modules } = await remoteFetchModulesBySubject.handle({ subjectId })
       setModules(modules)
+      setSelectedModule(modules[0].id)
     }
 
     const fetchStudents = async () => {
       const { students } = await remoteFetchStudentsBySubject.handle({ subjectId })
       setStudents(students)
     }
-    contentSelected === 'Modules' ? fetchModules() : fetchStudents()
-  }, [contentSelected])
+
+    fetchModules()
+    fetchStudents()
+  }, [])
+
+  useEffect(() => {
+    const fetchGradesByModule = async () => {
+      const { grades } = await remoteFetchGradesByModule.handle({ moduleId: selectedModule })
+      setStudentsGrades(grades)
+    }
+
+    fetchGradesByModule()
+  }, [selectedModule])
+
+  console.log(studentsGrades)
 
   return (
     <main>
@@ -52,6 +72,15 @@ export function SubjectDashboard({ remoteFetchModulesBySubject, remoteFetchStude
             <input type="text" id="searchUser" placeholder={contentSelected === 'Modules' ? 'Buscar módulo' : 'Buscar aluno'} />
           </div>
           <div className={Styles.subjectDataOptions}>
+            {contentSelected === 'Students' &&
+              <select id="selectModule" value={selectedModule} onChange={(e) => setSelectedModule(e.target.value)}>
+                {modules.map((module, i) => {
+                  return (
+                    <option value={module.id} key={i}>{module.name}</option>
+                  )
+                })}
+              </select>
+            }
             <Button
               extraClassName={contentSelected === 'Students' ? Styles.selected : ''}
               onClick={() => setContentSelected('Students')}
@@ -85,12 +114,18 @@ export function SubjectDashboard({ remoteFetchModulesBySubject, remoteFetchStude
               students.length === 0
                 ? <h2>Nenhum estudante encontrado</h2>
                 : students.map(student => {
+                  console.log(student)
+                  const studentGrade = studentsGrades.find(grade => grade.user_id === student.id)
+                  console.log(studentGrade)
                   return (
-                    <div className={Styles.module} key={student.id}>
-                      <div>
-                        <span className={Styles.moduleTitle}>{student.name}</span>
+                    <div className={Styles.student} key={student.id}>
+                      <div className={Styles.studentData}>
+                        <div>
+                          <span className={Styles.studentTitle}>{student.name}</span>
+                        </div>
+                        <span className={Styles.studentDescription}>{student.enrollmentCode}</span>
                       </div>
-                      <span className={Styles.moduleDescription}>{student.enrollmentCode}</span>
+                      <div className={`${Styles.studentAverageGrade} ${!studentGrade ? Styles.invalidGrade : ''}`}><span>{studentGrade ? studentGrade.grade : '-'}</span></div>
                     </div>
                   )
                 })
