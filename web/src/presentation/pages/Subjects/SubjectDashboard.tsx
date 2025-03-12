@@ -3,7 +3,7 @@ import { SearchIcon } from '@/presentation/icons';
 import { useEffect, useState } from 'react';
 import { CreateModule, FetchModulesBySubject } from '@/domain/use-cases/modules';
 import { Module } from '@/domain/models/Module';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Modal } from '@/presentation/components/Modal';
 import { CreateModuleModal } from './components/CreateModuleSubject';
 import useAuth from '@/presentation/hooks/useAuth';
@@ -14,6 +14,7 @@ import { FetchGradesByModule } from '@/domain/use-cases/grades/fetch-grades-by-m
 import { Grade } from '@/domain/models/Grade';
 import { CreateGradeModal } from './components/CreateGradeModal';
 import { CreateGrade } from '@/domain/use-cases/grades/create-grade';
+import { FailedToLoadPage } from '@/presentation/pages/Errors/FailedToLoadPage';
 
 type Props = {
   remoteFetchStudentsBySubject: FetchStudentBySubject,
@@ -36,7 +37,8 @@ export function SubjectDashboard({
   remoteCreateGrade
 }: Props) {
   const location = useLocation()
-  const { subjectId, subjectTitle } = location.state
+  const navigate = useNavigate()
+  const subjectData = location.state
   const [modules, setModules] = useState<Module[]>([])
   const [students, setStudents] = useState<Student[]>([])
   const [selectedModule, setSelectedModule] = useState<string>('')
@@ -47,15 +49,22 @@ export function SubjectDashboard({
   const [studentsGrades, setStudentsGrades] = useState<Grade[]>([])
   const { auth } = useAuth()
 
+  console.log(subjectData)
+
+  if (!subjectData) {
+    console.log('test')
+    return <FailedToLoadPage />
+  }
+
   useEffect(() => {
     const fetchModules = async () => {
-      const { modules } = await remoteFetchModulesBySubject.handle({ subjectId })
+      const { modules } = await remoteFetchModulesBySubject.handle({ subjectId: subjectData.subjectId })
       setModules(modules)
       setSelectedModule(modules[0].id)
     }
 
     const fetchStudents = async () => {
-      const { students } = await remoteFetchStudentsBySubject.handle({ subjectId })
+      const { students } = await remoteFetchStudentsBySubject.handle({ subjectId: subjectData.subjectId })
       setStudents(students)
     }
 
@@ -80,7 +89,7 @@ export function SubjectDashboard({
   return (
     <main>
       <div className={Styles.mainHeaderWrap}>
-        <h2>{auth.role === Role.admin ? 'Gerenciar' : 'Visualizar'} matéria de {subjectTitle}</h2>
+        <h2>{auth.role === Role.admin ? 'Gerenciar' : 'Visualizar'} matéria de {subjectData.subjectTitle}</h2>
         {contentSelected === 'Modules' && <button onClick={() => { setCreateModuleModal(true) }}>Adicionar Módulo</button>}
       </div>
       <section className={Styles.modulesListWrap}>
@@ -152,7 +161,7 @@ export function SubjectDashboard({
       <Modal isOpen={createModuleModal} onClose={() => { setCreateModuleModal(false) }}>
         <CreateModuleModal
           createModule={createModule}
-          subjectId={subjectId}
+          subjectId={subjectData.subjectId}
           moduleListState={{ modules: modules, setModules: setModules }}
         />
       </Modal>
