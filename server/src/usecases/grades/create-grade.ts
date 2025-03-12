@@ -2,10 +2,10 @@ import { Grade } from '@/models'
 import { GradesRepository } from '@/repositories/gradesRepository'
 
 interface CreateGradeUseCaseRequest {
-  title: string
+  name: string
   gradeValue: number
-  studentId: string
-  courseId: string
+  userId: string
+  moduleId: string
 }
 
 interface CreateGradeUseCaseResponse {
@@ -16,16 +16,16 @@ export class CreateGradeUseCase {
   constructor(private gradesRepository: GradesRepository) { }
 
   async execute({
-    title,
     gradeValue,
-    courseId,
-    studentId
+    moduleId,
+    name,
+    userId
   }: CreateGradeUseCaseRequest): Promise<CreateGradeUseCaseResponse> {
     const grade = await this.gradesRepository.create({
-      title,
       grade: gradeValue,
-      courseId,
-      studentId
+      moduleId,
+      userId,
+      name
     })
 
     return {

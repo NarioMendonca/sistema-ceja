@@ -31,7 +31,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 1rem;
+    gap: .5rem;
 
     span {
       font-size: 1.125rem;
@@ -69,10 +70,14 @@
 
     .subjectDataOptions {
       display: flex;
+      align-items: center;
       gap: 1rem;
 
       select {
         border-radius: 6px;
+        border: 1px solid $gray-darkness;
+        padding: .5rem .25rem;
+        height: 2.5rem;
       }
 
       button {
@@ -119,9 +124,10 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+      cursor: pointer;
 
       &:hover {
-        background-color: $gray-dark;
+        background-color: $gray;
       }
 
       .studentData {

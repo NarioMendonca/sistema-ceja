@@ -12,26 +12,41 @@ import { Button } from '@/presentation/components/Button';
 import { FetchStudentBySubject } from '@/domain/use-cases/enrollments/fetch-student-by-subject';
 import { FetchGradesByModule } from '@/domain/use-cases/grades/fetch-grades-by-module';
 import { Grade } from '@/domain/models/Grade';
+import { CreateGradeModal } from './components/CreateGradeModal';
+import { CreateGrade } from '@/domain/use-cases/grades/create-grade';
 
 type Props = {
   remoteFetchStudentsBySubject: FetchStudentBySubject,
   remoteFetchModulesBySubject: FetchModulesBySubject
   remoteFetchGradesByModule: FetchGradesByModule
   createModule: CreateModule
+  remoteCreateGrade: CreateGrade
 }
 
-export function SubjectDashboard({ remoteFetchModulesBySubject, remoteFetchStudentsBySubject, createModule, remoteFetchGradesByModule }: Props) {
+type SelectedStudentParams = {
+  name: string,
+  id: string
+}
+
+export function SubjectDashboard({
+  remoteFetchModulesBySubject,
+  remoteFetchStudentsBySubject,
+  createModule,
+  remoteFetchGradesByModule,
+  remoteCreateGrade
+}: Props) {
   const location = useLocation()
   const { subjectId, subjectTitle } = location.state
   const [modules, setModules] = useState<Module[]>([])
   const [students, setStudents] = useState<Student[]>([])
   const [selectedModule, setSelectedModule] = useState<string>('')
   const [createModuleModal, setCreateModuleModal] = useState<boolean>(false)
+  const [createGradeModal, setCreateGradeModal] = useState<boolean>(false)
+  const [selectedStudent, setSelectedStudent] = useState<SelectedStudentParams>({ id: '', name: '' })
   const [contentSelected, setContentSelected] = useState<'Students' | 'Modules'>('Students')
   const [studentsGrades, setStudentsGrades] = useState<Grade[]>([])
   const { auth } = useAuth()
 
-  console.log(selectedModule)
   useEffect(() => {
     const fetchModules = async () => {
       const { modules } = await remoteFetchModulesBySubject.handle({ subjectId })
@@ -57,7 +72,10 @@ export function SubjectDashboard({ remoteFetchModulesBySubject, remoteFetchStude
     fetchGradesByModule()
   }, [selectedModule])
 
-  console.log(studentsGrades)
+  const toggleCreateGradeModal = ({ id, name }: SelectedStudentParams) => {
+    setSelectedStudent((prev) => ({ ...prev, id, name }))
+    setCreateGradeModal(true)
+  }
 
   return (
     <main>
@@ -114,11 +132,9 @@ export function SubjectDashboard({ remoteFetchModulesBySubject, remoteFetchStude
               students.length === 0
                 ? <h2>Nenhum estudante encontrado</h2>
                 : students.map(student => {
-                  console.log(student)
                   const studentGrade = studentsGrades.find(grade => grade.user_id === student.id)
-                  console.log(studentGrade)
                   return (
-                    <div className={Styles.student} key={student.id}>
+                    <div className={Styles.student} key={student.id} onClick={() => toggleCreateGradeModal({ id: student.id, name: student.name })}>
                       <div className={Styles.studentData}>
                         <div>
                           <span className={Styles.studentTitle}>{student.name}</span>
@@ -138,6 +154,15 @@ export function SubjectDashboard({ remoteFetchModulesBySubject, remoteFetchStude
           createModule={createModule}
           subjectId={subjectId}
           moduleListState={{ modules: modules, setModules: setModules }}
+        />
+      </Modal>
+      <Modal isOpen={createGradeModal} onClose={() => { setCreateGradeModal(false) }}>
+        <CreateGradeModal
+          defaultModuleId={selectedModule}
+          modules={modules}
+          remoteCreateGrade={remoteCreateGrade}
+          studentId={selectedStudent.id}
+          studentName={selectedStudent.name}
         />
       </Modal>
     </main>
