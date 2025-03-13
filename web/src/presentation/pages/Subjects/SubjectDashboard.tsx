@@ -3,7 +3,7 @@ import { SearchIcon } from '@/presentation/icons';
 import { useEffect, useState } from 'react';
 import { CreateModule, FetchModulesBySubject } from '@/domain/use-cases/modules';
 import { Module } from '@/domain/models/Module';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { Modal } from '@/presentation/components/Modal';
 import { CreateModuleModal } from './components/CreateModuleSubject';
 import useAuth from '@/presentation/hooks/useAuth';
@@ -15,6 +15,7 @@ import { Grade } from '@/domain/models/Grade';
 import { CreateGradeModal } from './components/CreateGradeModal';
 import { CreateGrade } from '@/domain/use-cases/grades/create-grade';
 import { FailedToLoadPage } from '@/presentation/pages/Errors/FailedToLoadPage';
+import { Accordion } from '@/presentation/components/Accordion';
 
 type Props = {
   remoteFetchStudentsBySubject: FetchStudentBySubject,
@@ -37,7 +38,6 @@ export function SubjectDashboard({
   remoteCreateGrade
 }: Props) {
   const location = useLocation()
-  const navigate = useNavigate()
   const subjectData = location.state
   const [modules, setModules] = useState<Module[]>([])
   const [students, setStudents] = useState<Student[]>([])
@@ -49,10 +49,7 @@ export function SubjectDashboard({
   const [studentsGrades, setStudentsGrades] = useState<Grade[]>([])
   const { auth } = useAuth()
 
-  console.log(subjectData)
-
   if (!subjectData) {
-    console.log('test')
     return <FailedToLoadPage />
   }
 
@@ -127,9 +124,9 @@ export function SubjectDashboard({
             ? (
               modules.length === 0
                 ? <h2>Nenhum módulo encontrado</h2>
-                : modules.map(module => {
+                : modules.map((module, i) => {
                   return (
-                    <div className={Styles.module} key={module.id}>
+                    <div className={Styles.module} key={i}>
                       <div>
                         <span className={Styles.moduleTitle}>{module.name}</span>
                       </div>
@@ -141,16 +138,34 @@ export function SubjectDashboard({
               students.length === 0
                 ? <h2>Nenhum estudante encontrado</h2>
                 : students.map(student => {
-                  const studentGrade = studentsGrades.find(grade => grade.user_id === student.id)
+                  const studentGrades = studentsGrades.filter(grade => grade.user_id === student.id)
                   return (
-                    <div className={Styles.student} key={student.id} onClick={() => toggleCreateGradeModal({ id: student.id, name: student.name })}>
-                      <div className={Styles.studentData}>
-                        <div>
-                          <span className={Styles.studentTitle}>{student.name}</span>
-                        </div>
-                        <span className={Styles.studentDescription}>{student.enrollmentCode}</span>
-                      </div>
-                      <div className={`${Styles.studentAverageGrade} ${!studentGrade ? Styles.invalidGrade : ''}`}><span>{studentGrade ? studentGrade.grade : '-'}</span></div>
+                    <div>
+
+                      <Accordion.Provider>
+                        <Accordion.Header extraClassName={Styles.studentAccordionHeader}>
+                          <div className={Styles.studentData}>
+                            <div>
+                              <span className={Styles.studentTitle}>{student.name}</span>
+                            </div>
+                            <span className={Styles.studentDescription}>{student.enrollmentCode}</span>
+                          </div>
+                        </Accordion.Header>
+                        <Accordion.Content extraClassName={Styles.studentAccordionContent}>
+                          <div className={Styles.gradesWrap}>
+                            {studentGrades.map((grade, i) => {
+                              return (
+                                <div className={Styles.grade} key={i}>{grade.name}: {grade.grade}</div>
+                              )
+                            })}
+                          </div>
+                          <div className={Styles.buttonWrap}>
+                            <Button onClick={() => toggleCreateGradeModal({ id: student.id, name: student.name })}>
+                              Adicionar nota
+                            </Button>
+                          </div>
+                        </Accordion.Content>
+                      </Accordion.Provider>
                     </div>
                   )
                 })
@@ -174,6 +189,6 @@ export function SubjectDashboard({
           studentName={selectedStudent.name}
         />
       </Modal>
-    </main>
+    </main >
   )
 }

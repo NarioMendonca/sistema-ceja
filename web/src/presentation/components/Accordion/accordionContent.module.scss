@@ -1,7 +1,7 @@
 @use '../../styles/colors.scss' as *;
 
 .displayOff {
-  display: none;
+  display: none !important;
 }
 
 .accordionContent {

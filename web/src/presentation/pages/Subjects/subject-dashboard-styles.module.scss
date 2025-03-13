@@ -117,6 +117,37 @@
       }
     }
 
+    .studentAccordionHeader {
+      font-size: 1.2rem;
+    }
+
+    .studentAccordionContent {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      padding: .5rem 1rem 0 1rem;
+      background-color: $gray-lighter;
+
+      .gradesWrap {
+        flex-grow: 1;
+
+        .grade {
+          display: flex;
+          justify-content: space-between;
+          padding: .5rem 1rem;
+          box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.164);
+
+          &:hover {
+            background-color: $gray;
+          }
+        }
+      }
+
+      .buttonWrap {
+        padding: 0 1rem;
+      }
+    }
+
     .student {
       padding: 1rem;
       background-color: $gray-light;
