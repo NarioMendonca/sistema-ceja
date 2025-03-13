@@ -1,4 +1,4 @@
-import { Student } from "@/models";
+import { Student, Subject } from "@/models";
 import { Enrollment } from "@/models/Enrollments";
 
 export type registerStudentInSubjectParams = {
@@ -15,4 +15,5 @@ export interface EnrollmentsRepository {
   findEnrollment(params: FindEnrollmentParams): Promise<Enrollment | null>
   registerStudentInSubject(params: registerStudentInSubjectParams): Promise<void>
   fetchStudentsBySubject(subjectId: string): Promise<Student[]>
+  fetchStudentSubjects(userId: string): Promise<Subject[]>
 }

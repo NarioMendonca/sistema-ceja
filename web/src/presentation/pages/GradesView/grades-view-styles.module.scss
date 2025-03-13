@@ -1,21 +1,19 @@
 @use '../../styles/colors.scss' as *;
 
+.mainHeaderWrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+
+  .filterDatesWrap {
+    select {
+      padding: .5rem 1rem;
+    }
+  }
+}
+
 .gradesViewContainer {
   display: flex;
   flex-direction: column;
-}
-
-.contetGradeWrap {
-  background-color: $white;
-}
-
-.contentGradeWrap>div {
-  zoom: .9;
-  margin: .5rem 1rem;
-  padding: .5rem 1rem;
-  border-radius: 8px;
-
-  &:hover {
-    background-color: $gray;
-  }
 }

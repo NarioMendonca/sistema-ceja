@@ -1,7 +1,7 @@
 import { EnrollmentsRepository, FindEnrollmentParams, registerStudentInSubjectParams } from '@/repositories';
 import { prisma } from '@/lib/prisma';
 import { Enrollment } from '@/models/Enrollments';
-import { Student } from '@/models';
+import { Student, Subject } from '@/models';
 
 export class PrismaEnrollmentsRepository implements EnrollmentsRepository {
   async findEnrollment({ subjectId, userId }: FindEnrollmentParams): Promise<Enrollment | null> {
@@ -50,5 +50,19 @@ export class PrismaEnrollmentsRepository implements EnrollmentsRepository {
     }))
 
     return studentsDataFormated
+  }
+
+  async fetchStudentSubjects(userId: string): Promise<Subject[]> {
+    const subjects = await prisma.subject.findMany({
+      where: {
+        Enrollments: {
+          some: {
+            user_id: userId
+          }
+        }
+      }
+    })
+
+    return subjects
   }
 }

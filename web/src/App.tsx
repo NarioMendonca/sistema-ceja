@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { GradesManagement } from "./presentation/pages/GradesManagement/GradesManagement"
 import { Profile } from "./presentation/pages/Profile/Profile"
-import { GradesView } from "./presentation/pages/GradesView/GradesView"
 import { PageLayout } from "./presentation/layouts/PageLayout"
 import {
   MakeDashboard,
@@ -18,6 +17,7 @@ import { Unauthorized } from "./presentation/pages/Errors/Unauthorized"
 import { MakeAuthProvider } from "./main/factories/presentation/context/MakeAuthProvider"
 import { RouterManager } from "./presentation/components/Routes/RouterManager"
 import { MakeSubjectDashboard } from "./main/factories/presentation/pages/MakeSubjectDashboard"
+import { MakeGradesView } from "./main/factories/presentation/pages/MakeGradesView"
 
 function App() {
   return (
@@ -38,7 +38,7 @@ function App() {
               <Route path="/materias/modulos" element={MakeSubjectDashboard()} />
             </Route>
             <Route element={<ProtectedRoute requiredRoles={[Role.student]} />}>
-              <Route path="/notas" element={<GradesView />} />
+              <Route path="/notas" element={<MakeGradesView />} />
             </Route>
           </Route>
           <Route element={<AuthPageLayout />}>
