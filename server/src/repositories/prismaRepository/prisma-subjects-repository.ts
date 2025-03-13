@@ -1,4 +1,4 @@
-import { Subject } from "@/models";
+import { Subject, SubjectsWithData } from "@/models";
 import { SubjectCreateInput, SubjectsRepository } from "../subjectsRepository";
 import { prisma } from "@/lib/prisma";
 
@@ -36,6 +36,27 @@ export class PrismaSubjectsRepository implements SubjectsRepository {
     const subjects = await prisma.subject.findMany();
 
     return subjects;
+  }
+
+  async fetchSubjectsByUserWithData(userId: string): Promise<SubjectsWithData[]> {
+    const subjectWithData = await prisma.subject.findMany({
+      where: {
+        Enrollments: {
+          some: {
+            user_id: userId
+          }
+        }
+      },
+      include: {
+        Modules: {
+          include: {
+            Grades: true
+          }
+        }
+      }
+    })
+
+    return subjectWithData
   }
 
   async delete(subjectId: string): Promise<void> {
