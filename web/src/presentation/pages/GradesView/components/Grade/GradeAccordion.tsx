@@ -20,7 +20,7 @@ export function GradeAccordion({ subject }: Props) {
   function calcAvgGrade() {
     const grades = selectedModule?.Grades
 
-    if (grades?.length === 0) {
+    if (grades?.length === 0 || !grades) {
       return '-'
     }
 
@@ -28,7 +28,7 @@ export function GradeAccordion({ subject }: Props) {
     grades?.forEach(grade => {
       sumGrades += grade.grade
     })
-    return (sumGrades / grades!.length).toFixed(2)
+    return (sumGrades / grades.length).toFixed(2)
   }
 
   return (
