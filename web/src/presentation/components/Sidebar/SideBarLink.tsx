@@ -21,7 +21,7 @@ export const SideBarLink = ({ link, isSideBarOpen, icon: Icon, children, require
     && (<li>
       <Link to={link} className={!isSideBarOpen ? Styles.linkCenterIcon : ''}>
         <Icon />
-        {isSideBarOpen ? children : ""}
+        <span className={isSideBarOpen ? Styles.viewDescription : ''}>{children}</span>
       </Link>
     </li>)
   )

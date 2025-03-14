@@ -13,7 +13,7 @@ aside {
   transition: .2s;
 
   &.sidebarActive {
-    width: 65px !important;
+    width: 65px;
   }
 
   .sideBarIcon {
@@ -63,6 +63,54 @@ aside {
 
         &:hover {
           background-color: $gray;
+        }
+
+        span {
+          display: none;
+
+          &.viewDescription {
+            display: block;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  aside {
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+
+    &.sidebarActive {
+      width: auto;
+    }
+
+    .sideBarIcon {
+      display: none;
+    }
+
+    .sideBar {
+      flex-direction: row;
+      width: 100%;
+      justify-content: space-between;
+      align-items: center;
+
+      .sideBarNavigationOptions {
+
+        ul {
+          flex-direction: row;
+        }
+      }
+
+      .sideBarLogout {
+        button {
+          gap: .5rem;
+
+          span {
+            display: block;
+          }
         }
       }
     }

@@ -41,7 +41,7 @@ export function Sidebar({ isSideBarOpen, setIsSideBarOpen }: Props) {
         <div className={Styles.sideBarLogout}>
           <button className={!isSideBarOpen ? Styles.linkCenterIcon : '' + Styles.sideBarOption} onClick={logout}>
             <Logout />
-            {isSideBarOpen ? "Sair" : ""}
+            <span className={isSideBarOpen ? Styles.viewDescription : ''}>Sair</span>
           </button>
         </div>
       </div>

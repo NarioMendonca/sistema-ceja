@@ -20,5 +20,26 @@ li {
     &:hover {
       background-color: $gray;
     }
+
+    span {
+      display: none;
+
+      &.viewDescription {
+        display: block;
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 768px) {
+  li {
+    a {
+      gap: .5rem;
+
+      span {
+        display: block;
+      }
+    }
   }
 }
