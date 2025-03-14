@@ -1,7 +1,5 @@
 export * from './Loading'
-export * from './PrivateRoutes'
 export * from './ProtectedRoute'
-export * from './PublicRoutes'
 export * from './RouterManager'
 export * from './AppRoutes'
 export * from './ProtectedRoute'
