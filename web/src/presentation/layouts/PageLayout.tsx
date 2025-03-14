@@ -3,7 +3,7 @@ import { Header, Sidebar } from "../components"
 import Styles from './dashboard-styles.module.scss'
 import { Outlet } from "react-router-dom"
 import useAuth from "../hooks/useAuth";
-import { Loading } from "../components/Routes/Loading";
+import { Loading } from "../Routes/Loading";
 
 // type Props = {
 //   children: React.ReactNode

@@ -2,7 +2,7 @@ import { User, UserRoles } from "@/domain/models/User";
 import { GetUserSession } from "@/domain/use-cases/users/verifyUserSession";
 import { createContext, useEffect, useState } from "react";
 import { UnauthorizedError } from "@/domain/errors";
-import { Loading } from "../components/Routes/Loading";
+import { Loading } from "../Routes/Loading";
 import { Logout } from "@/domain/use-cases/users/logout";
 
 type Props = {
